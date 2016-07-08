@@ -1,2 +1,5 @@
 # inmetr
-R tools for tidy data measured by weather stations (conventional and automatic) from Instituto Nacional de Meteorologia (INMET), Brazil.
+Funções para importar dados medidos pelas estações meteorológicas cinvencionais do Instituto Nacional de Meteorologia (INMET), Brasil.
+
+# Pré-requisitos
+

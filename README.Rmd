@@ -1,0 +1,86 @@
+---
+title: "README"
+author: "Jonatan Tatsch"
+date: "July 8, 2016"
+output: html_document
+---
+
+```{r0 setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# inmetr
+Funções para importar dados medidos pelas estações meteorológicas convencionais do Instituto Nacional de Meteorologia (INMET), Brasil.
+
+> Em construção.
+
+# Pré-requisitos
+
+```{r1, comment="", message=FALSE}
+library(httr)
+library(xml2)
+library(rvest)
+library(plyr)
+library(dplyr)
+library(magrittr)
+library(purrr)
+library(stringr)
+library(doBy)
+library(devtools)
+```
+
+# Funções para download e leitura dos dados do [BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)
+
+Carregando script do github.
+
+```{r2, comment="", message=FALSE}
+source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
+#source("R/bdmep.R")
+ls()
+```
+
+# Exemplo
+
+Obtendo códigos das estações meteorológicas.
+
+```{r3}
+info <- bdmep_info()
+info
+```
+
+Obtendo o código da estação de Santa Maria-RS.
+
+```{r4, comment=""}
+# código de Santa Maria
+codigo <- info %>% 
+  filter(nome == "SANTA MARIA") %>%
+  select(codigo_omm) %>%
+  t() %>% c()
+codigo
+# importando dados
+#data_sm <- import_bdmep(stn_id = codigo, save_file = FALSE)
+#data_sm
+```
+
+Importando dados.
+
+
+```{r5, comment="", eval=FALSE, echo = TRUE}
+# apenas importa os dados
+data_sm <- import_bdmep(stn_id = codigo, 
+                        e_mail = "seu-email",
+                        passwd = "sua-senha",
+                        save_file = FALSE, 
+                        import = TRUE)
+data_sm
+```
+
+```{r6, comment="", eval=TRUE, echo = FALSE}
+# apenas importa os dados
+data_sm <- import_bdmep(stn_id = codigo, 
+                        save_file = FALSE, 
+                        import = TRUE)
+data_sm
+```
+
