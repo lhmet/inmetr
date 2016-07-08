@@ -160,9 +160,9 @@ import_bdmep <- function(stn_id = "83586" ,
   x <- httr::GET(url_data) %>%
     httr::content('text')
   
-  con <- textConnection("x", "wr", local = TRUE)
+  con <- textConnection(x, local = TRUE)
   x <- readLines(con)
-  close(con)
+  #close(con)
 
   #closeAllConnections()
   
