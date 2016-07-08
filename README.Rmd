@@ -85,3 +85,9 @@ data_sm <- import_bdmep(stn_id = codigo,
 data_sm
 ```
 
+## Informações da seção
+
+
+```{r, comment="", eval=TRUE, echo = FALSE}
+sessionInfo()
+```
