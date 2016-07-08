@@ -124,7 +124,7 @@ $(document).ready(function () {
 
 <p>Funções para importar dados medidos pelas estações meteorológicas convencionais do Instituto Nacional de Meteorologia (INMET), Brasil.</p>
 <blockquote>
-<p>Em construção.</p>
+<p>AVISO: em construção.</p>
 </blockquote>
 <div id="pre-requisitos" class="section level1">
 <h1>Pré-requisitos</h1>
@@ -137,13 +137,14 @@ library(magrittr)
 library(purrr)
 library(stringr)
 library(doBy)
-library(devtools)</code></pre>
+library(devtools)
+library(tibble)</code></pre>
 </div>
 <div id="funcoes-para-download-e-leitura-dos-dados-do-bdmep" class="section level1">
 <h1>Funções para download e leitura dos dados do <a href="http://www.inmet.gov.br/projetos/rede/pesquisa/">BDMEP</a></h1>
 <p>Carregando script do github.</p>
-<pre class="r"><code>#source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
-source(&quot;R/bdmep.R&quot;)
+<pre class="r"><code>source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
+#source(&quot;R/bdmep.R&quot;)
 ls()</code></pre>
 <pre><code>[1] &quot;bdmep_info&quot;     &quot;get_meta_bdmep&quot; &quot;import_bdmep&quot;   &quot;read_bdmep&quot;    </code></pre>
 </div>

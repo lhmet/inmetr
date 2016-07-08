@@ -6,7 +6,7 @@ July 8, 2016
 
 Funções para importar dados medidos pelas estações meteorológicas convencionais do Instituto Nacional de Meteorologia (INMET), Brasil.
 
-> Em construção.
+> AVISO: em construção.
 
 # Pré-requisitos
 
@@ -22,6 +22,7 @@ library(purrr)
 library(stringr)
 library(doBy)
 library(devtools)
+library(tibble)
 ```
 
 # Funções para download e leitura dos dados do [BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)
@@ -30,8 +31,8 @@ Carregando script do github.
 
 
 ```r
-#source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
-source("R/bdmep.R")
+source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
+#source("R/bdmep.R")
 ls()
 ```
 
