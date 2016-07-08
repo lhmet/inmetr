@@ -7,6 +7,7 @@ library(magrittr)
 library(purrr)
 library(stringr)
 library(doBy)
+library(tibble)
 
 
 #####################################################################  
