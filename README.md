@@ -1,4 +1,4 @@
-# README
+# inmetr
 Jonatan Tatsch  
 July 8, 2016  
 
@@ -81,12 +81,6 @@ codigo
 
 ```
 [1] 83936
-```
-
-```r
-# importando dados
-#data_sm <- import_bdmep(stn_id = codigo, save_file = FALSE)
-#data_sm
 ```
 
 Importando dados.
