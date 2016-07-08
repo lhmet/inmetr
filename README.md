@@ -4,7 +4,6 @@ July 8, 2016
 
 
 
-# inmetr
 Funções para importar dados medidos pelas estações meteorológicas convencionais do Instituto Nacional de Meteorologia (INMET), Brasil.
 
 > Em construção.
