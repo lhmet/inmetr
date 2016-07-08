@@ -30,8 +30,8 @@ Carregando script do github.
 
 
 ```r
-source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
-#source("R/bdmep.R")
+#source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
+source("R/bdmep.R")
 ls()
 ```
 

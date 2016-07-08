@@ -36,8 +36,8 @@ library(devtools)
 Carregando script do github.
 
 ```{r2, comment="", message=FALSE}
-source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
-#source("R/bdmep.R")
+#source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
+source("R/bdmep.R")
 ls()
 ```
 
@@ -77,6 +77,8 @@ data_sm
 ```{r6, comment="", eval=TRUE, echo = FALSE}
 # apenas importa os dados
 data_sm <- import_bdmep(stn_id = codigo, 
+                        e_mail = "jdtatsch@gmail.com",
+                        passwd = "d17ulev5",
                         save_file = FALSE, 
                         import = TRUE)
 data_sm
