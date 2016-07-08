@@ -161,7 +161,7 @@ import_bdmep <- function(stn_id = "83586" ,
     httr::content('text') %>%
     textConnection() %>%
     readLines()
-  closeAllConnections()
+  #closeAllConnections()
   
   if(save_file) {
     writeLines(text = x, con = dest_file)
