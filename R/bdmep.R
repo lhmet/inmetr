@@ -158,12 +158,9 @@ import_bdmep <- function(stn_id = "83586" ,
     stringr::str_replace("DD/MM/YYYY", edate) 
   # raw data  
   x <- httr::GET(url_data) %>%
-    httr::content('text')
-  
-  con <- textConnection(x, local = TRUE)
-  x <- readLines(con)
-  #close(con)
-
+    httr::content('text') %>%
+    textConnection(local = TRUE) %>%
+    readLines()
   #closeAllConnections()
   
   if(save_file) {
