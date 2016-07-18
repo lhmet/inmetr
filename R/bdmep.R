@@ -5,6 +5,12 @@
 #' Read BDMEP data file
 #' 
 #' Read and tidy data downloaded with \code{\link{import_bdmep}}
+#' 
+#' 
+#' 
+#' # ex.:  
+# bg <- import_bdmep(stn_id = "83980")
+
 read_bdmep <- function(x, dup.first = T)    
 {
   
@@ -181,9 +187,6 @@ import_bdmep <- function(stn_id = "83586" ,
   return(result)
 }
 
-# ex.:  
-# bg <- import_bdmep(stn_id = "83980")
-  
 ##' Get information on conventional meteorological station from INMET
 ##'
 ##' This function is used to find the OMM code that can be

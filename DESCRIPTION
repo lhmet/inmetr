@@ -1,8 +1,24 @@
 Package: inmetr
-Title: R tools for tidy data from Instituto Nacional de Meteorologia (INMET), Brazil.
+Title: Import meteorological data from Instituto Nacional de Meteorologia
+    (INMET), Brazil.
 Version: 0.0.0.9000
 Authors@R: person("Jonatan", "Tatsch", email = "jdtatsch@gmail.com", role = c("aut", "cre"))
-Description: R tools for tidy data measured by weather stations (conventional and automatic) from Instituto Nacional de Meteorologia (INMET), Brazil..
-Depends: R (>= 3.2.4)
-License: What license is it under?
+Description: Import meteorological data measured by weather stations
+    (conventional and automatic) by from Instituto Nacional de Meteorologia (INMET),
+    Brazil.
+Depends:
+    R (>= 3.2.4)
+License: GNU GPL v3
 LazyData: true
+Imports:
+    httr,
+    xml2,
+    rvest,
+    plyr,
+    dplyr,
+    magrittr,
+    purrr,
+    stringr,
+    doBy,
+    tibble
+RoxygenNote: 5.0.1
