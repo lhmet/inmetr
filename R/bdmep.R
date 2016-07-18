@@ -1,19 +1,11 @@
-library(httr)
-library(xml2)
-library(rvest)
-library(plyr)
-library(dplyr)
-library(magrittr)
-library(purrr)
-library(stringr)
-library(doBy)
-library(tibble)
-
-
 #####################################################################  
 ## read_bdmep - tidy data from import_bdmep()
 #####################################################################
-read_bdmep <- function(x, dup.first = T)
+
+#' Read BDMEP data file
+#' 
+#' Read and tidy data downloaded with \code{\link{import_bdmep}}
+read_bdmep <- function(x, dup.first = T)    
 {
   
   # line with variables names
@@ -105,15 +97,17 @@ read_bdmep <- function(x, dup.first = T)
   
 }## end function readInmet
 
+
+
 # fetch bdmep data from inmet site
 import_bdmep <- function(stn_id = "83586" ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
-                         e_mail = "seu-email",
-                         passwd = "sua-senha",
+                         e_mail = "jdtatsch@gmail.com",
+                         passwd = "d17ulev5",
                          import = TRUE,
                          dest_file = paste0(stn_id, ".txt"),
-                         save_file = TRUE){
+                         save_file = FALSE){
   
   if(isTRUE(!save_file) && isTRUE(!import)){
     stop("Noting to do. save_file = FALSE and import = FALSE.")
@@ -143,10 +137,10 @@ import_bdmep <- function(stn_id = "83586" ,
     lapply(function(i) vals_name_passwd_bt[i]) %>% 
     setNames(attrs_name_passwd_bt)
   # add e-mail and passwd
-  l %<>% purrr::update_list(mCod = e_mail, mSenha = passwd)
+  l <- l %>% purrr::update_list(mCod = e_mail, mSenha = passwd)
   # r <- httr::POST(link, body = l, encode = "form", verbose())
   r <- httr::POST(link, body = l, encode = "form")
-  if(status_code(r) == 200) cat("Login sucessfull.")
+  if(httr::status_code(r) == 200) cat("Login sucessfull.")
   # visualize(r)
   gc()
   
@@ -188,7 +182,7 @@ import_bdmep <- function(stn_id = "83586" ,
 }
 
 # ex.:  
-# head(bg <- import_bdmep(stn_id = "83980"))
+# bg <- import_bdmep(stn_id = "83980")
   
 ##' Get information on conventional meteorological station from INMET
 ##'
