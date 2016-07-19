@@ -2,3 +2,4 @@
 
 export(bdmep_info)
 export(get_meta_bdmep)
+export(read_bdmep)
