@@ -279,7 +279,7 @@ bdmep_metadata <- function(){
 
 ##' Get basic information on meteorological station from INMET
 ##'
-##' This function is used to find the OMM code that can be
+##' This function is used to find the OMM station ID that can be
 ##' used to import BDMEP data using \code{\link{import_bdmep}}.
 ##' @title Get OMM code, state and station name on meteorological stations from INMET
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.
