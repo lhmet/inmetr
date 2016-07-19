@@ -22,11 +22,11 @@ remove duplicated data; aggregate time information into a POSIX object.
 }
 \examples{
 sm <- import_bdmep(stn_id = 83936)
-sm
+str(sm)
 summary(sm)
 
 }
 \author{
-Jônatan Tatsch
+Jonatan Tatsch
 }
 
