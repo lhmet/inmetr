@@ -21,7 +21,7 @@
 ##' sm
 ##' summary(sm)
 ##' 
-read_bdmep <- function(x, dup.first = TRUE)    
+read_bdmep <- function(x)    
 {
   
   # line with variables names
@@ -100,27 +100,46 @@ read_bdmep <- function(x, dup.first = TRUE)
     dplyr::select(date, site, prec:ws)
   
   # duplicated rows
-  if(dup.first){
-    #bdmepd <- bdmepd %>%
-    #  filter(!duplicated(date))
     bdmepd <- dplyr::distinct(bdmepd)
-  } else {
-    bdmepd <- bdmepd %>%
-      filter(!duplicated(date, fromLast = T))
-  }
-  
+
   return(bdmepd)
   
 }## end function readInmet
 
 
 
-# fetch bdmep data from inmet site
+
+##' Fetch data from BDMEP-INMET site
+##' 
+##' Download and/or import data from \url{http://www.inmet.gov.br/projetos/rede/pesquisa}.
+##' 
+##' @details A minimum quality control check is applied to the data. 
+##' This include: a chronological sequence check; filling missing dates with NA; 
+##' remove duplicated data; aggregate time information into a POSIX object. 
+##' The data are returned in GMT (UTC).
+##' 
+##' @param stn_id a numeric vector with the meteorological station code
+##' @param sdate start date in "d/m/Y" format
+##' @param edate end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}
+##' @param e_mail e-mail to access BDMEP dataset
+##' @param passwd password to have access to BDMEP dataset
+##' @param import logical, set TRUE to input data into R
+##' @param save_file logical, to save raw data file set TRUE
+##' 
+##' @return a data frame or a tibble with variables in columns and observations along rows
+##' @export
+##' @author Jônatan Tatsch
+##' @examples 
+##' # download data for Santa Maria-RS 
+##' sm <- import_bdmep(stn_id = 83936, e_mail = "myemail", passwd = "mypassword")
+##' sm
+##' summary(sm)
+##' 
 import_bdmep <- function(stn_id = "83586" ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
-                         e_mail = "jdtatsch@gmail.com",
-                         passwd = "d17ulev5",
+                         e_mail = "your-email",
+                         passwd = "your-password",
                          import = TRUE,
                          dest_file = paste0(stn_id, ".txt"),
                          save_file = FALSE){
