@@ -4,7 +4,7 @@
 \alias{read_bdmep}
 \title{Read BDMEP data file}
 \usage{
-read_bdmep(x, dup.first = TRUE)
+read_bdmep(x)
 }
 \arguments{
 \item{x}{a numeric vector with the meteorological station code}
@@ -21,9 +21,10 @@ This include: a chronological sequence check; filling missing dates with NA;
 remove duplicated data; aggregate time information into a POSIX object.
 }
 \examples{
-
-bg <- import_bdmep(stn_id = "83980")
-bg
+#
+sm <- import_bdmep(stn_id = 83936)
+sm
+summary(sm)
 
 }
 \author{
