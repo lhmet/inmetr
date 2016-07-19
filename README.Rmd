@@ -1,77 +1,68 @@
 ---
 title: "inmetr"
-author: "Jonatan Tatsch"
-date: "July 8, 2016"
 output: 
   html_document: 
     keep_md: yes
 ---
 
-```{r0 setup, include=FALSE}
+```{r, include=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-`inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) do Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)).
+`inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) do Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)), Brazil.
 
 
 
-# Instalation
+## Instalation
 
 Installation of inmetr from GitHub is easy using the devtools package.
 
-```{r, comment="", eval = TRUE, message=FALSE, error=FALSE}
+```{r, comment="", eval = FALSE, message=FALSE, error=FALSE}
 library(devtools)
 install_github('jdtatsch/inmetr')
 ```
 
 ```{r, comment="", message=FALSE}
 library(inmetr)
-library(dplyr)
 ```
 
-## Station metadata
+## Stations ID
 
-To search for meteorological station from INMET the user can use the `bdmep_info()` function.
+To search for meteorological station from INMET the user can use the `bdmep_stations()` function.
 
 ```{r, comment=""}
-info <- bdmep_info()
-head(info)
+info <- bdmep_stations()
+#head(info)
 str(info)
 ```
 
 This function will return all site names, state and OMM code. The OMM code is necessary to download data from a meteorological station.
 
-Here we want to know the OMM code for the meterological station at Santa Maria in Rio Grande do Sul state.
+Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
 ```{r, comment=""}
-code <- info %>% 
-   filter(nome == "SANTA MARIA") %>%
-   select(codigo_omm) %>%
-   t() %>% c()
+code <- filter(info, nome == "SANTA MARIA") 
+code <- select(id)[[1]]
 code
 ```
 
 ## Import data
 
-```{r, eval=FALSE}
-sm <- import_bdmep(stn_id = code, 
+```{r, eval=FALSE, comment=""}
+sm <- import_bdmep(id = code, 
                    e_mail = "seu-email",
-                   passwd = "sua-senha",
-                   save_file = FALSE, 
-                   import = TRUE)
-head(sm)
+                   passwd = "sua-senha")
+#head(sm)
 str(sm)
 ```
 
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, comment=""}
 sm <- import_bdmep(stn_id = code, 
                    e_mail = "jdtatsch@gmail.com",
-                   passwd = "d17ulev5",
-                   save_file = FALSE, 
-                   import = TRUE)
-head(sm)
+                   passwd = "d17ulev5")
+#head(sm)
 str(sm)
 ```
 
