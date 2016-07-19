@@ -2,16 +2,26 @@
 ## read_bdmep - tidy data from import_bdmep()
 #####################################################################
 
-#' Read BDMEP data file
-#' 
-#' Read and tidy data downloaded with \code{\link{import_bdmep}}
-#' 
-#' 
-#' 
-#' # ex.:  
-# bg <- import_bdmep(stn_id = "83980")
-
-read_bdmep <- function(x, dup.first = T)    
+##' Read BDMEP data file
+##' 
+##' Read and tidy data downloaded with \code{\link{import_bdmep}}
+##' 
+##' @details A minimum quality control check is applied to the data. 
+##' This include: a chronological sequence check; filling missing dates with NA; 
+##' remove duplicated data; aggregate time information into a POSIX object.
+##' 
+##' @param x a numeric vector with the meteorological station code
+##' 
+##' @return a data frame or a tibble with variables in columns and observations along rows
+##' @export
+##' @author Jônatan Tatsch
+##' @examples 
+##' #
+##' sm <- import_bdmep(stn_id = 83936)
+##' sm
+##' summary(sm)
+##' 
+read_bdmep <- function(x, dup.first = TRUE)    
 {
   
   # line with variables names
