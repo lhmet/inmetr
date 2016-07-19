@@ -88,7 +88,7 @@ read_bdmep <- function(x)
            Hora = NULL,
            site = codigo,
            codigo = NULL) %>%
-    dplyr::tbl_df()
+    tibble::tibble()
   # reorder columns
   bdmepd <- bdmepd %>% 
     dplyr::select(date, site, prec:ws)
@@ -266,7 +266,7 @@ bdmep_metadata <- function(){
     }) %>%
     setNames(c("site", "lat", "lon", "alt")) %>%
     dplyr::select(site, lon, lat, alt) %>%
-    dplyr::tbl_df() 
+    tibble::tibble() 
   
   rm(txt1)
   
@@ -302,7 +302,7 @@ bdmep_stations <- function(){
     xml2::read_html() %>%
     rvest::html_node("table") %>%
     rvest::html_table(header = TRUE) %>%
-    dplyr::tbl_df()
+    tibble::tibble()
   
   is_space <- function(x) x == ""
   
