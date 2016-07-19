@@ -12,7 +12,7 @@
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
-##' sm <- import_bdmep(stn_id = 83936)
+##' sm <- import_bdmep(id = 83936)
 ##' str(sm)
 ##' summary(sm)
 ##' 
@@ -113,7 +113,7 @@ read_bdmep <- function(x)
 ##' This include: a chronological sequence check; filling missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC.
 ##' 
-##' @param stn_id a numeric vector with the meteorological station code
+##' @param id a numeric vector with the meteorological station code
 ##' @param sdate start date in "d/m/Y" format
 ##' @param edate end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param email e-mail to access BDMEP dataset
@@ -124,11 +124,11 @@ read_bdmep <- function(x)
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria-RS 
-##' sm <- import_bdmep(stn_id = 83936, email = "myemail", passwd = "mypassword")
+##' sm <- import_bdmep(id = 83936, email = "myemail", passwd = "mypassword")
 ##' head(sm)
 ##' summary(sm)
 ##' 
-import_bdmep <- function(stn_id = "83586" ,
+import_bdmep <- function(id = "83586" ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
                          email = "your-email",
@@ -168,7 +168,7 @@ import_bdmep <- function(stn_id = "83586" ,
   # step 2 - get data
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
   url_data <-  url_data %>%
-    stringr::str_replace("XXXXX", stn_id) %>%
+    stringr::str_replace("XXXXX", id) %>%
     stringr::str_replace("dd/mm/yyyy", sdate) %>%
     stringr::str_replace("DD/MM/YYYY", edate) 
   # raw data  
