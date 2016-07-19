@@ -1,7 +1,3 @@
-#####################################################################  
-## read_bdmep - tidy data from import_bdmep()
-#####################################################################
-
 ##' Read BDMEP data file
 ##' 
 ##' Read and tidy data downloaded with \code{\link{import_bdmep}}
@@ -14,10 +10,10 @@
 ##' 
 ##' @return a data frame or a tibble with variables in columns and observations along rows
 ##' @export
-##' @author Jônatan Tatsch
+##' @author Jonatan Tatsch
 ##' @examples 
 ##' sm <- import_bdmep(stn_id = 83936)
-##' sm
+##' str(sm)
 ##' summary(sm)
 ##' 
 read_bdmep <- function(x)    
@@ -29,8 +25,7 @@ read_bdmep <- function(x)
     stringr::str_detect("Data;Hora;") %>%
     which() 
   # variable names
-  h <- rowheader %>%
-    `[`(x, .)
+  h <- x[rowheader]
   
   ## extract header and fix it
   h_fix <- h %>%
@@ -39,9 +34,9 @@ read_bdmep <- function(x)
     unlist() 
   
   h_fix <- h_fix %>%
-    `==`("") %>%
+    magrittr::equals("") %>%
     which() %>%
-    `*`(-1) %>%
+    prod(-1) %>%
     `[`(h_fix, .)
   
   ## replace original vnames by the new ones
@@ -53,7 +48,7 @@ read_bdmep <- function(x)
                              tgt = as.list(new_vnames))
   
   x_clean <- x %>% 
-    `[`((rowheader+1) : (length(x)-1)) %>%
+    magrittr::extract((rowheader+1) : (length(x)-1)) %>%
     stringr::str_replace(";$", "")
 
   bdmepd <- read.csv2(text = x_clean, 
@@ -81,7 +76,7 @@ read_bdmep <- function(x)
   
   ## date conversion
   bdmepd <- bdmepd %>%
-    mutate(Hora = doBy::recodeVar(as.character(Hora),
+    dplyr::mutate(Hora = doBy::recodeVar(as.character(Hora),
                                   src = as.list(c("1800","0","1200")), 
                                   tgt = as.list(c("18:00","00:00","12:00"))),
            date = as.POSIXct(paste(as.Date(Data,
@@ -93,7 +88,7 @@ read_bdmep <- function(x)
            Hora = NULL,
            site = codigo,
            codigo = NULL) %>%
-    tbl_df()
+    dplyr::tbl_df()
   # reorder columns
   bdmepd <- bdmepd %>% 
     dplyr::select(date, site, prec:ws)
@@ -116,8 +111,7 @@ read_bdmep <- function(x)
 ##' 
 ##' @details A minimum quality control check is applied to the data. 
 ##' This include: a chronological sequence check; filling missing dates with NA; 
-##' remove duplicated data; aggregate time information into a POSIX object. 
-##' The data are returned in GMT (UTC).
+##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC.
 ##' 
 ##' @param stn_id a numeric vector with the meteorological station code
 ##' @param sdate start date in "d/m/Y" format
@@ -129,11 +123,11 @@ read_bdmep <- function(x)
 ##' 
 ##' @return a data frame or a tibble with variables in columns and observations along rows
 ##' @export
-##' @author Jônatan Tatsch
+##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria-RS 
 ##' sm <- import_bdmep(stn_id = 83936, e_mail = "myemail", passwd = "mypassword")
-##' sm
+##' head(sm)
 ##' summary(sm)
 ##' 
 import_bdmep <- function(stn_id = "83586" ,
@@ -217,7 +211,7 @@ import_bdmep <- function(stn_id = "83586" ,
   return(result)
 }
 
-##' Get information on conventional meteorological station from INMET
+##' Get information on meteorological stations
 ##'
 ##' This function is used to find the OMM code that can be
 ##' used to import BDMEP data using \code{\link{import_bdmep}}.
@@ -229,7 +223,7 @@ import_bdmep <- function(stn_id = "83586" ,
 ##' \code{\link{import_bdmep}}, coordinates \code{lon}, \code{lat}, and
 ##'  \code{alt}.
 ##' @export
-##' @author Jônatan Tatsch
+##' @author Jonatan Tatsch
 ##' @examples 
 ##' 
 ##' \dontrun{
@@ -271,8 +265,8 @@ get_meta_bdmep <- function(){
         return()
     }) %>%
     setNames(c("site", "lat", "lon", "alt")) %>%
-    tbl_df() %>%
-    dplyr::select(site, lon, lat, alt)
+    dplyr::select(site, lon, lat, alt) %>%
+    dplyr::tbl_df() 
   
   rm(txt1)
   
@@ -289,21 +283,21 @@ get_meta_bdmep <- function(){
 ##' used to import BDMEP data using \code{\link{import_bdmep}}.
 ##' @title Get OMM code, state and station name on meteorological stations from INMET
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.
-##' @return A data frame is returned with 
-##'  \code{nome}, \code{estado}, \code{codigo_omm}
+##' @return a data frame is returned with 
+##'  \code{name}, \code{state}, \code{id}
 ##' @export
-##' @author Jônatan Tatsch
+##' @author Jonatan Tatsch
 ##' @examples 
 ##' 
 ##' \dontrun{
-##' # this can take a while
-##' metad <- get_meta_bdmep()
-##' head(metad, 15)
-##' #save(metad, file = "data/metad.rda")
+##' # tyr get information from inmet site
+##' stns_id <- get_meta_bdmep()
+##' head(stns_id, 15)
+##' #save(stns_id, file = "data/stns_id.rda")
 ##' # plot locations
-##' with(metad, plot(lon, lat, pch = 4))
+##' with(stns_id, plot(lon, lat, pch = 4))
 ##' }
-bdmep_info <- function(){
+bdmep_stations <- function(){
   link_stns_l <- "http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php"
   tab <- httr::GET(link_stns_l) %>%
     httr::content('text') %>%
@@ -333,6 +327,7 @@ bdmep_info <- function(){
     tidyr::separate(nome_estacao, c("nome", "estado"), sep = " - ")
   tab %>% 
     data.frame() %>%
+    setName(c("name", "state", "id"))
     return()
 }
 
