@@ -151,15 +151,14 @@ $(document).ready(function () {
 </div>
 
 
-<p><code>inmetr</code> provide access to the Banco de Dados Meteorológicos para Ensino e Pesquisa (<a href="http://www.inmet.gov.br/projetos/rede/pesquisa/">BDMEP</a>) do Instituto Nacional de Meteorologia (<a href="http://www.inmet.gov.br">INMET</a>).</p>
+<p><code>inmetr</code> provide access to the “Banco de Dados Meteorológicos para Ensino e Pesquisa” (<a href="http://www.inmet.gov.br/projetos/rede/pesquisa/">BDMEP</a>) do Instituto Nacional de Meteorologia (<a href="http://www.inmet.gov.br">INMET</a>).</p>
 <div id="instalation" class="section level1">
 <h1>Instalation</h1>
 <p>Installation of inmetr from GitHub is easy using the devtools package.</p>
 <pre class="r"><code>library(devtools)
 install_github('jdtatsch/inmetr')</code></pre>
 <pre class="r"><code>library(inmetr)
-library(dplyr)
-#library(tibble)</code></pre>
+library(dplyr)</code></pre>
 <div id="station-metadata" class="section level2">
 <h2>Station metadata</h2>
 <p>To search for meteorological station from INMET the user can use the <code>bdmep_info()</code> function.</p>
@@ -208,12 +207,19 @@ head(info)</code></pre>
 </tbody>
 </table>
 </div>
-<p>This function will return all site names, state and OMM code. The OMM code is necessary to download data from one meteorological station.</p>
+<pre class="r"><code>str(info)</code></pre>
+<pre><code>'data.frame':   265 obs. of  3 variables:
+ $ nome      : chr  &quot;ACARAU&quot; &quot;AGUA BRANCA&quot; &quot;AIMORES&quot; &quot;ALAGOINHAS&quot; ...
+ $ estado    : chr  &quot;CE&quot; &quot;AL&quot; &quot;MG&quot; &quot;BA&quot; ...
+ $ codigo_omm: int  82294 82989 83595 83249 82353 82970 82590 83096 83442 83368 ...</code></pre>
+<p>This function will return all site names, state and OMM code. The OMM code is necessary to download data from a meteorological station.</p>
 <p>Here we want to know the OMM code for the meterological station at Santa Maria in Rio Grande do Sul state.</p>
-<pre class="r"><code> code &lt;- info %&gt;% 
+<pre class="r"><code>code &lt;- info %&gt;% 
    filter(nome == &quot;SANTA MARIA&quot;) %&gt;%
    select(codigo_omm) %&gt;%
-   t() %&gt;% c()</code></pre>
+   t() %&gt;% c()
+code</code></pre>
+<pre><code>[1] 83936</code></pre>
 </div>
 <div id="import-data" class="section level2">
 <h2>Import data</h2>
@@ -222,7 +228,8 @@ head(info)</code></pre>
                    passwd = &quot;sua-senha&quot;,
                    save_file = FALSE, 
                    import = TRUE)
-sm</code></pre>
+head(sm)
+str(sm)</code></pre>
 <pre><code>## Login sucessfull.</code></pre>
 <div class="kable-table">
 <table>
@@ -372,6 +379,25 @@ sm</code></pre>
 </tbody>
 </table>
 </div>
+<pre><code>## 'data.frame':    52321 obs. of  18 variables:
+##  $ date : POSIXct, format: &quot;1961-01-01 00:00:00&quot; &quot;1961-01-01 12:00:00&quot; ...
+##  $ site : int  83936 83936 83936 83936 83936 83936 83936 83936 83936 83936 ...
+##  $ prec : num  NA NA NA NA 0 NA NA 0 NA NA ...
+##  $ tar  : num  NA 23.9 30.6 27.7 26.4 30.8 27.6 23.3 31.2 22.9 ...
+##  $ tw   : num  NA 21.4 25.1 24.4 23.8 25.2 24.6 19.9 23.6 19.4 ...
+##  $ tmax : num  31.9 NA NA 34 NA NA 31.6 NA NA 31.4 ...
+##  $ tmin : num  NA 18.1 NA NA 23.5 NA NA 20.1 NA NA ...
+##  $ urx  : num  NA 79 63 75 79 62 78 72 51 71 ...
+##  $ patm : num  NA 990 988 986 989 ...
+##  $ pnmm : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ wd   : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ wsx  : num  NA 0 3 0 0 1 1 3 5 7 ...
+##  $ n    : num  7.7 NA NA 6 NA NA 7.8 NA NA 9.2 ...
+##  $ cc   : num  NA 0 9 0 4 10 0 8 10 10 ...
+##  $ evap : num  1.1 NA NA 2.7 NA NA 2.6 NA NA 3.2 ...
+##  $ tcomp: num  25.9 NA NA 27.8 NA ...
+##  $ ur   : num  73 NA NA 74.2 NA ...
+##  $ ws   : num  1 NA NA 0.667 NA ...</code></pre>
 </div>
 </div>
 

@@ -37,6 +37,7 @@ To search for meteorological station from INMET the user can use the `bdmep_info
 ```{r, comment=""}
 info <- bdmep_info()
 head(info)
+str(info)
 ```
 
 This function will return all site names, state and OMM code. The OMM code is necessary to download data from a meteorological station.
@@ -60,6 +61,7 @@ sm <- import_bdmep(stn_id = code,
                    save_file = FALSE, 
                    import = TRUE)
 head(sm)
+str(sm)
 ```
 
 
@@ -70,6 +72,7 @@ sm <- import_bdmep(stn_id = code,
                    save_file = FALSE, 
                    import = TRUE)
 head(sm)
+str(sm)
 ```
 
 
