@@ -134,10 +134,6 @@ import_bdmep <- function(stn_id = "83586" ,
                          email = "your-email",
                          passwd = "your-password"){
   
-  if(isTRUE(!save_file) && isTRUE(!import)){
-    stop("Noting to do. save_file = FALSE and import = FALSE.")
-  }
-  
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
   txt <- httr::GET(link)
