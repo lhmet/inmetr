@@ -22,3 +22,6 @@ Imports:
     doBy,
     tibble
 RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
