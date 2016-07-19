@@ -219,7 +219,7 @@ import_bdmep <- function(stn_id = "83586" ,
 ##' @param none
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.
 ##' @return A data frame is returned with meta data, including a
-##'  \code{site} that can be supplied to
+##'  \code{id} that can be supplied to
 ##' \code{\link{import_bdmep}}, coordinates \code{lon}, \code{lat}, and
 ##'  \code{alt}.
 ##' @export
@@ -234,10 +234,9 @@ import_bdmep <- function(stn_id = "83586" ,
 ##' # plot locations
 ##' with(metadata, plot(lon, lat, pch = 4))
 ##' }
-
 bdmep_metadata <- function(){
   require(dplyr)
-  # omm_code, lat, lon, alt
+  # omm id, lat, lon, alt
   link_stns_info <- "http://www.inmet.gov.br/sim/sonabra/index.php"
   #link_stns_info <- "http://www.inmet.gov.br/portal/index.php?r=estacoes/mapaEstacoes"
   txt <- httr::GET(link_stns_info) %>%
@@ -264,8 +263,8 @@ bdmep_metadata <- function(){
         as.numeric() %>%
         return()
     }) %>%
-    setNames(c("site", "lat", "lon", "alt")) %>%
-    dplyr::select(site, lon, lat, alt) %>%
+    setNames(c("id", "lat", "lon", "alt")) %>%
+    dplyr::select(id, lon, lat, alt) %>%
     tibble::tibble() 
   
   rm(txt1)
