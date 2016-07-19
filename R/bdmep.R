@@ -177,12 +177,7 @@ import_bdmep <- function(id = "83586" ,
     textConnection(local = TRUE) %>%
     readLines()
   #closeAllConnections()
-  
-  if(save_file) {
-    writeLines(text = x, con = dest_file)
-    message("Data saved in ", dest_file)
-  }
-  
+
   # output
   xtidy <- read_bdmep(x)
   return(xtidy)
@@ -193,7 +188,6 @@ import_bdmep <- function(id = "83586" ,
 ##' This function is used to find the OMM code that can be
 ##' used to import BDMEP data using \code{\link{import_bdmep}}.
 ##' @title Get OMM code and other meta data on meteorological stations from INMET
-##' @param none
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.
 ##' @return A data frame is returned with meta data, including a
 ##'  \code{id} that can be supplied to
