@@ -16,31 +16,14 @@ Funções para importar dados medidos pelas estações meteorológicas convencio
 
 > AVISO: em construção.
 
-# Pré-requisitos
+# Instalação
 
 ```{r1, comment="", message=FALSE}
-library(httr)
-library(xml2)
-library(rvest)
-library(plyr)
-library(dplyr)
-library(magrittr)
-library(purrr)
-library(stringr)
-library(doBy)
 library(devtools)
-library(tibble)
+install_github('jdtatsch/inmetr')
+library(inmetr)
 ```
 
-# Funções para download e leitura dos dados do [BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)
-
-Carregando script do github.
-
-```{r2, comment="", message=FALSE}
-source_url('https://raw.githubusercontent.com/jdtatsch/inmetr/master/R/bdmep.R')
-#source("R/bdmep.R")
-ls()
-```
 
 # Exemplo
 
