@@ -10,6 +10,7 @@ bdmep_info()
 \value{
 A data frame is returned with 
  \code{nome}, \code{estado}, \code{codigo_omm}
+import dplyr
 }
 \description{
 Get basic information on meteorological station from INMET

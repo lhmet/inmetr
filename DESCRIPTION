@@ -10,12 +10,12 @@ Depends:
     R (>= 3.2.4)
 License: GNU GPL v3
 LazyData: true
-Imports:
+Imports: 
+    dplyr,
     httr,
     xml2,
     rvest,
     plyr,
-    dplyr,
     magrittr,
     purrr,
     stringr,

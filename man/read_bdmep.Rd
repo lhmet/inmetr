@@ -21,7 +21,6 @@ This include: a chronological sequence check; filling missing dates with NA;
 remove duplicated data; aggregate time information into a POSIX object.
 }
 \examples{
-#
 sm <- import_bdmep(stn_id = 83936)
 sm
 summary(sm)

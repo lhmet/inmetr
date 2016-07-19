@@ -16,7 +16,6 @@
 ##' @export
 ##' @author Jônatan Tatsch
 ##' @examples 
-##' #
 ##' sm <- import_bdmep(stn_id = 83936)
 ##' sm
 ##' summary(sm)
@@ -181,7 +180,7 @@ import_bdmep <- function(stn_id = "83586" ,
   
   # step 2 - get data
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
-  url_data %<>%
+  url_data <-  url_data %>%
     stringr::str_replace("XXXXX", stn_id) %>%
     stringr::str_replace("dd/mm/yyyy", sdate) %>%
     stringr::str_replace("DD/MM/YYYY", edate) 
