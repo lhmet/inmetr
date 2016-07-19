@@ -33,17 +33,16 @@ Download and/or import data from \url{http://www.inmet.gov.br/projetos/rede/pesq
 \details{
 A minimum quality control check is applied to the data. 
 This include: a chronological sequence check; filling missing dates with NA; 
-remove duplicated data; aggregate time information into a POSIX object. 
-The data are returned in GMT (UTC).
+remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC.
 }
 \examples{
 # download data for Santa Maria-RS 
 sm <- import_bdmep(stn_id = 83936, e_mail = "myemail", passwd = "mypassword")
-sm
+head(sm)
 summary(sm)
 
 }
 \author{
-Jônatan Tatsch
+Jonatan Tatsch
 }
 
