@@ -116,7 +116,7 @@ read_bdmep <- function(x)
 ##' @param stn_id a numeric vector with the meteorological station code
 ##' @param sdate start date in "d/m/Y" format
 ##' @param edate end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}
-##' @param e_mail e-mail to access BDMEP dataset
+##' @param email e-mail to access BDMEP dataset
 ##' @param passwd password to have access to BDMEP dataset
 ##' @param import logical, set TRUE to input data into R
 ##' @param save_file logical, to save raw data file set TRUE
@@ -126,14 +126,14 @@ read_bdmep <- function(x)
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria-RS 
-##' sm <- import_bdmep(stn_id = 83936, e_mail = "myemail", passwd = "mypassword")
+##' sm <- import_bdmep(stn_id = 83936, email = "myemail", passwd = "mypassword")
 ##' head(sm)
 ##' summary(sm)
 ##' 
 import_bdmep <- function(stn_id = "83586" ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
-                         e_mail = "your-email",
+                         email = "your-email",
                          passwd = "your-password",
                          import = TRUE,
                          dest_file = paste0(stn_id, ".txt"),
@@ -166,8 +166,8 @@ import_bdmep <- function(stn_id = "83586" ,
     seq_along() %>%
     lapply(function(i) vals_name_passwd_bt[i]) %>% 
     setNames(attrs_name_passwd_bt)
-  # add e-mail and passwd
-  l <- l %>% purrr::update_list(mCod = e_mail, mSenha = passwd)
+  # add email and passwd
+  l <- l %>% purrr::update_list(mCod = email, mSenha = passwd)
   # r <- httr::POST(link, body = l, encode = "form", verbose())
   r <- httr::POST(link, body = l, encode = "form")
   if(httr::status_code(r) == 200) cat("Login sucessfull.")
