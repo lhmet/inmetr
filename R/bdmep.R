@@ -118,8 +118,6 @@ read_bdmep <- function(x)
 ##' @param edate end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param email e-mail to access BDMEP dataset
 ##' @param passwd password to have access to BDMEP dataset
-##' @param import logical, set TRUE to input data into R
-##' @param save_file logical, to save raw data file set TRUE
 ##' 
 ##' @return a data frame or a tibble with variables in columns and observations along rows
 ##' @export
@@ -134,10 +132,7 @@ import_bdmep <- function(stn_id = "83586" ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
                          email = "your-email",
-                         passwd = "your-password",
-                         import = TRUE,
-                         dest_file = paste0(stn_id, ".txt"),
-                         save_file = FALSE){
+                         passwd = "your-password"){
   
   if(isTRUE(!save_file) && isTRUE(!import)){
     stop("Noting to do. save_file = FALSE and import = FALSE.")
@@ -193,22 +188,8 @@ import_bdmep <- function(stn_id = "83586" ,
   }
   
   # output
-  # tidy data
-  if(import) xtidy <- read_bdmep(x)
-  # return tidy data
-  if(isTRUE(import) & isTRUE(save_file)){
-    result <- xtidy
-  }
-  # return tidy data
-  if(isTRUE(import) && !isTRUE(save_file)){
-    result <- xtidy
-  }
-  # return file name
-  if(isTRUE(save_file) && !isTRUE(import)){
-    result <- dest_file
-  }
-  
-  return(result)
+  xtidy <- read_bdmep(x)
+  return(xtidy)
 }
 
 ##' Get information on meteorological stations
