@@ -101,7 +101,9 @@ read_bdmep <- function(x)
   # duplicated rows
     bdmepd <- dplyr::distinct(bdmepd)
 
-  return(bdmepd)
+    bdmepd %>%
+      data.frame() %>%
+      return()
   
 }## end function readInmet
 
@@ -274,7 +276,9 @@ get_meta_bdmep <- function(){
   
   rm(txt1)
   
-  return(tab_info)
+  tab_info %>%
+    data.frame() %>%
+    return()
   
 } # end function get_meta_bdmep
 
@@ -327,7 +331,9 @@ bdmep_info <- function(){
     stringr::str_replace("_da", "") %>%
     setNames(tab, nm = .) %>%
     tidyr::separate(nome_estacao, c("nome", "estado"), sep = " - ")
-  return(tab)
+  tab %>% 
+    data.frame() %>%
+    return()
 }
 
 
