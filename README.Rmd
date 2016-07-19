@@ -51,7 +51,7 @@ code
 
 ```{r, eval=FALSE, comment=""}
 sm <- import_bdmep(id = code, 
-                   e_mail = "seu-email",
+                   email = "seu-email",
                    passwd = "sua-senha")
 #head(sm)
 str(sm)
@@ -60,7 +60,7 @@ str(sm)
 
 ```{r, eval=TRUE, echo=FALSE, comment=""}
 sm <- import_bdmep(stn_id = code, 
-                   e_mail = "jdtatsch@gmail.com",
+                   email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
 #head(sm)
 str(sm)
