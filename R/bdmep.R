@@ -301,7 +301,6 @@ get_meta_bdmep <- function(){
 ##' # plot locations
 ##' with(metad, plot(lon, lat, pch = 4))
 ##' }
-
 bdmep_info <- function(){
   link_stns_l <- "http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php"
   tab <- httr::GET(link_stns_l) %>%
