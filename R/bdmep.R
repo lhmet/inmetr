@@ -228,14 +228,14 @@ import_bdmep <- function(stn_id = "83586" ,
 ##' 
 ##' \dontrun{
 ##' # this can take a while
-##' metad <- get_meta_bdmep()
-##' head(metad, 15)
-##' #save(metad, file = "data/metad.rda")
+##' metadata <- bdmep_metadata()
+##' head(metadata, 15)
+##' #save(metadata, file = "data/metadata.rda")
 ##' # plot locations
-##' with(metad, plot(lon, lat, pch = 4))
+##' with(metadata, plot(lon, lat, pch = 4))
 ##' }
 
-get_meta_bdmep <- function(){
+bdmep_metadata <- function(){
   require(dplyr)
   # omm_code, lat, lon, alt
   link_stns_info <- "http://www.inmet.gov.br/sim/sonabra/index.php"
@@ -291,11 +291,9 @@ get_meta_bdmep <- function(){
 ##' 
 ##' \dontrun{
 ##' # tyr get information from inmet site
-##' stns_id <- get_meta_bdmep()
+##' stns_id <- bdmep_stations()
 ##' head(stns_id, 15)
 ##' #save(stns_id, file = "data/stns_id.rda")
-##' # plot locations
-##' with(stns_id, plot(lon, lat, pch = 4))
 ##' }
 bdmep_stations <- function(){
   link_stns_l <- "http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php"
