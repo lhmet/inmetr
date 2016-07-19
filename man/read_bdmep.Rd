@@ -4,9 +4,29 @@
 \alias{read_bdmep}
 \title{Read BDMEP data file}
 \usage{
-read_bdmep(x, dup.first = T)
+read_bdmep(x, dup.first = TRUE)
+}
+\arguments{
+\item{x}{a numeric vector with the meteorological station code}
+}
+\value{
+a data frame or a tibble with variables in columns and observations along rows
 }
 \description{
 Read and tidy data downloaded with \code{\link{import_bdmep}}
+}
+\details{
+A minimum quality control check is applied to the data. 
+This include: a chronological sequence check; filling missing dates with NA; 
+remove duplicated data; aggregate time information into a POSIX object.
+}
+\examples{
+
+bg <- import_bdmep(stn_id = "83980")
+bg
+
+}
+\author{
+Jônatan Tatsch
 }
 
