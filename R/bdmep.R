@@ -267,9 +267,9 @@ bdmep_metadata <- function(){
 ##' 
 ##' \dontrun{
 ##' # tyr get information from inmet site
-##' stns_id <- bdmep_stations()
-##' head(stns_id, 15)
-##' #save(stns_id, file = "data/stns_id.rda")
+##' stns <- bdmep_stations()
+##' head(stns, 15)
+##' #save(stns, file = "data/stns.rda")
 ##' }
 bdmep_stations <- function(){
   link_stns_l <- "http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php"
