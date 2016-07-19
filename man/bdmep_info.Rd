@@ -2,12 +2,10 @@
 % Please edit documentation in R/bdmep.R
 \name{bdmep_info}
 \alias{bdmep_info}
-\title{Get OMM code, state and station name on meteorological stations from INMET}
+\title{Get OMM code, state and station name on meteorological stations from INMET
+\url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.}
 \usage{
 bdmep_info()
-}
-\arguments{
-\item{none}{\url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.}
 }
 \value{
 A data frame is returned with 
