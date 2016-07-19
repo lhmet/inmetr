@@ -15,8 +15,8 @@ vignette: >
 
 Installation of inmetr from GitHub is easy using the devtools package.
 
-```{r, comment="", include=FALSE}
-library(devtools)
+```{r, comment=""}
+#library(devtools)
 #install_github('jdtatsch/inmetr')
 library(inmetr)
 ```
@@ -36,10 +36,11 @@ This function will return all site names, state and OMM code. The OMM code is ne
 Here we want to know the OMM code for the meterological station at Santa Maria in Rio Grande do Sul state.
 
 ```{r, comment="", include=FALSE}
-code <- info %>% 
-  filter(nome == "SANTA MARIA") %>%
-  select(codigo_omm) %>%
-  t() %>% c()
+# code <- info %>% 
+#   filter(nome == "SANTA MARIA") %>%
+#   select(codigo_omm) %>%
+#   t() %>% c()
+code <- c(t(select(filter(info, nome == "SANTA MARIA"), codigo_omm)))
 code
 ```
 
