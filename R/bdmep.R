@@ -107,6 +107,7 @@ read_bdmep <- function(x)
 ##' Import data from \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
 ##' 
 ##' @importFrom stats setNames
+##' @importFrom dplyr %>%
 ##' @details A minimum quality control check is applied to the data.
 ##' This include: a chronological sequence check; filling missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
@@ -245,6 +246,7 @@ bdmep_metadata <- function(){
 ##' used to import BDMEP data using \code{\link{import_bdmep}}
 ##' @description Get OMM code, state and station name on meteorological stations from INMET
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
+##' @importFrom dplyr %>%
 ##' @return a data frame is returned with 
 ##'  \code{name}, \code{state}, \code{id}
 ##' @export
@@ -287,7 +289,7 @@ bdmep_stations <- function(){
     tidyr::separate(nome_estacao, c("nome", "estado"), sep = " - ")
   tab %>% 
     data.frame() %>%
-    setNames(c("name", "state", "id"))
+    setNames(c("name", "state", "id")) %>%
     return()
 }
 
