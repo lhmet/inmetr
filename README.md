@@ -1,29 +1,30 @@
-`inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from the Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)), Brazil.
+`inmetr` provide access to the "Banco de Dados Meteorológicos para
+Ensino e Pesquisa"
+([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from the
+Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)),
+Brazil.
 
 Instalation
 -----------
 
-Installation of `inmetr` from GitHub is easy using the `devtools` package.
+Installation of `inmetr` from GitHub is easy using the `devtools`
+package.
 
-``` r
-library(devtools)
-install_github('jdtatsch/inmetr')
-```
+    library(devtools)
+    install_github('jdtatsch/inmetr')
 
-``` r
-library(inmetr)
-library(dplyr)
-```
+    library(inmetr)
+    library(dplyr)
 
 Stations ID
 -----------
 
-To search for meteorological station from INMET we can use the `bdmep_stations()`.
+To search for meteorological station from INMET we can use the
+`bdmep_stations()`.
 
-``` r
-info <- bdmep_stations()
-pander::pandoc.table(head(info))
-```
+    info <- bdmep_stations()
+
+    head(info)
 
 
     ---------------------------
@@ -42,28 +43,33 @@ pander::pandoc.table(head(info))
     ALTO PARNAIBA   MA    82970
     ---------------------------
 
-``` r
-#str(info)
-```
+This function will return station names, the brazilian state and OMM
+code. OMM code is necessary to download data from a meteorological
+station.
 
-This function will return station names, the brazilian state and OMM code. OMM code is necessary to download data from a meteorological station.
+Here we want to know the [OMM
+code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf)
+for the meterological station at Santa Maria in Rio Grande do Sul state.
 
-Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
+    code <- filter(info, name == "SANTA MARIA") 
+    code <- select(code, id)[[1]]
+    code
+
+    [1] 83936
 
 Import data
 -----------
 
-Now we can get the data for Santa Maria city with the function `import_bdmep()`.
+Now we can get the data for Santa Maria city with the function
+`import_bdmep()`.
 
-``` r
-sm <- import_bdmep(id = code, 
-                   email = "seu-email",
-                   passwd = "sua-senha")
-head(sm)
-#str(sm)
-```
+    sm <- import_bdmep(id = code, 
+                       email = "seu-email",
+                       passwd = "sua-senha")
 
     Login sucessfull.
+
+    head(sm)
 
 
     ------------------------------------------------------------------------------

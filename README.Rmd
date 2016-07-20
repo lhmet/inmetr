@@ -1,8 +1,6 @@
 ---
 title: "inmetr"
-output:
-  md_document:
-    variant: markdown_github
+output: md_document
 ---
 
 
@@ -35,15 +33,23 @@ To search for meteorological station from INMET we can use the `bdmep_stations()
 
 ```{r, comment=""}
 info <- bdmep_stations()
-pander::pandoc.table(head(info))
-#str(info)
 ```
+
+```{r, comment="", eval=FALSE}
+head(info)
+```
+
+```{r, comment="", echo=FALSE}
+pander::pandoc.table(head(info))
+```
+
+
 
 This function will return station names, the brazilian state and OMM code. OMM code is necessary to download data from a meteorological station.
 
 Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
-```{r, comment="", include=FALSE}
+```{r, comment=""}
 code <- filter(info, name == "SANTA MARIA") 
 code <- select(code, id)[[1]]
 code
@@ -57,8 +63,6 @@ Now we can get the data for Santa Maria city with the function `import_bdmep()`.
 sm <- import_bdmep(id = code, 
                    email = "seu-email",
                    passwd = "sua-senha")
-head(sm)
-#str(sm)
 ```
 
 
@@ -66,8 +70,13 @@ head(sm)
 sm <- import_bdmep(id = code, 
                    email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
-pander::pandoc.table(head(sm))
-#str(sm)
 ```
 
+```{r, eval=FALSE, echo=TRUE, comment=""}
+head(sm)
+```
+
+```{r, eval=TRUE, echo=FALSE, comment=""}
+pander::pandoc.table(head(sm))
+```
 
