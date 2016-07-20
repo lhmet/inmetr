@@ -2,6 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-^README\.Rmd$
-^README\.html$
+README.Rmd
+README.html
 inst/doc
