@@ -1,4 +1,4 @@
-`inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) do Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)), Brazil.
+`inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from the Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)), Brazil.
 
 Instalation
 -----------
