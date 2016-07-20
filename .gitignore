@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-README.Rmd
-README.html
 inst/doc
+README.Rmd
+*.Rmd
+inmetr.Rproj
