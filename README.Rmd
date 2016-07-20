@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Instalation
 
-Installation of inmetr from GitHub is easy using the devtools package.
+Installation of `inmetr` from GitHub is easy using the `devtools` package.
 
 ```{r, comment="", eval = FALSE, message=FALSE, error=FALSE}
 library(devtools)
@@ -30,7 +30,7 @@ library(inmetr)
 
 ## Stations ID
 
-To search for meteorological station from INMET the user can use the `bdmep_stations()` function.
+To search for meteorological station from INMET we can use the `bdmep_stations()`.
 
 ```{r, comment=""}
 info <- bdmep_stations()
@@ -38,7 +38,7 @@ pander::pandoc.table(head(info))
 #str(info)
 ```
 
-This function will return all site names, state and OMM code. The OMM code is necessary to download data from a meteorological station.
+This function will return station names, the brazilian state and OMM code. OMM code is necessary to download data from a meteorological station.
 
 Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
@@ -49,6 +49,8 @@ code
 ```
 
 ## Import data
+
+Now we can get the data for Santa Maria city with the function `import_bdmep()`.
 
 ```{r, eval=FALSE, comment=""}
 sm <- import_bdmep(id = code, 
