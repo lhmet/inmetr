@@ -5,4 +5,5 @@
 inst/doc
 README.Rmd
 *.Rmd
+*.html
 inmetr.Rproj
