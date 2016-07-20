@@ -26,6 +26,7 @@ install_github('jdtatsch/inmetr')
 
 ```{r, comment="", message=FALSE}
 library(inmetr)
+library(dplyr)
 ```
 
 ## Stations ID
@@ -42,9 +43,9 @@ This function will return station names, the brazilian state and OMM code. OMM c
 
 Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
-```{r, comment=""}
-code <- filter(info, nome == "SANTA MARIA") 
-code <- select(id)[[1]]
+```{r, comment="", include=FALSE}
+code <- filter(info, name == "SANTA MARIA") 
+code <- select(code, id)[[1]]
 code
 ```
 
@@ -62,7 +63,7 @@ head(sm)
 
 
 ```{r, eval=TRUE, echo=FALSE, comment=""}
-sm <- import_bdmep(stn_id = code, 
+sm <- import_bdmep(id = code, 
                    email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
 pander::pandoc.table(head(sm))

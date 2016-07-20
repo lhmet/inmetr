@@ -1,101 +1,102 @@
-# inmetr
-
-
-
 `inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) do Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)), Brazil.
 
+Instalation
+-----------
 
+Installation of `inmetr` from GitHub is easy using the `devtools` package.
 
-## Instalation
-
-Installation of inmetr from GitHub is easy using the devtools package.
-
-
-```r
+``` r
 library(devtools)
 install_github('jdtatsch/inmetr')
 ```
 
-
-```r
+``` r
 library(inmetr)
 library(dplyr)
 ```
 
-## Station metadata
+Stations ID
+-----------
 
-To search for meteorological station from INMET the user can use the `bdmep_info()` function.
+To search for meteorological station from INMET we can use the `bdmep_stations()`.
 
-
-```r
-info <- bdmep_info()
-#head(info)
-str(info)
+``` r
+info <- bdmep_stations()
+pander::pandoc.table(head(info))
 ```
 
-```
-'data.frame':	265 obs. of  3 variables:
- $ nome      : chr  "ACARAU" "AGUA BRANCA" "AIMORES" "ALAGOINHAS" ...
- $ estado    : chr  "CE" "AL" "MG" "BA" ...
- $ codigo_omm: int  82294 82989 83595 83249 82353 82970 82590 83096 83442 83368 ...
+
+    ---------------------------
+        name       state   id  
+    ------------- ------- -----
+       ACARAU       CE    82294
+
+     AGUA BRANCA    AL    82989
+
+       AIMORES      MG    83595
+
+     ALAGOINHAS     BA    83249
+
+      ALTAMIRA      PA    82353
+
+    ALTO PARNAIBA   MA    82970
+    ---------------------------
+
+``` r
+#str(info)
 ```
 
-This function will return all site names, state and OMM code. The OMM code is necessary to download data from a meteorological station.
+This function will return station names, the brazilian state and OMM code. OMM code is necessary to download data from a meteorological station.
 
 Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
+Import data
+-----------
 
-```r
-code <- info %>% 
-   filter(nome == "SANTA MARIA") %>%
-   select(codigo_omm) %>%
-   t() %>% c()
-code
+Now we can get the data for Santa Maria city with the function `import_bdmep()`.
+
+``` r
+sm <- import_bdmep(id = code, 
+                   email = "seu-email",
+                   passwd = "sua-senha")
+head(sm)
+#str(sm)
 ```
 
-```
-[1] 83936
-```
-
-## Import data
+    Login sucessfull.
 
 
-```r
-sm <- import_bdmep(stn_id = code, 
-                   e_mail = "seu-email",
-                   passwd = "sua-senha",
-                   save_file = FALSE, 
-                   import = TRUE)
-#head(sm)
-str(sm)
-```
+    ------------------------------------------------------------------------------
+           date          site   prec   tar   tw   tmax   tmin   urx   patm   pnmm 
+    ------------------- ------ ------ ----- ---- ------ ------ ----- ------ ------
+        1961-01-01      83936    NA    NA    NA   31.9    NA    NA     NA     NA  
 
+    1961-01-01 12:00:00 83936    NA   23.9  21.4   NA    18.1   79   990.3    NA  
 
+    1961-01-01 18:00:00 83936    NA   30.6  25.1   NA     NA    63   988.2    NA  
 
-```
-## Login sucessfull.
-```
+        1961-01-02      83936    NA   27.7  24.4   34     NA    75   986.4    NA  
 
-```
-## 'data.frame':	52321 obs. of  18 variables:
-##  $ date : POSIXct, format: "1961-01-01 00:00:00" "1961-01-01 12:00:00" ...
-##  $ site : int  83936 83936 83936 83936 83936 83936 83936 83936 83936 83936 ...
-##  $ prec : num  NA NA NA NA 0 NA NA 0 NA NA ...
-##  $ tar  : num  NA 23.9 30.6 27.7 26.4 30.8 27.6 23.3 31.2 22.9 ...
-##  $ tw   : num  NA 21.4 25.1 24.4 23.8 25.2 24.6 19.9 23.6 19.4 ...
-##  $ tmax : num  31.9 NA NA 34 NA NA 31.6 NA NA 31.4 ...
-##  $ tmin : num  NA 18.1 NA NA 23.5 NA NA 20.1 NA NA ...
-##  $ urx  : num  NA 79 63 75 79 62 78 72 51 71 ...
-##  $ patm : num  NA 990 988 986 989 ...
-##  $ pnmm : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ wd   : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ wsx  : num  NA 0 3 0 0 1 1 3 5 7 ...
-##  $ n    : num  7.7 NA NA 6 NA NA 7.8 NA NA 9.2 ...
-##  $ cc   : num  NA 0 9 0 4 10 0 8 10 10 ...
-##  $ evap : num  1.1 NA NA 2.7 NA NA 2.6 NA NA 3.2 ...
-##  $ tcomp: num  25.9 NA NA 27.8 NA ...
-##  $ ur   : num  73 NA NA 74.2 NA ...
-##  $ ws   : num  1 NA NA 0.667 NA ...
-```
+    1961-01-02 12:00:00 83936    0    26.4  23.8   NA    23.5   79   989.4    NA  
 
+    1961-01-02 18:00:00 83936    NA   30.8  25.2   NA     NA    62    989     NA  
+    ------------------------------------------------------------------------------
 
+    Table: Table continues below
+
+     
+    -----------------------------------------------
+     wd   wsx   n   cc   evap   tcomp   ur     ws  
+    ---- ----- --- ---- ------ ------- ----- ------
+     NA   NA   7.7  NA   1.1    25.86   73     1   
+
+     NA    0   NA   0     NA     NA     NA     NA  
+
+     NA    3   NA   9     NA     NA     NA     NA  
+
+     NA    0    6   0    2.7    27.82  74.25 0.6667
+
+     NA    0   NA   4     NA     NA     NA     NA  
+
+     NA    1   NA   10    NA     NA     NA     NA  
+    -----------------------------------------------
