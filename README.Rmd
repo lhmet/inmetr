@@ -1,9 +1,10 @@
 ---
 title: "inmetr"
-output: 
-  html_document: 
-    keep_md: yes
+output:
+  md_document:
+    variant: markdown_github
 ---
+
 
 ```{r, include=FALSE}
 rm(list=ls())
@@ -33,8 +34,8 @@ To search for meteorological station from INMET the user can use the `bdmep_stat
 
 ```{r, comment=""}
 info <- bdmep_stations()
-#head(info)
-str(info)
+pander::pandoc.table(head(info))
+#str(info)
 ```
 
 This function will return all site names, state and OMM code. The OMM code is necessary to download data from a meteorological station.
@@ -53,8 +54,8 @@ code
 sm <- import_bdmep(id = code, 
                    email = "seu-email",
                    passwd = "sua-senha")
-#head(sm)
-str(sm)
+head(sm)
+#str(sm)
 ```
 
 
@@ -62,8 +63,8 @@ str(sm)
 sm <- import_bdmep(stn_id = code, 
                    email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
-#head(sm)
-str(sm)
+pander::pandoc.table(head(sm))
+#str(sm)
 ```
 
 
