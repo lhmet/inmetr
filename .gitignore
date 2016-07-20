@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 ^README\.Rmd$
+^README\.html$
 inst/doc
