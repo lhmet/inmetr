@@ -2,36 +2,22 @@
 % Please edit documentation in R/bdmep.R
 \name{bdmep_metadata}
 \alias{bdmep_metadata}
-\title{Get OMM code and other meta data on meteorological stations from INMET}
+\title{Get metadata on meteorological stations}
 \usage{
 bdmep_metadata()
 }
-\arguments{
-\item{none}{\url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.}
-}
 \value{
-A data frame is returned with meta data, including a
- \code{site} that can be supplied to
-\code{\link{import_bdmep}}, coordinates \code{lon}, \code{lat}, and
- \code{alt}.
+A data frame is returned with metadata, including the stations
+ \code{id}, and coordinates (\code{lon}, \code{lat}, \code{alt})
 }
 \description{
-Get information on meteorological stations
-}
-\details{
-This function is used to find the OMM code that can be
-used to import BDMEP data using \code{\link{import_bdmep}}.
+This function is used to fetch the coordinates on meteorological stations from INMET
+\url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
 }
 \examples{
 
-\dontrun{
-# this can take a while
-metadata <- bdmep_metadata()
-head(metadata, 15)
-#save(metadata, file = "data/metadata.rda")
-# plot locations
-with(metadata, plot(lon, lat, pch = 4))
-}
+info <- bdmep_metadata()
+head(info)
 }
 \author{
 Jonatan Tatsch

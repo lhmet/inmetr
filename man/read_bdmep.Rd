@@ -10,21 +10,15 @@ read_bdmep(x)
 \item{x}{a numeric vector with the meteorological station code}
 }
 \value{
-a data frame or a tibble with variables in columns and observations along rows
+a data frame with variables in columns and observations along rows
 }
 \description{
 Read and tidy data downloaded with \code{\link{import_bdmep}}
 }
 \details{
-A minimum quality control check is applied to the data. 
+A minimum quality control check is applied to the data
 This include: a chronological sequence check; filling missing dates with NA; 
-remove duplicated data; aggregate time information into a POSIX object.
-}
-\examples{
-sm <- import_bdmep(stn_id = 83936)
-str(sm)
-summary(sm)
-
+remove duplicated data; aggregate time information into a POSIX object
 }
 \author{
 Jonatan Tatsch

@@ -2,8 +2,7 @@
 % Please edit documentation in R/bdmep.R
 \name{bdmep_stations}
 \alias{bdmep_stations}
-\title{Get OMM code, state and station name on meteorological stations from INMET
-\url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}.}
+\title{Get basic information on meteorological station from INMET}
 \usage{
 bdmep_stations()
 }
@@ -12,19 +11,20 @@ a data frame is returned with
  \code{name}, \code{state}, \code{id}
 }
 \description{
-Get basic information on meteorological station from INMET
+Get OMM code, state and station name on meteorological stations from INMET
+\url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
 }
 \details{
-This function is used to find the OMM code that can be
-used to import BDMEP data using \code{\link{import_bdmep}}.
+This function is used to find the OMM station ID that can be
+used to import BDMEP data using \code{\link{import_bdmep}}
 }
 \examples{
 
 \dontrun{
 # tyr get information from inmet site
-stns_id <- bdmep_stations()
-head(stns_id, 15)
-#save(stns_id, file = "data/stns_id.rda")
+stns <- bdmep_stations()
+head(stns, 15)
+#save(stns, file = "data/stns.rda")
 }
 }
 \author{

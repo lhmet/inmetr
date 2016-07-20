@@ -2,42 +2,37 @@
 % Please edit documentation in R/bdmep.R
 \name{import_bdmep}
 \alias{import_bdmep}
-\title{Fetch data from BDMEP-INMET site}
+\title{Import data from BDMEP-INMET site}
 \usage{
-import_bdmep(stn_id = "83586", sdate = "01/01/1961",
-  edate = format(Sys.Date(), "\%d/\%m/\%Y"), e_mail = "your-email",
-  passwd = "your-password", import = TRUE, dest_file = paste0(stn_id,
-  ".txt"), save_file = FALSE)
+import_bdmep(id = "83586", sdate = "01/01/1961",
+  edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your-email",
+  passwd = "your-password")
 }
 \arguments{
-\item{stn_id}{a numeric vector with the meteorological station code}
+\item{id}{a numeric vector with the meteorological station code}
 
 \item{sdate}{start date in "d/m/Y" format}
 
 \item{edate}{end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}}
 
-\item{e_mail}{e-mail to access BDMEP dataset}
+\item{email}{e-mail to access BDMEP}
 
-\item{passwd}{password to have access to BDMEP dataset}
-
-\item{import}{logical, set TRUE to input data into R}
-
-\item{save_file}{logical, to save raw data file set TRUE}
+\item{passwd}{password to access BDMEP}
 }
 \value{
-a data frame or a tibble with variables in columns and observations along rows
+a data frame with variables in columns and observations along rows
 }
 \description{
-Download and/or import data from \url{http://www.inmet.gov.br/projetos/rede/pesquisa}.
+Import data from \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
 }
 \details{
-A minimum quality control check is applied to the data. 
+A minimum quality control check is applied to the data.
 This include: a chronological sequence check; filling missing dates with NA; 
-remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC.
+remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 }
 \examples{
 # download data for Santa Maria-RS 
-sm <- import_bdmep(stn_id = 83936, e_mail = "myemail", passwd = "mypassword")
+sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password")
 head(sm)
 summary(sm)
 
