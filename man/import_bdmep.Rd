@@ -13,7 +13,7 @@ import_bdmep(id = "83586", sdate = "01/01/1961",
 
 \item{sdate}{start date in "d/m/Y" format}
 
-\item{edate}{end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}}
+\item{edate}{end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}}
 
 \item{email}{e-mail to access BDMEP}
 
@@ -23,7 +23,7 @@ import_bdmep(id = "83586", sdate = "01/01/1961",
 a data frame with variables in columns and observations along rows
 }
 \description{
-Import data from \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
+Import data from BDMEP \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
 }
 \details{
 A minimum quality control check is applied to the data.
