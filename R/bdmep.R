@@ -104,7 +104,7 @@ read_bdmep <- function(x)
 
 ##' Import data from BDMEP-INMET site
 ##' 
-##' Import data from \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
+##' Import data from BDMEP \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
 ##' 
 ##' @importFrom stats setNames
 ##' @importFrom dplyr %>%
@@ -114,7 +114,7 @@ read_bdmep <- function(x)
 ##' 
 ##' @param id a numeric vector with the meteorological station code
 ##' @param sdate start date in "d/m/Y" format
-##' @param edate end date in "d/m/Y" format, default valueis \code{format(Sys.Date(), "\%d/\%m/\%Y")}
+##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param email e-mail to access BDMEP 
 ##' @param passwd password to access BDMEP
 ##' 
