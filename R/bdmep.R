@@ -303,9 +303,6 @@ bdmep_stations <- function(){
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
-##' 
-##' \dontrun{
-##' 
 ##' met_vars <- data_description()
 ##' met_vars
 ##' 

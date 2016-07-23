@@ -86,3 +86,8 @@ head(sm)
 pander::pandoc.table(head(sm))
 ```
 
+A description about the meteorological variables can be obtained with `data_description()`.
+
+```{r, eval=TRUE, echo=FALSE, comment=""}
+(met_vars <- data_description())
+```
