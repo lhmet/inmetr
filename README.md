@@ -116,3 +116,27 @@ arguments of function `import_bdmep()`.
 
      NA    1   NA   10    NA    NA     NA  
     ---------------------------------------
+
+A description about the meteorological variables can be obtained with
+`data_description()`.
+
+    (met_vars <- data_description())
+
+       varname                         description  unit
+    1     date           date and time information     -
+    2       id                          station ID     -
+    3     prec                       precipitation    mm
+    4     tair                     air temperature deg C
+    5       tw                wet bulb temperature deg C
+    6     tmax             maximum air temperature deg C
+    7     tmin             minimum air temperature deg C
+    8    urmax           maximum relative humidity     %
+    9     patm                atmospheric pressure   hPa
+    10    pnmm mean sea level atmospheric pressure   hPa
+    11      wd                      wind direction   deg
+    12   wsmax                           wind gust   m/s
+    13       n                      sunshine hours     h
+    14      cc                         cloud cover     -
+    15    evap                         evaporation    mm
+    16      ur                   relative humidity     %
+    17      ws                          wind speed   m/s
