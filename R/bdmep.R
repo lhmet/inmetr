@@ -1,4 +1,4 @@
-utils::globalVariables(c(".", "Data", "Hora", "codigo", "nome_estacao", "prec", "site", "ws"))
+utils::globalVariables(c(".", "Data", "Hora", "codigo", "nome_estacao", "prec", "site", "ws", "tcomp", "id"))
 
 ##' Read data downaloaded from BDMEP
 ##' 
@@ -85,11 +85,11 @@ read_bdmep <- function(x){
                              tz = "UTC"),
            Data = NULL,
            Hora = NULL,
-           site = codigo,
+           id = codigo,
            codigo = NULL) 
   # reorder columns
   bdmepd <- bdmepd %>% 
-    dplyr::select(date, site, prec:ws)
+    dplyr::select(date, id, prec:ws, -tcomp)
   
   # duplicated rows
     bdmepd <- dplyr::distinct(bdmepd)
@@ -252,7 +252,7 @@ bdmep_metadata <- function(){
 ##' @examples 
 ##' 
 ##' \dontrun{
-##' # tyr get information from inmet site
+##' # tyr get information from inmet web site
 ##' stns <- bdmep_stations()
 ##' head(stns, 15)
 ##' #save(stns, file = "data/stns.rda")
@@ -292,8 +292,75 @@ bdmep_stations <- function(){
 }
 
 
-  
-  
-  
-
-  
+##' Meteorological variables description
+##'
+##' This function describe the Meteorological variables imported with \code{\link{import_bdmep}}
+##' @description Get variable names, description and units
+##' @importFrom dplyr %>%
+##' @details Details about instruments see \url{http://www.inmet.gov.br/html/informacoes/sobre_meteorologia/instrumentos/}
+##' @return a data frame is returned with 
+##'  \code{varname}, \code{description}, \code{unit}
+##' @export
+##' @author Jonatan Tatsch
+##' @examples 
+##' 
+##' \dontrun{
+##' 
+##' met_vars <- data_description()
+##' met_vars
+##' 
+data_description<- function() {
+  data.frame(varname     = c("date", 
+                             "id", 
+                             "prec",  
+                             "tair", 
+                             "tw", 
+                             "tmax", 
+                             "tmin",  
+                             "urmax", 
+                             "patm", 
+                             "pnmm",  
+                              "wd",  
+                             "wsmax",    
+                             "n",   
+                             "cc", 
+                             "evap", 
+                             "ur",   
+                             "ws"),
+             description = c("date and time information",
+                             "station ID",
+                             "precipitation",
+                             "air temperature",
+                             "wet bulb temperature",
+                             "maximum air temperature",
+                             "minimum air temperature",
+                             "maximum relative humidity",
+                             "atmospheric pressure",
+                             "mean sea level atmospheric pressure",
+                             "wind direction",
+                             "wind gust",
+                             "sunshine hours",
+                             "cloud cover",
+                             "evaporation",
+                             "relative humidity",
+                             "wind speed"
+                             ),
+             unit        = c("-",
+                             "-",
+                             "mm",
+                             "deg C",
+                             "deg C",
+                             "deg C",
+                             "deg C",
+                             "%",
+                             "hPa",
+                             "hPa",
+                             "deg",
+                             "m/s",
+                             "h",
+                             "-",
+                             "mm",
+                             "%",
+                             "m/s"
+                             ))
+}
