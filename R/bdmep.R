@@ -1,24 +1,23 @@
 utils::globalVariables(c(".", "Data", "Hora", "codigo", "nome_estacao", "prec", "site", "ws"))
 
-##' Read BDMEP data file
+##' Read data downaloaded from BDMEP
 ##' 
 ##' Read and tidy data downloaded with \code{\link{import_bdmep}}
 ##' 
 ##' @importFrom utils read.csv2 head
+##' 
 ##' @details A minimum quality control check is applied to the data
 ##' This include: a chronological sequence check; filling missing dates with NA; 
-##' remove duplicated data; aggregate time information into a POSIX object
+##' remove duplicated data; aggregate time and date information into a POSIX object
 ##' 
 ##' @param x a numeric vector with the meteorological station code
 ##' 
 ##' @return a data frame with variables in columns and observations along rows
-##' @export
 ##' @author Jonatan Tatsch
 ##' 
-read_bdmep <- function(x)    
-{
+read_bdmep <- function(x){
   
-  # line with variables names
+  # find line with variables names
   rowheader <- x %>%
     # toUTF8()
     stringr::str_detect("Data;Hora;") %>%
@@ -26,7 +25,7 @@ read_bdmep <- function(x)
   # variable names
   h <- x[rowheader]
   
-  ## extract header and fix it
+  # extract header and fix it
   h_fix <- h %>%
     stringr::str_replace("VelocidadeVentoInsolacao;", "VelocidadeVento;Insolacao;") %>%
     stringr::str_split(";") %>%
@@ -102,13 +101,12 @@ read_bdmep <- function(x)
 
 
 
-##' Import data from BDMEP-INMET site
-##' 
-##' Import data from BDMEP \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
+##' Import data from Brazilian meteorological stations
+##' Import historical data from Brazilian meteorological stations available in the Meteorological Database for Education and Research \href{http://www.inmet.gov.br/projetos/rede/pesquisa}{BDMEP} of National Institute of Meteorology \href{http://www.inmet.gov.br}{INMET}
 ##' 
 ##' @importFrom stats setNames
 ##' @importFrom dplyr %>%
-##' @details A minimum quality control check is applied to the data.
+##' @details The data are in sub-daily time scale. A minimum data quality control is applied to the data.
 ##' This include: a chronological sequence check; filling missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
