@@ -2,8 +2,8 @@
 
 export(bdmep_metadata)
 export(bdmep_stations)
+export(data_description)
 export(import_bdmep)
-export(read_bdmep)
 importFrom(dplyr,"%>%")
 importFrom(stats,setNames)
 importFrom(utils,head)
