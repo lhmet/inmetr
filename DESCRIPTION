@@ -1,13 +1,13 @@
 Package: inmetr
-Title: Import meteorological data from Brazilian meteorological Stations
+Title: Import historical data from Brazilian meteorological stations 
 Version: 0.0.0.9000
 Authors@R: person("Jonatan", "Tatsch", email = "jdtatsch@gmail.com", role = c("aut", "cre"))
-Description: Import meteorological data measured by weather stations
-    (conventional and automatic) from Instituto Nacional de Meteorologia (INMET),
+Description: Import hystorical data measured by meteorological stations
+    from Instituto Nacional de Meteorologia (INMET),
     Brazil.
 Depends:
     R (>= 3.2.4)
-License: GPL-3
+License: GPL 3
 LazyData: true
 Imports:
     dplyr,
@@ -24,4 +24,3 @@ Imports:
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown
-VignetteBuilder: knitr
