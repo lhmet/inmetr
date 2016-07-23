@@ -21,7 +21,7 @@ used to import BDMEP data using \code{\link{import_bdmep}}
 \examples{
 
 \dontrun{
-# tyr get information from inmet site
+# tyr get information from inmet web site
 stns <- bdmep_stations()
 head(stns, 15)
 #save(stns, file = "data/stns.rda")

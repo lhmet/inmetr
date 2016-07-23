@@ -2,7 +2,8 @@
 % Please edit documentation in R/bdmep.R
 \name{import_bdmep}
 \alias{import_bdmep}
-\title{Import data from BDMEP-INMET site}
+\title{Import data from Brazilian meteorological stations
+Import historical data from Brazilian meteorological stations available in the Meteorological Database for Education and Research \href{http://www.inmet.gov.br/projetos/rede/pesquisa}{BDMEP} of National Institute of Meteorology \href{http://www.inmet.gov.br}{INMET}}
 \usage{
 import_bdmep(id = "83586", sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your-email",
@@ -23,10 +24,11 @@ import_bdmep(id = "83586", sdate = "01/01/1961",
 a data frame with variables in columns and observations along rows
 }
 \description{
-Import data from BDMEP \url{http://www.inmet.gov.br/projetos/rede/pesquisa}
+Import data from Brazilian meteorological stations
+Import historical data from Brazilian meteorological stations available in the Meteorological Database for Education and Research \href{http://www.inmet.gov.br/projetos/rede/pesquisa}{BDMEP} of National Institute of Meteorology \href{http://www.inmet.gov.br}{INMET}
 }
 \details{
-A minimum quality control check is applied to the data.
+The data are in sub-daily time scale. A minimum data quality control is applied to the data.
 This include: a chronological sequence check; filling missing dates with NA; 
 remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/bdmep.R
 \name{read_bdmep}
 \alias{read_bdmep}
-\title{Read BDMEP data file}
+\title{Read data downaloaded from BDMEP}
 \usage{
 read_bdmep(x)
 }
@@ -18,7 +18,7 @@ Read and tidy data downloaded with \code{\link{import_bdmep}}
 \details{
 A minimum quality control check is applied to the data
 This include: a chronological sequence check; filling missing dates with NA; 
-remove duplicated data; aggregate time information into a POSIX object
+remove duplicated data; aggregate time and date information into a POSIX object
 }
 \author{
 Jonatan Tatsch
