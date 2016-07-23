@@ -209,7 +209,6 @@ bdmep_metadata <- function(){
   
   txt1 <- 
     txt %>%
-    #stringr::str_subset("Código OMM") %>%
     #stringr::str_subset("C.*digo OMM") %>%
     stringi::stri_trans_general("latin-ascii") %>%
     stringr::str_subset("Codigo OMM") %>%
