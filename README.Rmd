@@ -9,7 +9,7 @@ rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-`inmetr` provide access to the "Banco de Dados Meteorológicos para Ensino e Pesquisa" ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from the Instituto Nacional de Meteorologia ([INMET](http://www.inmet.gov.br)), Brazil.
+`inmetr` provide access to historical data measured by meteorological stations available in the Meteorological Database for Education and Research ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from  National Institute of Meteorology (Instituto Nacional de Meteorologia - [INMET](http://www.inmet.gov.br)), Brazil.
 
 
 
@@ -45,24 +45,26 @@ pander::pandoc.table(head(info))
 
 
 
-This function will return station names, the brazilian state and OMM code. OMM code is necessary to download data from a meteorological station.
+This function will return a data frame with station names, the brazilian state and OMM code. OMM code is necessary to download data from a meteorological station with `import_data()`.
 
 Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
 ```{r, comment=""}
-code <- filter(info, name == "SANTA MARIA") 
+code <- filter(info, name == "SANTA MARIA")
 code <- select(code, id)[[1]]
 code
 ```
 
 ## Import data
 
-Now we can get the data for Santa Maria city with the function `import_bdmep()`.
+Now we can get the data for Santa Maria city, from 1961 to current day. These are default values for `sdate`(start date) and `edate` (end date) arguments of function `import_bdmep()`.
 
 ```{r, eval=FALSE, comment=""}
 sm <- import_bdmep(id = code, 
-                   email = "seu-email",
-                   passwd = "sua-senha")
+                   email = "your-email",
+                   passwd = "your-password")
+# default values
+args(import_bdmep)
 ```
 
 
@@ -70,6 +72,8 @@ sm <- import_bdmep(id = code,
 sm <- import_bdmep(id = code, 
                    email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
+# default values
+args(import_bdmep)
 ```
 
 ```{r, eval=FALSE, echo=TRUE, comment=""}
