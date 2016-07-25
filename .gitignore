@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 inst/doc
+vignettes
 README.Rmd
 *.Rmd
 *.html
