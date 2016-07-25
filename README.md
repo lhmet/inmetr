@@ -54,8 +54,8 @@ Here we want to know the [OMM
 code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf)
 for the meterological station at Santa Maria in Rio Grande do Sul state.
 
-    code <- filter(info, name == "SANTA MARIA")
-    code <- select(code, id)[[1]]
+    code <- subset(info, name == "SANTA MARIA")
+    code <- subset(code, select = id)[[1]]
     code
 
     [1] 83936
@@ -63,16 +63,20 @@ for the meterological station at Santa Maria in Rio Grande do Sul state.
 Import data
 -----------
 
-Now we can get the data for Santa Maria city, from 1961 to current day.
-These are default values for `sdate`(start date) and `edate` (end date)
-arguments of function `import_bdmep()`.
+Now we can get the data for Santa Maria city, from 1961 to the current
+day.
 
-    sm <- import_bdmep(id = code, 
+    start_date <- "01/01/1961"
+    end_date <- format(Sys.Date(), "%d/%m/%Y")
+    sm <- import_bdmep(id = code,
+                       sdate = start_date, 
+                       edate = end_date, 
                        email = "your-email",
                        passwd = "your-password")
 
     Login sucessfull.
 
+    # check de start date
     head(sm)
 
 
@@ -111,6 +115,7 @@ arguments of function `import_bdmep()`.
      NA     1    NA   10    NA    NA     NA  
     -----------------------------------------
 
+    # check de end date
     tail(sm)
 
 

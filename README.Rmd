@@ -52,29 +52,38 @@ This function will return a data frame with station names, the brazilian state a
 Here we want to know the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
 ```{r, comment=""}
-code <- filter(info, name == "SANTA MARIA")
-code <- select(code, id)[[1]]
+code <- subset(info, name == "SANTA MARIA")
+code <- subset(code, select = id)[[1]]
 code
 ```
 
 ## Import data
 
-Now we can get the data for Santa Maria city, from 1961 to current day. These are default values for `sdate`(start date) and `edate` (end date) arguments of function `import_bdmep()`.
+Now we can get the data for Santa Maria city, from 1961 to the current day.
 
 ```{r, eval=FALSE, comment=""}
-sm <- import_bdmep(id = code, 
+start_date <- "01/01/1961"
+end_date <- format(Sys.Date(), "%d/%m/%Y")
+sm <- import_bdmep(id = code,
+                   sdate = start_date, 
+                   edate = end_date, 
                    email = "your-email",
                    passwd = "your-password")
 ```
 
 
 ```{r, eval=TRUE, echo=FALSE, comment=""}
+start_date <- "01/01/1961"
+end_date <- format(Sys.Date(), "%d/%m/%Y")
 sm <- import_bdmep(id = code, 
+                   sdate = start_date, 
+                   edate = end_date,                   
                    email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
 ```
 
 ```{r, eval=FALSE, echo=TRUE, comment=""}
+# check de start date
 head(sm)
 ```
 
@@ -83,6 +92,7 @@ pander::pandoc.table(head(sm))
 ```
 
 ```{r, eval=FALSE, echo=TRUE, comment=""}
+# check de end date
 tail(sm)
 ```
 
