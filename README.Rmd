@@ -26,7 +26,6 @@ install_github('jdtatsch/inmetr')
 
 ```{r, comment="", message=FALSE}
 library(inmetr)
-library(dplyr)
 ```
 
 ## Stations ID
