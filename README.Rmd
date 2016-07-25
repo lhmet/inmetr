@@ -65,8 +65,6 @@ Now we can get the data for Santa Maria city, from 1961 to current day. These ar
 sm <- import_bdmep(id = code, 
                    email = "your-email",
                    passwd = "your-password")
-# default values
-args(import_bdmep)
 ```
 
 
@@ -74,8 +72,6 @@ args(import_bdmep)
 sm <- import_bdmep(id = code, 
                    email = "jdtatsch@gmail.com",
                    passwd = "d17ulev5")
-# default values
-args(import_bdmep)
 ```
 
 ```{r, eval=FALSE, echo=TRUE, comment=""}
@@ -85,6 +81,15 @@ head(sm)
 ```{r, eval=TRUE, echo=FALSE, comment=""}
 pander::pandoc.table(head(sm))
 ```
+
+```{r, eval=FALSE, echo=TRUE, comment=""}
+tail(sm)
+```
+
+```{r, eval=TRUE, echo=FALSE, comment=""}
+pander::pandoc.table(tail(sm))
+```
+
 
 A description about the meteorological variables can be obtained with `data_description()`.
 
