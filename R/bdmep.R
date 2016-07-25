@@ -158,7 +158,7 @@ import_bdmep <- function(id = "83586" ,
   l <- l %>% purrr::update_list(mCod = email, mSenha = passwd)
   # r <- httr::POST(link, body = l, encode = "form", verbose())
   r <- httr::POST(link, body = l, encode = "form")
-  if(httr::status_code(r) == 200) cat("Login sucessfull.")
+  if(httr::status_code(r) == 200) message("Login sucessfull.")
   # visualize(r)
   gc()
   
