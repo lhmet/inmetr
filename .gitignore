@@ -3,8 +3,5 @@
 .RData
 .Ruserdata
 inst/doc
-vignettes
 README.Rmd
-*.Rmd
-*.html
 inmetr.Rproj
