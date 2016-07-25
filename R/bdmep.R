@@ -40,8 +40,8 @@ read_bdmep <- function(x){
   
   ## replace original vnames by the new ones
   new_vnames <- c("codigo", "Data","Hora",
-                  "prec", "tar", "tw", "tmax", "tmin", "urx", 
-                  "patm", "pnmm", "wd", "wsx", "n", "cc", "evap", "tcomp", "ur", "ws")
+                  "prec", "tair", "tw", "tmax", "tmin", "urmax", 
+                  "patm", "pnmm", "wd", "wsmax", "n", "cc", "evap", "tcomp", "ur", "ws")
   vnames <-  doBy::recodeVar(as.character(h_fix),
                              src = as.list(as.character(h_fix)), 
                              tgt = as.list(new_vnames))
