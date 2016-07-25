@@ -17,7 +17,6 @@ package.
     install_github('jdtatsch/inmetr')
 
     library(inmetr)
-    library(dplyr)
 
 Stations ID
 -----------
