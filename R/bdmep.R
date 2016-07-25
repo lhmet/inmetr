@@ -20,7 +20,7 @@ read_bdmep <- function(x){
   # find line with variables names
   rowheader <- x %>%
     # toUTF8()
-    stringr::str_detect("data;hora;") %>%
+    stringr::str_detect("Data;Hora;") %>%
     which() 
   # variable names
   h <- x[rowheader]
