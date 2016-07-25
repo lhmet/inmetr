@@ -1,4 +1,4 @@
-utils::globalVariables(c(".", "Data", "Hora", "codigo", "nome_estacao", "prec", "site", "ws", "tcomp", "id"))
+utils::globalVariables(c(".", "data", "hora", "codigo", "nome_estacao", "prec", "site", "ws", "tcomp", "id"))
 
 ##' Read data downaloaded from BDMEP
 ##' 
@@ -20,7 +20,7 @@ read_bdmep <- function(x){
   # find line with variables names
   rowheader <- x %>%
     # toUTF8()
-    stringr::str_detect("Data;Hora;") %>%
+    stringr::str_detect("data;hora;") %>%
     which() 
   # variable names
   h <- x[rowheader]
@@ -39,7 +39,7 @@ read_bdmep <- function(x){
   h_fix <- h_fix[to_discard]
   
   ## replace original vnames by the new ones
-  new_vnames <- c("codigo", "Data","Hora",
+  new_vnames <- c("codigo", "data","hora",
                   "prec", "tair", "tw", "tmax", "tmin", "urmax", 
                   "patm", "pnmm", "wd", "wsmax", "n", "cc", "evap", "tcomp", "ur", "ws")
   vnames <-  doBy::recodeVar(as.character(h_fix),
@@ -69,22 +69,22 @@ read_bdmep <- function(x){
   #bdmepd_bck <- bdmepd
   
   # coercion to numeric due to na.strings = "" 
-  sel_vars <- names(bdmepd)[!names(bdmepd) %in% c("codigo","Data", "Hora")]
+  sel_vars <- names(bdmepd)[!names(bdmepd) %in% c("codigo","data", "hora")]
   bdmepd <- bdmepd %>%
     dplyr::mutate_each_(dplyr::funs(as.numeric), sel_vars)
   
   ## date conversion
   bdmepd <- bdmepd %>%
-    dplyr::mutate(Hora = doBy::recodeVar(as.character(Hora),
+    dplyr::mutate(hora = doBy::recodeVar(as.character(hora),
                                   src = as.list(c("1800","0","1200")), 
                                   tgt = as.list(c("18:00","00:00","12:00"))),
-           date = as.POSIXct(paste(as.Date(Data,
+           date = as.POSIXct(paste(as.Date(data,
                                            format="%d/%m/%Y"),
-                                   Hora,
+                                   hora,
                                    sep = " "), 
                              tz = "UTC"),
-           Data = NULL,
-           Hora = NULL,
+           data = NULL,
+           hora = NULL,
            id = codigo,
            codigo = NULL) 
   # reorder columns
