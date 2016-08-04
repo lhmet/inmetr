@@ -188,8 +188,9 @@ To cite this software
 
     To cite package 'inmetr' in publications use:
 
-      Tatsch, J.D.,(2016). inmetr: A Package to Import Historical Data
-      from Brazilian Meteorological Stations. R package version 0.0.1.
+      Tatsch, J.D. 2016. inmetr: A Package to Import Historical Data
+      from Brazilian Meteorological Stations. Universidade Federal de
+      Santa Maria (UFSM), Santa Maria-RS, Brazil.
 
     A BibTeX entry for LaTeX users is
 
