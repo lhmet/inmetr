@@ -16,6 +16,8 @@ package.
     library(devtools)
     install_github('jdtatsch/inmetr')
 
+Load the package
+
     library(inmetr)
 
 Stations ID
@@ -45,11 +47,12 @@ To search for meteorological station from INMET we can use the
     ALTO PARNAIBA   MA    82970
     ---------------------------
 
-This function will return a data frame with station names, the brazilian
-state and OMM code. OMM code is necessary to download data from a
-meteorological station with `import_data()`.
+This function return a data frame with station names, the brazilian
+state and OMM code. OMM code is a necessary argument to `import_data()`
+function. This function download and tidy data from a meteorological
+station.
 
-Here we want to know the [OMM
+Here, we show how to find the [OMM
 code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf)
 for the meterological station at Santa Maria in Rio Grande do Sul state.
 
@@ -156,7 +159,7 @@ day.
 A description about the meteorological variables can be obtained with
 `data_description()`.
 
-    (met_vars <- data_description())
+    data_description()
 
        varname                         description  unit
     1     date           date and time information     -
