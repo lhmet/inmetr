@@ -179,3 +179,27 @@ A description about the meteorological variables can be obtained with
     15    evap                         evaporation    mm
     16      ur                   relative humidity     %
     17      ws                          wind speed   m/s
+
+To cite this software
+---------------------
+
+    citation("inmetr")
+
+
+    To cite package 'inmetr' in publications use:
+
+      Tatsch, J.D.,(2016). inmetr: A Package to Import Historical Data
+      from Brazilian Meteorological Stations. R package version 0.0.1.
+
+    A BibTeX entry for LaTeX users is
+
+      @Manual{,
+        title = {inmetr: A Package to Import Historical Data from Brazilian Meteorological
+    Stations},
+        author = {Jonatan Tatsch},
+        year = {2016},
+        note = {R package version 0.0.1},
+        institution = {Universidade Federal de Santa Maria-UFSM},
+        url = {https://github.com/jdtatsch/inmetr},
+        address = {Santa Maria-RS, Brazil},
+      }

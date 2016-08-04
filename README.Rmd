@@ -107,3 +107,10 @@ A description about the meteorological variables can be obtained with `data_desc
 ```{r, eval=TRUE, echo=TRUE, comment=""}
 data_description()
 ```
+
+## To cite this software
+
+
+```{r, eval=TRUE, echo=TRUE, comment=""}
+citation("inmetr")
+```
