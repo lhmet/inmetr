@@ -6,11 +6,7 @@ vers <- paste("R package version", meta$Version)
 citEntry(entry="Manual",
          title = "inmetr: A Package to Import Historical Data from Brazilian Meteorological
 Stations",
-         author = personList(as.person("Jose Pinheiro"),
-                             as.person("Douglas Bates"),
-                             as.person("Saikat DebRoy"),
-                             as.person("Deepayan Sarkar"),
-                             person("R Core Team")),
+         author = personList(as.person("Jonatan Tatsch")),
          year = year,
          note = vers,
 
@@ -22,6 +18,5 @@ Stations",
                sep=""),
          institution = "Universidade Federal de Santa Maria-UFSM",
          url = "https://github.com/jdtatsch/inmetr",
-         address = "Santa Maria-RS, Brazil",
-         school = "Laboratório de Hidrometeorologia")
+         address = "Santa Maria-RS, Brazil")
          
