@@ -11,11 +11,12 @@ Stations",
          note = vers,
 
          textVersion =
-         paste("Tatsch, J.D.,(",
+         paste0("Tatsch, J.D. ",
                year,
-               "). inmetr: A Package to Import Historical Data from Brazilian Meteorological Stations. ",
-               vers, ".", 
-               sep=""),
+               ". inmetr: A Package to Import Historical Data from Brazilian Meteorological Stations. ",
+               "Universidade Federal de Santa Maria (UFSM), Santa Maria-RS, Brazil."
+               
+               ),
          institution = "Universidade Federal de Santa Maria-UFSM",
          url = "https://github.com/jdtatsch/inmetr",
          address = "Santa Maria-RS, Brazil")
