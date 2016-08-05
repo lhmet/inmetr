@@ -194,8 +194,8 @@ To cite this software
     To cite package 'inmetr' in publications use:
 
       Tatsch, J.D. 2016. inmetr: A Package to Import Historical Data
-      from Brazilian Meteorological Stations. Universidade Federal de
-      Santa Maria (UFSM), Santa Maria-RS, Brazil.
+      from Brazilian Meteorological Stations. Zenodo,
+      doi:10.5281/zenodo.59652.
 
     A BibTeX entry for LaTeX users is
 
@@ -205,6 +205,7 @@ To cite this software
         author = {Jonatan Tatsch},
         year = {2016},
         note = {R package version 0.0.1},
+        doi = {http://doi.org/10.5281/ZENODO.59652 },
         institution = {Universidade Federal de Santa Maria-UFSM},
         url = {https://github.com/jdtatsch/inmetr},
         address = {Santa Maria-RS, Brazil},
