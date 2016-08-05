@@ -1,20 +1,21 @@
 citHeader("To cite package 'inmetr' in publications use:")
 
-year <- 2016
+year <- as.integer(format(Sys.Date(), "%Y"))
 vers <- paste("R package version", meta$Version)
 
-citEntry(entry="Manual",
+citEntry(entry = "Manual",
          title = "inmetr: A Package to Import Historical Data from Brazilian Meteorological
 Stations",
          author = personList(as.person("Jonatan Tatsch")),
          year = year,
          note = vers,
+         doi = "http://doi.org/10.5281/ZENODO.59652 ",
 
          textVersion =
          paste0("Tatsch, J.D. ",
                year,
                ". inmetr: A Package to Import Historical Data from Brazilian Meteorological Stations. ",
-               "Universidade Federal de Santa Maria (UFSM), Santa Maria-RS, Brazil."
+               "Zenodo, doi:10.5281/zenodo.59652."
                
                ),
          institution = "Universidade Federal de Santa Maria-UFSM",
