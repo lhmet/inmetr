@@ -12,7 +12,7 @@ Research ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from
 National Institute of Meteorology (Instituto Nacional de Meteorologia -
 [INMET](http://www.inmet.gov.br)), Brazil.
 
-Instalation
+Installation
 -----------
 
 Installation of `inmetr` from GitHub is easy using the `devtools`
