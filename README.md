@@ -2,6 +2,7 @@ inmetr: A R-package to Import Historical Data from Brazilian Meteorological Stat
 ====================================================================================
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652)
+[![Version](https://img.shields.io/badge/Version-0.4.4-orange.svg)](https://img.shields.io/badge/Version-0.4.4-orange.svg)
 
 Overview
 --------
