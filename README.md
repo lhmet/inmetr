@@ -1,92 +1,89 @@
+inmetr
+================
+
 inmetr: A R-package to Import Historical Data from Brazilian Meteorological Stations
 ====================================================================================
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652)
-[![Version](https://img.shields.io/badge/Version-0.0.1-orange.svg)](https://img.shields.io/badge/Version-0.0.1-orange.svg)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.1-orange.svg)](https://img.shields.io/badge/Version-0.0.1-orange.svg)
 
 Overview
 --------
 
-`inmetr` provide access to historical data measured by meteorological
-stations available in the Meteorological Database for Education and
-Research ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from
-National Institute of Meteorology (Instituto Nacional de Meteorologia -
-[INMET](http://www.inmet.gov.br)), Brazil.
+`inmetr` provide access to historical data measured by meteorological stations available in the Meteorological Database for Education and Research ([BDMEP](http://www.inmet.gov.br/projetos/rede/pesquisa/)) from National Institute of Meteorology (Instituto Nacional de Meteorologia - [INMET](http://www.inmet.gov.br)), Brazil.
 
 Installation
 ------------
 
-Installation of `inmetr` from GitHub is easy using the `devtools`
-package.
+Installation of `inmetr` from GitHub is easy using the `devtools` package.
 
-    library(devtools)
+``` r
+library(devtools)
+```
 
-    install_github('jdtatsch/inmetr')
+``` r
+install_github('jdtatsch/inmetr')
+```
 
 Load package
 
-    library(inmetr)
+``` r
+library(inmetr)
+```
 
 Stations ID
 -----------
 
-To search for some meteorological station from INMET we can use the
-`bdmep_stations()` function.
+To search for some meteorological station from INMET we can use the `bdmep_stations()` function.
 
-    info <- bdmep_stations()
+``` r
+info <- bdmep_stations()
+```
 
-    head(info)
+``` r
+head(info)
+```
 
+               name state    id
+    1        ACARAU    CE 82294
+    2   AGUA BRANCA    AL 82989
+    3       AIMORES    MG 83595
+    4    ALAGOINHAS    BA 83249
+    5      ALTAMIRA    PA 82353
+    6 ALTO PARNAIBA    MA 82970
 
-    ---------------------------
-        name       state   id  
-    ------------- ------- -----
-       ACARAU       CE    82294
+This function return a data frame with station names, the brazilian state and OMM code. OMM code is a necessary argument to `import_data()` function. This function download and tidy data from a meteorological station.
 
-     AGUA BRANCA    AL    82989
+Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
 
-       AIMORES      MG    83595
-
-     ALAGOINHAS     BA    83249
-
-      ALTAMIRA      PA    82353
-
-    ALTO PARNAIBA   MA    82970
-    ---------------------------
-
-This function return a data frame with station names, the brazilian
-state and OMM code. OMM code is a necessary argument to `import_data()`
-function. This function download and tidy data from a meteorological
-station.
-
-Here, we show how to find the [OMM
-code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf)
-for the meterological station at Santa Maria in Rio Grande do Sul state.
-
-    code <- subset(info, name == "SANTA MARIA")
-    code <- subset(code, select = id)[[1]]
-    code
+``` r
+code <- subset(info, name == "SANTA MARIA")
+code <- subset(code, select = id)[[1]]
+code
+```
 
     [1] 83936
 
 Import data
 -----------
 
-Now we can get the data for Santa Maria city, from 1961 to the current
-day.
+Now we can get the data for Santa Maria city, from 1961 to the current day.
 
-    start_date <- "01/01/1961"
-    end_date <- format(Sys.Date(), "%d/%m/%Y")
-    sm <- import_bdmep(id = code,
-                       sdate = start_date, 
-                       edate = end_date, 
-                       email = "your-email",
-                       passwd = "your-password")
+``` r
+start_date <- "01/01/1961"
+end_date <- format(Sys.Date(), "%d/%m/%Y")
+sm <- import_bdmep(id = code,
+                   sdate = start_date, 
+                   edate = end_date, 
+                   email = "your-email",
+                   passwd = "your-password")
+```
 
     Login sucessfull.
 
-    # check de start date
-    head(sm)
+``` r
+# check de start date
+head(sm)
+```
 
                      date    id prec tair   tw tmax tmin urmax  patm pnmm wd
     1 1961-01-01 00:00:00 83936   NA   NA   NA 31.9   NA    NA    NA   NA NA
@@ -103,8 +100,10 @@ day.
     5     0  NA  4   NA    NA       NA
     6     1  NA 10   NA    NA       NA
 
-    # check de end date
-    tail(sm)
+``` r
+# check de end date
+tail(sm)
+```
 
                          date    id prec tair tw tmax tmin urmax   patm   pnmm
     52316 2016-07-09 12:00:00 83936 12.8 11.4 NA   NA 11.4   100 1007.0 1019.6
@@ -121,10 +120,11 @@ day.
     52320 14 2.05776 NA 10.0   NA NA      NA
     52321 14 1.54332 NA  7.5   NA NA      NA
 
-A description about the meteorological variables can be obtained with
-`data_description()`.
+A description about the meteorological variables can be obtained with `data_description()`.
 
-    data_description()
+``` r
+data_description()
+```
 
        varname                         description  unit
     1     date           date and time information     -
@@ -145,45 +145,58 @@ A description about the meteorological variables can be obtained with
     16      ur                   relative humidity     %
     17      ws                          wind speed   m/s
 
-To download and write data from multiple stations to files, we can do a
-looping in stations id.
+To download and write data from multiple stations to files, we can do a looping in stations id.
 
-    # looping for 3 stations
-    nstns <- 3
-    stn_files <- sapply(info$id[1:nstns],
-                        function(i){
-                          # i = 82294  
-                          Sys.sleep(sample(5:15, 1))
-                          x <- import_bdmep(id = i,
-                                            sdate = "01/01/1961", 
-                                            edate = "29/08/2016", 
-                                            email = "your-email",
-                                            passwd = "your-password")
-                          # write data to a csv file (named id.csv) in the work directory 
-                          ofname <- paste0(i, ".csv")
-                          write.csv(x, file = ofname)
-                          # check if files were downloaded
-                          if(file.exists(ofname)){
-                            out <- ofname
-                          } else {
-                            out <- "NA"
-                          }# end if
-                          return(out)
-                        }# end function
-    )# end lapply
+``` r
+# first 3 stations of info table
+nstns <- 3
+stns_ids <- info$id[1:nstns] 
+stns_ids
+```
+
+    ## [1] 82294 82989 83595
+
+``` r
+# looping on stations id
+stn_files <- sapply(stns_ids,
+                    function(i){
+                      # i = 82294  
+                      Sys.sleep(sample(5:15, 1))
+                      x <- import_bdmep(id = i,
+                                        sdate = "01/01/1961", 
+                                        edate = "29/08/2016", 
+                                        email = "your-email",
+                                        passwd = "your-password")
+                      # write data to a csv file (named "id.csv") in the work directory 
+                      ofname <- paste0(i, ".csv")
+                      write.csv(x, file = ofname)
+                      # check if files were downloaded
+                      if(file.exists(ofname)){
+                        out <- ofname
+                      } else {
+                        out <- "NA"
+                      }# end if
+                      return(out)
+                    }# end function
+)# end sapply
+```
 
     ## Login sucessfull.
     ## Login sucessfull.
     ## Login sucessfull.
 
-    stn_files
+``` r
+stn_files
+```
 
     ## [1] "82294.csv" "82989.csv" "83595.csv"
 
 To cite this software
 ---------------------
 
-    citation("inmetr")
+``` r
+citation("inmetr")
+```
 
 
     To cite package 'inmetr' in publications use:
