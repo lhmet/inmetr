@@ -71,18 +71,19 @@ Now we can get the data for Santa Maria city, from 1961 to the current day.
 ``` r
 start_date <- "01/01/1961"
 end_date <- format(Sys.Date(), "%d/%m/%Y")
-sm <- import_bdmep(id = code,
-                   sdate = start_date, 
-                   edate = end_date, 
-                   email = "your-email",
-                   passwd = "your-password")
+met_data <- import_bdmep(id = code,
+                         sdate = start_date, 
+                         edate = end_date, 
+                         email = "your-email",
+                         passwd = "your-password",
+                         verbose = TRUE)
 ```
 
     Login sucessfull.
 
 ``` r
 # check de start date
-head(sm)
+head(met_data)
 ```
 
                      date    id prec tair   tw tmax tmin urmax  patm pnmm wd
@@ -102,23 +103,23 @@ head(sm)
 
 ``` r
 # check de end date
-tail(sm)
+tail(met_data)
 ```
 
-                         date    id prec tair tw tmax tmin urmax   patm   pnmm
-    52316 2016-07-09 12:00:00 83936 12.8 11.4 NA   NA 11.4   100 1007.0 1019.6
-    52317 2016-07-09 18:00:00 83936   NA 13.8 NA   NA   NA    84 1001.8 1014.3
-    52318 2016-07-10 00:00:00 83936   NA 12.0 NA 14.6   NA    98 1002.8 1015.4
-    52319 2016-07-10 12:00:00 83936  6.3 11.0 NA   NA  9.6   100 1003.1 1015.7
-    52320 2016-07-10 18:00:00 83936   NA 14.4 NA   NA   NA    94 1000.2 1012.7
-    52321 2016-07-11 00:00:00 83936   NA 14.0 NA   NA   NA    95 1000.3 1012.8
-          wd   wsmax  n   cc evap ur      ws
-    52316 14 1.54332 NA 10.0   NA NA      NA
-    52317 14 1.02888 NA 10.0   NA NA      NA
-    52318 14 1.54332  0  0.0   NA 96 1.37184
-    52319 14 0.51444 NA   NA   NA NA      NA
-    52320 14 2.05776 NA 10.0   NA NA      NA
-    52321 14 1.54332 NA  7.5   NA NA      NA
+                         date    id prec tair tw tmax tmin urmax  patm   pnmm
+    52837 2016-12-30 00:00:00 83936   NA 24.0 NA 33.4   NA    95 998.4 1010.4
+    52838 2016-12-30 12:00:00 83936 10.2 24.6 NA   NA 22.8    93 999.6 1011.6
+    52839 2016-12-30 18:00:00 83936   NA 31.6 NA   NA   NA    71 995.9 1007.7
+    52840 2016-12-31 00:00:00 83936   NA 25.2 NA 31.4   NA    90 996.8 1008.7
+    52841 2016-12-31 12:00:00 83936  2.1 26.4 NA   NA 24.2    78 997.9 1009.8
+    52842 2016-12-31 18:00:00 83936   NA 29.8 NA   NA   NA    70 995.2 1007.0
+          wd   wsmax   n    cc evap ur      ws
+    52837 14 2.05776 7.4  7.50   NA 86 2.22924
+    52838 14 1.54332  NA  8.75   NA NA      NA
+    52839 18 3.08664  NA  7.50   NA NA      NA
+    52840 14 2.05776 5.5 10.00   NA 74 3.08664
+    52841 36 2.57220  NA 10.00   NA NA      NA
+    52842 36 2.57220  NA  7.50   NA NA      NA
 
 A description about the meteorological variables can be obtained with `data_description()`.
 
@@ -148,13 +149,22 @@ data_description()
 To download and write data from multiple stations to files, we can do a looping in stations id.
 
 ``` r
-# first 3 stations of info table
-nstns <- 3
-stns_ids <- info$id[1:nstns] 
+stations <- c("SAO PAULO", "RIO DE JANEIRO", "PORTO ALEGRE")
+stations_rows <- pmatch(stations, info$name)
+info[stations_rows, ]
+```
+
+    ##                          name state    id
+    ## 233 SAO PAULO(MIR.de SANTANA)    SP 83781
+    ## 212            RIO DE JANEIRO    RJ 83743
+    ## 199              PORTO ALEGRE    RS 83967
+
+``` r
+stns_ids <- info[stations_rows, "id"] 
 stns_ids
 ```
 
-    ## [1] 82294 82989 83595
+    ## [1] 83781 83743 83967
 
 ``` r
 # looping on stations id
@@ -166,7 +176,8 @@ stn_files <- sapply(stns_ids,
                                         sdate = "01/01/1961", 
                                         edate = "29/08/2016", 
                                         email = "your-email",
-                                        passwd = "your-password")
+                                        passwd = "your-password",
+                                        verbose = FALSE)
                       # write data to a csv file (named "id.csv") in the work directory 
                       ofname <- paste0(i, ".csv")
                       write.csv(x, file = ofname)
@@ -179,17 +190,10 @@ stn_files <- sapply(stns_ids,
                       return(out)
                     }# end function
 )# end sapply
-```
-
-    ## Login sucessfull.
-    ## Login sucessfull.
-    ## Login sucessfull.
-
-``` r
 stn_files
 ```
 
-    ## [1] "82294.csv" "82989.csv" "83595.csv"
+    ## [1] "83781.csv" "83743.csv" "83967.csv"
 
 To cite this software
 ---------------------
@@ -201,7 +205,7 @@ citation("inmetr")
 
     To cite package 'inmetr' in publications use:
 
-      Tatsch, J.D. 2016. inmetr: A Package to Import Historical Data
+      Tatsch, J.D. 2017. inmetr: A Package to Import Historical Data
       from Brazilian Meteorological Stations. Zenodo,
       doi:10.5281/zenodo.59652.
 
@@ -211,7 +215,7 @@ citation("inmetr")
         title = {inmetr: A Package to Import Historical Data from Brazilian Meteorological
     Stations},
         author = {Jonatan Tatsch},
-        year = {2016},
+        year = {2017},
         note = {R package version 0.0.1},
         doi = {http://doi.org/10.5281/ZENODO.59652 },
         institution = {Universidade Federal de Santa Maria-UFSM},
