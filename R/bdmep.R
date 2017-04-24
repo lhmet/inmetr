@@ -121,7 +121,7 @@ read_bdmep <- function(x){
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria-RS 
-##' sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password")
+##' sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password", verbose = TRUE)
 ##' head(sm)
 ##' summary(sm)
 ##' 
