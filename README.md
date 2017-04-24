@@ -4,7 +4,7 @@ inmetr
 inmetr: A R-package to Import Historical Data from Brazilian Meteorological Stations
 ====================================================================================
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.1-orange.svg)](https://img.shields.io/badge/Version-0.0.1-orange.svg)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.2-orange.svg)](https://img.shields.io/badge/Version-0.0.2-orange.svg)
 
 Overview
 --------
@@ -216,7 +216,7 @@ citation("inmetr")
     Stations},
         author = {Jonatan Tatsch},
         year = {2017},
-        note = {R package version 0.0.1},
+        note = {R package version 0.0.2},
         doi = {http://doi.org/10.5281/ZENODO.59652 },
         institution = {Universidade Federal de Santa Maria-UFSM},
         url = {https://github.com/jdtatsch/inmetr},
