@@ -25,5 +25,5 @@ Imports:
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown
-URL: http://github.com/jdtatsch/inmetr
-BugReports:	http://github.com/jdtatsch/inmetr/issues
+URL: http://github.com/lhmet/inmetr
+BugReports:	http://github.com/lhmet/inmetr/issues
