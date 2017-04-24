@@ -129,7 +129,8 @@ import_bdmep <- function(id = "83586" ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
                          email = "your-email",
-                         passwd = "your-password"){
+                         passwd = "your-password",
+                         verbose = TRUE){
   
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
@@ -158,14 +159,14 @@ import_bdmep <- function(id = "83586" ,
   l <- l %>% purrr::update_list(mCod = email, mSenha = passwd)
   # r <- httr::POST(link, body = l, encode = "form", verbose())
   r <- httr::POST(link, body = l, encode = "form")
-  if(httr::status_code(r) == 200) message("Login sucessfull.")
+  if(httr::status_code(r) == 200 & verbose) message("Login sucessfull.")
   # visualize(r)
   gc()
   
   # step 2 - get data
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
   url_data <-  url_data %>%
-    stringr::str_replace("XXXXX", id) %>%
+    stringr::str_replace("XXXXX", as.character(id)) %>%
     stringr::str_replace("dd/mm/yyyy", sdate) %>%
     stringr::str_replace("DD/MM/YYYY", edate) 
   # raw data  
