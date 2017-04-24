@@ -23,4 +23,3 @@ remove duplicated data; aggregate time and date information into a POSIX object
 \author{
 Jonatan Tatsch
 }
-

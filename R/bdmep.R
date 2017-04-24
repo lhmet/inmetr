@@ -115,6 +115,7 @@ read_bdmep <- function(x){
 ##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param email e-mail to access BDMEP 
 ##' @param passwd password to access BDMEP
+##' @param verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' 
 ##' @return a data frame with variables in columns and observations along rows
 ##' @export

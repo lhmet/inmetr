@@ -22,4 +22,3 @@ head(info)
 \author{
 Jonatan Tatsch
 }
-

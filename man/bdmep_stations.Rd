@@ -30,4 +30,3 @@ head(stns, 15)
 \author{
 Jonatan Tatsch
 }
-

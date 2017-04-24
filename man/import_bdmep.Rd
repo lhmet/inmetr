@@ -7,7 +7,7 @@ Import historical data from Brazilian meteorological stations available in the M
 \usage{
 import_bdmep(id = "83586", sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your-email",
-  passwd = "your-password")
+  passwd = "your-password", verbose = TRUE)
 }
 \arguments{
 \item{id}{a numeric vector with the meteorological station code}
@@ -19,6 +19,8 @@ import_bdmep(id = "83586", sdate = "01/01/1961",
 \item{email}{e-mail to access BDMEP}
 
 \item{passwd}{password to access BDMEP}
+
+\item{verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
 }
 \value{
 a data frame with variables in columns and observations along rows
@@ -34,7 +36,7 @@ remove duplicated data. Time variables (year, month, day, hour) are aggregated i
 }
 \examples{
 # download data for Santa Maria-RS 
-sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password")
+sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password", verbose = TRUE)
 head(sm)
 summary(sm)
 
@@ -42,4 +44,3 @@ summary(sm)
 \author{
 Jonatan Tatsch
 }
-
