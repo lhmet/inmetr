@@ -200,7 +200,6 @@ import_bdmep <- function(id = "83586" ,
 bdmep_metadata <- function(){
   # omm id, lat, lon, alt
   link_stns_info <- "http://www.inmet.gov.br/sim/sonabra/index.php"
-  #link_stns_info <- "http://www.inmet.gov.br/portal/index.php?r=estacoes/mapaEstacoes"
   txt <- httr::GET(link_stns_info) %>%
     httr::content('text') %>% 
     textConnection() %>%
@@ -211,7 +210,6 @@ bdmep_metadata <- function(){
   
   txt1 <- 
     txt %>%
-    #stringr::str_subset("C.*digo OMM") %>%
     stringi::stri_trans_general("latin-ascii") %>%
     stringr::str_subset("Codigo OMM") %>%
     stringr::str_extract_all("[-+]?([0-9]*\\.[0-9]+|[0-9]+)")
@@ -220,7 +218,7 @@ bdmep_metadata <- function(){
   
   tab_info <- 
     txt1 %>%
-    plyr::ldply(function(x){
+    purrr::map_df(function(x){
       #x <- a
       n <- length(x)
       x[c(3, n - (2:0))] %>%
