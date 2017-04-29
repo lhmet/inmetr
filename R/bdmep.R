@@ -107,7 +107,7 @@ read_bdmep <- function(x){
 ##' @importFrom stats setNames
 ##' @importFrom dplyr %>%
 ##' @details The data are in sub-daily time scale. A minimum data quality control is applied to the data.
-##' This include: a chronological sequence check; filling missing dates with NA; 
+##' This include: a chronological sequence check; filling data from missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
 ##' @param id a numeric vector with the meteorological station code
@@ -298,7 +298,7 @@ bdmep_stations <- function(){
 ##' This function describe the Meteorological variables imported with \code{\link{import_bdmep}}
 ##' @description Get variable names, description and units
 ##' @importFrom dplyr %>%
-##' @details Details about instruments see \url{http://www.inmet.gov.br/html/informacoes/sobre_meteorologia/instrumentos/}
+##' @details to information about instruments see \url{http://www.inmet.gov.br/portal/index.php?r=home/page&page=instrumentos}
 ##' @return a data frame is returned with 
 ##'  \code{varname}, \code{description}, \code{unit}
 ##' @export
