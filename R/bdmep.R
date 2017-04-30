@@ -102,7 +102,6 @@ read_bdmep <- function(x){
 
 
 ##' Import data from Brazilian meteorological stations
-##' Import historical data from Brazilian meteorological stations available in the Meteorological Database for Education and Research \href{http://www.inmet.gov.br/projetos/rede/pesquisa}{BDMEP} of National Institute of Meteorology \href{http://www.inmet.gov.br}{INMET}
 ##' 
 ##' @importFrom stats setNames
 ##' @importFrom dplyr %>%
