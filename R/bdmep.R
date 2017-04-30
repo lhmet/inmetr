@@ -276,8 +276,6 @@ bdmep_stations <- function(){
     names() %>%
     tolower() %>%
     # replace accented characters with non-accented counterpart
-    # (UTF-8 encoding)
-    #iconv(to='ASCII//TRANSLIT') %>%
     stringi::stri_trans_general("latin-ascii") %>%
     stringr::str_replace_all(" ", "_") %>%
     stringr::str_replace("_da", "") %>%
