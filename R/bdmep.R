@@ -222,19 +222,18 @@ bdmep_metadata <- function(){
       #x <- a
       n <- length(x)
       x[c(3, n - (2:0))] %>%
-        as.numeric() %>%
+        matrix(nrow = 1) %>%
+        tibble::as_tibble() %>%
         return()
     }) %>%
     setNames(c("id", "lat", "lon", "alt")) %>%
-    dplyr::select_("id", "lon", "lat", "alt")
+    dplyr::select_("id", "lon", "lat", "alt") %>%
+    dplyr::mutate_at(vars(lon:alt), as.numeric) %>%
+    data.frame() 
   
   rm(txt1)
-  
-  tab_info %>%
-    data.frame() %>%
-    return()
-  
-} # end function get_meta_bdmep
+  return(tab_info)
+} # end function bdmep_metadata
 
 
 ##' Get basic information on meteorological station from INMET
