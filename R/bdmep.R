@@ -225,7 +225,7 @@ bdmep_metadata <- function(){
       n <- length(x)
       x[c(3, n - (2:0))] %>%
         matrix(nrow = 1) %>%
-        tibble::as_tibble() %>%
+        dplyr::as_data_frame() %>%
         return()
     }) %>%
     setNames(c("id", "lat", "lon", "alt")) %>%

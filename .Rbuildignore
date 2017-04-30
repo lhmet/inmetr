@@ -3,3 +3,4 @@
 ^README\.Rmd$
 ^inmetr\.Rproj$
 ^.*\.csv$
+^\.travis\.yml$
