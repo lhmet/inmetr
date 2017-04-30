@@ -183,7 +183,7 @@ import_bdmep <- function(id = "83586" ,
 
 ##' Get metadata on meteorological stations
 ##'
-##' This function is used to fetch the coordinates on meteorological stations from INMET
+##' Fetch the coordinates on meteorological stations from INMET
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
 ##' 
 ##' @importFrom dplyr %>%
