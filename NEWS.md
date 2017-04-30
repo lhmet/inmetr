@@ -1,8 +1,6 @@
 # inmetr 0.0.2.9000
 
-- fixed issue #1
-
-- `import_bmep()` has a new argument `verbose`. 
+- removed dependence on package plyr
 
 # inmetr 0.0.2
 
