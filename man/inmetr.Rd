@@ -11,11 +11,11 @@ The inmetr package offers a set of functions to import historical data from Braz
 \section{inmetr functions}{
 
 The main functions are:
-\tabular{ll}{
-   \code{\link{import_bdmep}}  \cr
-   \code{\link{bdmep_stations}} \cr
-   \code{\link{bdmep_metadata}} \cr
-   \code{\link{data_description}} \cr
+\itemize{
+   \item \code{\link{import_bdmep}}  
+   \item \code{\link{bdmep_stations}} 
+   \item \code{\link{bdmep_metadata}} 
+   \item \code{\link{data_description}} 
 }
 }
 
