@@ -16,7 +16,7 @@ Get variable names, description and units
 \details{
 This function describe the Meteorological variables imported with \code{\link{import_bdmep}}
 
-Details about instruments see \url{http://www.inmet.gov.br/html/informacoes/sobre_meteorologia/instrumentos/}
+to information about instruments see \url{http://www.inmet.gov.br/portal/index.php?r=home/page&page=instrumentos}
 }
 \examples{
 met_vars <- data_description()

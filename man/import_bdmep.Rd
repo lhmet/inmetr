@@ -31,7 +31,7 @@ Import historical data from Brazilian meteorological stations available in the M
 }
 \details{
 The data are in sub-daily time scale. A minimum data quality control is applied to the data.
-This include: a chronological sequence check; filling missing dates with NA; 
+This include: a chronological sequence check; filling data from missing dates with NA; 
 remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 }
 \examples{
