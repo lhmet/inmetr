@@ -199,6 +199,7 @@ import_bdmep <- function(id = "83586" ,
 bdmep_metadata <- function(){
   # omm id, lat, lon, alt
   link_stns_info <- "http://www.inmet.gov.br/sim/sonabra/index.php"
+  
   txt <- httr::GET(link_stns_info) %>%
     httr::content('text') %>% 
     textConnection() %>%
@@ -207,16 +208,18 @@ bdmep_metadata <- function(){
   closeAllConnections()
   rm(link_stns_info)
   
-  txt1 <- 
+  txt_subset <- 
     txt %>%
     stringi::stri_trans_general("latin-ascii") %>%
-    stringr::str_subset("Codigo OMM") %>%
+    stringr::str_subset("Codigo OMM")
+  
+  txt_info_num <- txt_subset %>%
     stringr::str_extract_all("[-+]?([0-9]*\\.[0-9]+|[0-9]+)")
   
-  rm(txt)
+  #rm(txt)
   
   tab_info <- 
-    txt1 %>%
+    txt_info_num %>%
     purrr::map_df(function(x){
       #x <- a
       n <- length(x)
@@ -227,10 +230,11 @@ bdmep_metadata <- function(){
     }) %>%
     setNames(c("id", "lat", "lon", "alt")) %>%
     dplyr::select_("id", "lon", "lat", "alt") %>%
-    dplyr::mutate_at(vars(lon:alt), as.numeric) %>%
+    dplyr::mutate_at(dplyr::vars(dplyr::one_of(c("lat", "lon", "alt"))), as.numeric) %>%
     data.frame() 
   
-  rm(txt1)
+  #tab_info <- dplyr::full_join(bdmep_stations(), tab_info, by = "id")
+  
   return(tab_info)
 } # end function bdmep_metadata
 
