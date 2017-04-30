@@ -9,7 +9,7 @@ Stations",
          author = personList(as.person("Jonatan Tatsch")),
          year = year,
          note = vers,
-         doi = "http://doi.org/10.5281/ZENODO.59652 ",
+         doi = "http://doi.org/10.5281/ZENODO.59652",
 
          textVersion = paste0("Tatsch, J.D. ",
                year,
