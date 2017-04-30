@@ -281,10 +281,11 @@ bdmep_stations <- function(){
     stringr::str_replace("_da", "") %>%
     setNames(tab, nm = .) %>%
     tidyr::separate(nome_estacao, c("nome", "estado"), sep = " - ")
-  tab %>% 
+  tab <- tab %>% 
     data.frame() %>%
     setNames(c("name", "state", "id")) %>%
-    return()
+    dplyr::mutate(id = as.character(id))
+    return(tab)
 }
 
 
