@@ -4,12 +4,12 @@
 \alias{import_bdmep}
 \title{Import data from Brazilian meteorological stations}
 \usage{
-import_bdmep(id = "83586", sdate = "01/01/1961",
+import_bdmep(ids = c("83936", "83967"), sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your-email",
   passwd = "your-password", verbose = TRUE)
 }
 \arguments{
-\item{id}{a numeric vector with the meteorological station code}
+\item{ids}{a character vector with codes of meteorological stations}
 
 \item{sdate}{start date in "d/m/Y" format}
 
@@ -33,10 +33,16 @@ This include: a chronological sequence check; filling data from missing dates wi
 remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 }
 \examples{
-# download data for Santa Maria-RS 
-sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password", verbose = TRUE)
-head(sm)
-summary(sm)
+# download data for Santa Maria and Porto Alegre
+metdata <- import_bdmep(ids = c("83936", "83967"), 
+                        sdate = "01/01/1961",
+                        edate = format(Sys.Date(), '\%d/\%m/\%Y'),
+                        email = "your-email",
+                        passwd = "your-password",
+                        verbose = TRUE)
+head(metdata)
+tail(metdata)
+summary(metdata)
 
 }
 \author{
