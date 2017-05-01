@@ -4,7 +4,7 @@ inmetr
 inmetr: A R-package to Import Historical Data from Brazilian Meteorological Stations
 ====================================================================================
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.2-orange.svg)](https://img.shields.io/badge/Version-0.0.2-orange.svg)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.2-orange.svg)](https://img.shields.io/badge/Version-0.0.2-orange.svg) [![Build Status](https://travis-ci.org/lhmet/inmetr.svg?branch=master)](https://travis-ci.org/lhmet/inmetr)
 
 Overview
 --------
@@ -61,7 +61,7 @@ code <- subset(code, select = id)[[1]]
 code
 ```
 
-    [1] 83936
+    [1] "83936"
 
 Import data
 -----------
@@ -164,7 +164,7 @@ stns_ids <- info[stations_rows, "id"]
 stns_ids
 ```
 
-    ## [1] 83781 83743 83967
+    ## [1] "83781" "83743" "83967"
 
 ``` r
 # looping on stations id
@@ -193,7 +193,8 @@ stn_files <- sapply(stns_ids,
 stn_files
 ```
 
-    ## [1] "83781.csv" "83743.csv" "83967.csv"
+    ##       83781       83743       83967 
+    ## "83781.csv" "83743.csv" "83967.csv"
 
 To cite this software
 ---------------------
@@ -216,8 +217,8 @@ citation("inmetr")
     Stations},
         author = {Jonatan Tatsch},
         year = {2017},
-        note = {R package version 0.0.2},
-        doi = {http://doi.org/10.5281/ZENODO.59652 },
+        note = {R package version 0.0.2.9000},
+        doi = {http://doi.org/10.5281/ZENODO.59652},
         institution = {Universidade Federal de Santa Maria-UFSM},
         url = {https://github.com/jdtatsch/inmetr},
         address = {Santa Maria-RS, Brazil},
