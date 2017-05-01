@@ -117,13 +117,7 @@ read_bdmep <- function(x){
 ##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' 
 ##' @return a data frame with variables in columns and observations along rows
-##' @export
 ##' @author Jonatan Tatsch
-##' @examples 
-##' # download data for Santa Maria-RS 
-##' stn_data <- import_data(.id = "83936", .email = "your-email", .passwd = "your-password", .verbose = TRUE)
-##' head(stn_data)
-##' summary(stn_data)
 ##' 
 import_data <- function(.id = "83586" ,
                          .sdate = "01/01/1961",
@@ -184,9 +178,11 @@ import_data <- function(.id = "83586" ,
 ##' Import data from Brazilian meteorological stations
 ##' 
 ##' @importFrom dplyr %>%
-##' @details see \code{\link{import_data}}
+##' @details The data are in sub-daily time scale. A minimum data quality control is applied to the data.
+##' This include: a chronological sequence check; filling data from missing dates with NA; 
+##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
-##' @param id a numeric vector with the meteorological station code
+##' @param ids a character vector with codes of meteorological stations
 ##' @param sdate start date in "d/m/Y" format
 ##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param email e-mail to access BDMEP 
@@ -197,7 +193,7 @@ import_data <- function(.id = "83586" ,
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
-##' # download data for Santa Maria-RS 
+##' # download data for Santa Maria and Porto Alegre
 ##' metdata <- import_bdmep(ids = c("83936", "83967"), 
 ##'                         sdate = "01/01/1961",
 ##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
