@@ -11,7 +11,7 @@ A data frame is returned with metadata, including the stations
  \code{id}, and coordinates (\code{lon}, \code{lat}, \code{alt})
 }
 \description{
-This function is used to fetch the coordinates on meteorological stations from INMET
+Fetch the coordinates on meteorological stations from INMET
 \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
 }
 \examples{
