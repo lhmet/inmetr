@@ -1,8 +1,5 @@
-inmetr
+inmetr: Historical Data from Brazilian Meteorological Stations in R
 ================
-
-inmetr: A R-package to Import Historical Data from Brazilian Meteorological Stations
-====================================================================================
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.2-orange.svg)](https://img.shields.io/badge/Version-0.0.2-orange.svg) [![Build Status](https://travis-ci.org/lhmet/inmetr.svg?branch=master)](https://travis-ci.org/lhmet/inmetr)
 
@@ -14,7 +11,7 @@ Overview
 Installation
 ------------
 
-Installation of `inmetr` from GitHub is easy using the `devtools` package.
+`inmetr` is easy to install from GitHub using the `devtools` package.
 
 ``` r
 library(devtools)
@@ -51,27 +48,36 @@ head(info)
     5      ALTAMIRA    PA 82353
     6 ALTO PARNAIBA    MA 82970
 
-This function return a data frame with station names, the brazilian state and OMM code. OMM code is a necessary argument to `import_data()` function. This function download and tidy data from a meteorological station.
+This function return a data frame with: station names, the brazilian state and OMM code. OMM code is a necessary argument to `import_bdmep()` function. This function download data from meteorological stations into the R.
 
-Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological station at Santa Maria in Rio Grande do Sul state.
+Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological stations at cities of Santa Maria and Porto Alegre, both in Rio Grande do Sul state.
 
 ``` r
-code <- subset(info, name == "SANTA MARIA")
-code <- subset(code, select = id)[[1]]
-code
+stations <- c("SANTA MARIA", "PORTO ALEGRE")
+stations_rows <- pmatch(stations, info$name)
+info[stations_rows, ]
 ```
 
-    [1] "83936"
+                name state    id
+    221  SANTA MARIA    RS 83936
+    199 PORTO ALEGRE    RS 83967
+
+``` r
+stns_codes <- info[stations_rows, "id"] 
+stns_codes
+```
+
+    [1] "83936" "83967"
 
 Import data
 -----------
 
-Now we can get the data for Santa Maria city, from 1961 to the current day.
+Now we can get data for the two cities from 1961 to the current day.
 
 ``` r
 start_date <- "01/01/1961"
 end_date <- format(Sys.Date(), "%d/%m/%Y")
-met_data <- import_bdmep(id = code,
+met_data <- import_bdmep(ids = stns_codes,
                          sdate = start_date, 
                          edate = end_date, 
                          email = "your-email",
@@ -79,6 +85,7 @@ met_data <- import_bdmep(id = code,
                          verbose = TRUE)
 ```
 
+    Login sucessfull.
     Login sucessfull.
 
 ``` r
@@ -106,20 +113,20 @@ head(met_data)
 tail(met_data)
 ```
 
-                         date    id prec tair tw tmax tmin urmax  patm   pnmm
-    52837 2016-12-30 00:00:00 83936   NA 24.0 NA 33.4   NA    95 998.4 1010.4
-    52838 2016-12-30 12:00:00 83936 10.2 24.6 NA   NA 22.8    93 999.6 1011.6
-    52839 2016-12-30 18:00:00 83936   NA 31.6 NA   NA   NA    71 995.9 1007.7
-    52840 2016-12-31 00:00:00 83936   NA 25.2 NA 31.4   NA    90 996.8 1008.7
-    52841 2016-12-31 12:00:00 83936  2.1 26.4 NA   NA 24.2    78 997.9 1009.8
-    52842 2016-12-31 18:00:00 83936   NA 29.8 NA   NA   NA    70 995.2 1007.0
-          wd   wsmax   n    cc evap ur      ws
-    52837 14 2.05776 7.4  7.50   NA 86 2.22924
-    52838 14 1.54332  NA  8.75   NA NA      NA
-    52839 18 3.08664  NA  7.50   NA NA      NA
-    52840 14 2.05776 5.5 10.00   NA 74 3.08664
-    52841 36 2.57220  NA 10.00   NA NA      NA
-    52842 36 2.57220  NA  7.50   NA NA      NA
+                          date    id prec tair tw tmax tmin urmax   patm
+    109264 2016-12-30 00:00:00 83967   NA 22.5 NA 33.5   NA    96 1005.5
+    109265 2016-12-30 12:00:00 83967 10.5 25.1 NA   NA 21.4    89 1005.8
+    109266 2016-12-30 18:00:00 83967   NA 33.3 NA   NA   NA    64 1003.2
+    109267 2016-12-31 00:00:00 83967   NA 25.6 NA 30.2   NA    89 1003.4
+    109268 2016-12-31 12:00:00 83967 23.2 25.0 NA   NA 22.8    94 1004.8
+    109269 2016-12-31 18:00:00 83967   NA 30.0 NA   NA   NA    68 1002.7
+             pnmm wd   wsmax   n    cc evap    ur      ws
+    109264 1011.1 14 1.54332 6.7 10.00   NA 82.75 1.02888
+    109265 1011.4  0 0.00000  NA  7.50   NA    NA      NA
+    109266 1008.7 14 1.54332  NA  6.25   NA    NA      NA
+    109267 1009.0 14 1.54332 2.6  7.50   NA 78.50 1.02888
+    109268 1010.4  0 0.00000  NA  7.50   NA    NA      NA
+    109269 1008.2 32 0.51444  NA  8.75   NA    NA      NA
 
 A description about the meteorological variables can be obtained with `data_description()`.
 
@@ -145,56 +152,6 @@ data_description()
     15    evap                         evaporation    mm
     16      ur                   relative humidity     %
     17      ws                          wind speed   m/s
-
-To download and write data from multiple stations to files, we can do a looping in stations id.
-
-``` r
-stations <- c("SAO PAULO", "RIO DE JANEIRO", "PORTO ALEGRE")
-stations_rows <- pmatch(stations, info$name)
-info[stations_rows, ]
-```
-
-    ##                          name state    id
-    ## 233 SAO PAULO(MIR.de SANTANA)    SP 83781
-    ## 212            RIO DE JANEIRO    RJ 83743
-    ## 199              PORTO ALEGRE    RS 83967
-
-``` r
-stns_ids <- info[stations_rows, "id"] 
-stns_ids
-```
-
-    ## [1] "83781" "83743" "83967"
-
-``` r
-# looping on stations id
-stn_files <- sapply(stns_ids,
-                    function(i){
-                      # i = 82294  
-                      Sys.sleep(sample(5:15, 1))
-                      x <- import_bdmep(id = i,
-                                        sdate = "01/01/1961", 
-                                        edate = "29/08/2016", 
-                                        email = "your-email",
-                                        passwd = "your-password",
-                                        verbose = FALSE)
-                      # write data to a csv file (named "id.csv") in the work directory 
-                      ofname <- paste0(i, ".csv")
-                      write.csv(x, file = ofname)
-                      # check if files were downloaded
-                      if(file.exists(ofname)){
-                        out <- ofname
-                      } else {
-                        out <- "NA"
-                      }# end if
-                      return(out)
-                    }# end function
-)# end sapply
-stn_files
-```
-
-    ##       83781       83743       83967 
-    ## "83781.csv" "83743.csv" "83967.csv"
 
 To cite this software
 ---------------------
