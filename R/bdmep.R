@@ -85,7 +85,7 @@ read_bdmep <- function(x){
                              tz = "UTC"),
            data = NULL,
            hora = NULL,
-           id = codigo,
+           id = as.character(codigo),
            codigo = NULL) 
   # reorder columns
   bdmepd <- bdmepd %>% 
@@ -101,7 +101,7 @@ read_bdmep <- function(x){
 
 
 
-##' Import data from Brazilian meteorological stations
+##' Import data of a meteorological station
 ##' 
 ##' @importFrom stats setNames
 ##' @importFrom dplyr %>%
@@ -109,28 +109,28 @@ read_bdmep <- function(x){
 ##' This include: a chronological sequence check; filling data from missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
-##' @param id a numeric vector with the meteorological station code
-##' @param sdate start date in "d/m/Y" format
-##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
-##' @param email e-mail to access BDMEP 
-##' @param passwd password to access BDMEP
-##' @param verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
+##' @param .id a numeric vector with the meteorological station code
+##' @param .sdate start date in "d/m/Y" format
+##' @param .edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
+##' @param .email e-mail to access BDMEP 
+##' @param .passwd password to access BDMEP
+##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' 
 ##' @return a data frame with variables in columns and observations along rows
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria-RS 
-##' sm <- import_bdmep(id = 83936, email = "your-email", passwd = "your-password", verbose = TRUE)
-##' head(sm)
-##' summary(sm)
+##' stn_data <- import_data(.id = "83936", .email = "your-email", .passwd = "your-password", .verbose = TRUE)
+##' head(stn_data)
+##' summary(stn_data)
 ##' 
-import_bdmep <- function(id = "83586" ,
-                         sdate = "01/01/1961",
-                         edate = format(Sys.Date(), '%d/%m/%Y'),
-                         email = "your-email",
-                         passwd = "your-password",
-                         verbose = TRUE){
+import_data <- function(.id = "83586" ,
+                         .sdate = "01/01/1961",
+                         .edate = format(Sys.Date(), '%d/%m/%Y'),
+                         .email = "your-email",
+                         .passwd = "your-password",
+                         .verbose = TRUE){
   
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
@@ -156,19 +156,19 @@ import_bdmep <- function(id = "83586" ,
     lapply(function(i) vals_name_passwd_bt[i]) %>% 
     setNames(attrs_name_passwd_bt)
   # add email and passwd
-  l <- l %>% purrr::update_list(mCod = email, mSenha = passwd)
+  l <- l %>% purrr::update_list(mCod = .email, mSenha = .passwd)
   # r <- httr::POST(link, body = l, encode = "form", verbose())
   r <- httr::POST(link, body = l, encode = "form")
-  if(httr::status_code(r) == 200 & verbose) message("Login sucessfull.")
+  if(httr::status_code(r) == 200 & .verbose) message("Login sucessfull.")
   # visualize(r)
   gc()
   
   # step 2 - get data
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
   url_data <-  url_data %>%
-    stringr::str_replace("XXXXX", as.character(id)) %>%
-    stringr::str_replace("dd/mm/yyyy", sdate) %>%
-    stringr::str_replace("DD/MM/YYYY", edate) 
+    stringr::str_replace("XXXXX", as.character(.id)) %>%
+    stringr::str_replace("dd/mm/yyyy", .sdate) %>%
+    stringr::str_replace("DD/MM/YYYY", .edate) 
   # raw data  
   x <- httr::GET(url_data) %>%
     httr::content('text') %>%
@@ -176,10 +176,52 @@ import_bdmep <- function(id = "83586" ,
     readLines()
   #closeAllConnections()
 
-  # output
+  # tidy data and output
   xtidy <- read_bdmep(x)
   return(xtidy)
 }
+
+##' Import data from Brazilian meteorological stations
+##' 
+##' @importFrom dplyr %>%
+##' @details see \code{\link{import_data}}
+##' 
+##' @param id a numeric vector with the meteorological station code
+##' @param sdate start date in "d/m/Y" format
+##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
+##' @param email e-mail to access BDMEP 
+##' @param passwd password to access BDMEP
+##' @param verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
+##' 
+##' @return a data frame with variables in columns and observations along rows
+##' @export
+##' @author Jonatan Tatsch
+##' @examples 
+##' # download data for Santa Maria-RS 
+##' metdata <- import_bdmep(ids = c("83936", "83967"), 
+##'                         sdate = "01/01/1961",
+##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
+##'                         email = "your-email",
+##'                         passwd = "your-password",
+##'                         verbose = TRUE)
+##' head(metdata)
+##' tail(metdata)
+##' summary(metdata)
+##' 
+import_bdmep <- function(ids = c("83936", "83967") ,
+                        sdate = "01/01/1961",
+                        edate = format(Sys.Date(), '%d/%m/%Y'),
+                        email = "your-email",
+                        passwd = "your-password",
+                        verbose = TRUE){
+  
+  purrr::map_df(ids, ~import_data(.x, 
+                               .sdate = sdate, 
+                               .edate = edate, 
+                               .email = email,
+                               .passwd = passwd,
+                               .verbose = verbose))
+} 
 
 ##' Get metadata on meteorological stations
 ##'
