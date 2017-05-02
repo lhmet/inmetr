@@ -6,7 +6,7 @@
 - [ ] get stations metadata from [here]("http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls")
 - [ ] add function to provide daily data.
 - [ ] add function to write csv files of station data.
-
+- [ ] fix note about zenodo
 
 
 # inmetr 0.0.2
