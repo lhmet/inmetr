@@ -1,5 +1,3 @@
-utils::globalVariables(c(".", "data", "hora", "codigo", "nome_estacao", "prec", "site", "ws", "tcomp", "id"))
-
 ##' Read data downaloaded from BDMEP
 ##' 
 ##' Read and tidy data downloaded with \code{\link{import_bdmep}}
