@@ -69,7 +69,7 @@ read_bdmep <- function(x){
   # coercion to numeric due to na.strings = "" 
   sel_vars <- names(bdmepd)[!names(bdmepd) %in% c("codigo","data", "hora")]
   bdmepd <- bdmepd %>%
-    dplyr::mutate_each_(dplyr::funs(as.numeric), sel_vars)
+    dplyr::mutate_at(sel_vars, dplyr::funs(as.numeric))
   
   ## date conversion
   bdmepd <- bdmepd %>%
