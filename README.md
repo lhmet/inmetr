@@ -30,7 +30,7 @@ library(inmetr)
 Stations ID
 -----------
 
-To search for some meteorological station from INMET we can use the `bdmep_stations()` function.
+To search a meteorological station from INMET we can use `bdmep_stations()` function.
 
 ``` r
 info <- bdmep_stations()
@@ -47,9 +47,9 @@ head(info)
 #> 6 ALTO PARNAIBA    MA 82970
 ```
 
-This function return a data frame with: station names, the brazilian state and OMM code. OMM code is a necessary argument to `import_bdmep()` function. This function download data from meteorological stations into the R.
+This function return a data frame with: station name, brazilian state, and OMM code. OMM code is a necessary argument to `import_bdmep()` function. This function download data from meteorological stations into the R.
 
-Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological stations at cities of Santa Maria and Porto Alegre, both in Rio Grande do Sul state.
+Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological stations at two cities (Santa Maria and Porto Alegre), both in Rio Grande do Sul state.
 
 ``` r
 stations <- c("SANTA MARIA", "PORTO ALEGRE")
