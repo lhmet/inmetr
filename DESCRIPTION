@@ -7,7 +7,7 @@ Description: Import historical data measured by meteorological stations
     Brazil.
 Depends:
     R (>= 3.2.4)
-License: BSD + file LICENSE
+License: BSD_3_clause + file LICENSE
 LazyData: true
 Imports:
     dplyr,
