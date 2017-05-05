@@ -4,7 +4,7 @@
 \alias{bdmep_import_station}
 \title{Import data of a meteorological station}
 \usage{
-bdmep_import_station(.id = "83586", .sdate = "01/01/1961",
+bdmep_import_station(.id = "83967", .sdate = "01/01/1961",
   .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
   .passwd = "your-password", .verbose = TRUE)
 }
