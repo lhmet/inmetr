@@ -71,7 +71,7 @@ Now we can get data for the two cities from 1961 to the current day.
 ``` r
 start_date <- "01/01/1961"
 end_date <- format(Sys.Date(), "%d/%m/%Y")
-met_data <- import_bdmep(ids = stns_codes,
+met_data <- bdmep_import(ids = stns_codes,
                          sdate = start_date, 
                          edate = end_date, 
                          email = "your-email",
@@ -79,7 +79,11 @@ met_data <- import_bdmep(ids = stns_codes,
                          verbose = TRUE)
 ```
 
+    #> -.-.-.-.-.-.-.-.-.-.-.-.
+    #> station: 83936
     #> Login sucessfull.
+    #> -.-.-.-.-.-.-.-.-.-.-.-.
+    #> station: 83967
     #> Login sucessfull.
 
 ``` r
@@ -123,7 +127,7 @@ tail(met_data)
 A description about the meteorological variables can be obtained with `data_description()`.
 
 ``` r
-data_description()
+bdmep_units()
 #>    varname                         description  unit
 #> 1     date           date and time information     -
 #> 2       id                          station ID     -

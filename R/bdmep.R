@@ -150,7 +150,7 @@ bdmep_login_att <- function(lnk, email, passwd){
 ##' @return a data frame with variables in columns and observations along rows
 ##' @author Jonatan Tatsch
 ##' 
-bdmep_import_station <- function(.id = "83936" ,
+bdmep_import_station <- function(.id = "83967" ,
                          .sdate = "01/01/1961",
                          .edate = format(Sys.Date(), '%d/%m/%Y'),
                          .email = "your-email",
