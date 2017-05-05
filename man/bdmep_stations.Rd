@@ -16,7 +16,7 @@ Get OMM code, state and station name on meteorological stations from INMET
 }
 \details{
 This function is used to find the OMM station ID that can be
-used to import BDMEP data using \code{\link{import_bdmep}}
+used to import BDMEP data using \code{\link{bdmep_import}}
 }
 \examples{
 
