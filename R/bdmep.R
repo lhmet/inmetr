@@ -1,6 +1,6 @@
 ##' Read data downaloaded from BDMEP
 ##' 
-##' Read and tidy data downloaded with \code{\link{import_bdmep}}
+##' Read and tidy data downloaded with \code{\link{bdmep_import}}
 ##' 
 ##' @importFrom utils read.csv2 head
 ##' 
@@ -13,7 +13,7 @@
 ##' @return a data frame with variables in columns and observations along rows
 ##' @author Jonatan Tatsch
 ##' 
-read_bdmep <- function(x){
+bdmep_read <- function(x){
   
   # find line with variables names
   rowheader <- x %>%
@@ -31,10 +31,9 @@ read_bdmep <- function(x){
   
   to_discard <- h_fix %>%
     magrittr::equals("") %>%
-    which() %>%
-    prod(-1)
+    which() 
   
-  h_fix <- h_fix[to_discard]
+  h_fix <- h_fix[-to_discard]
   
   ## replace original vnames by the new ones
   new_vnames <- c("codigo", "data","hora",
@@ -97,6 +96,40 @@ read_bdmep <- function(x){
 }## end function readInmet
 
 
+#' Get login attributes form to acces BDMEP
+#'
+#' @param lnk url to BDMEP
+#'
+##' @return a named list with user name, password and text of button access
+##' @author Jonatan Tatsch
+##' 
+bdmep_login_att <- function(lnk, email, passwd){
+  txt <- httr::GET(lnk)
+  attrs_name_passwd_bt <- txt %>% 
+    httr::content("text") %>% 
+    xml2::read_html() %>% 
+    rvest::html_nodes("form") %>%
+    rvest::html_nodes("input") %>%
+    magrittr::extract(c(3:4, 6)) %>%
+    rvest::html_attr("name")
+  
+  vals_name_passwd_bt <- txt %>% 
+    httr::content("text") %>% 
+    xml2::read_html() %>% 
+    rvest::html_nodes("form") %>%
+    rvest::html_nodes("input") %>%
+    magrittr::extract(c(3:4, 6)) %>%
+    rvest::html_attr('value')
+  
+  # put values in a named list
+  l <- vals_name_passwd_bt %>%
+    seq_along() %>%
+    lapply(function(i) vals_name_passwd_bt[i]) %>% 
+    setNames(attrs_name_passwd_bt)
+  # add email and passwd
+  l <- purrr::update_list(l, mCod = email, mSenha = passwd)
+  return(l)
+}
 
 
 ##' Import data of a meteorological station
@@ -117,7 +150,7 @@ read_bdmep <- function(x){
 ##' @return a data frame with variables in columns and observations along rows
 ##' @author Jonatan Tatsch
 ##' 
-import_data <- function(.id = "83586" ,
+bdmep_import_station <- function(.id = "83967" ,
                          .sdate = "01/01/1961",
                          .edate = format(Sys.Date(), '%d/%m/%Y'),
                          .email = "your-email",
@@ -126,50 +159,35 @@ import_data <- function(.id = "83586" ,
   
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
-  txt <- httr::GET(link)
-  attrs_name_passwd_bt <- txt %>% 
-    httr::content('text') %>% 
-    xml2::read_html() %>% 
-    rvest::html_nodes("form") %>%
-    rvest::html_nodes("input") %>%
-    magrittr::extract(c(3:4, 6)) %>%
-    rvest::html_attr('name')
-  
-  vals_name_passwd_bt <- txt %>% 
-    httr::content('text') %>% 
-    xml2::read_html() %>% 
-    rvest::html_nodes("form") %>%
-    rvest::html_nodes("input") %>%
-    magrittr::extract(c(3:4, 6)) %>%
-    rvest::html_attr('value')
-  # put values in a named list
-  l <- vals_name_passwd_bt %>%
-    seq_along() %>%
-    lapply(function(i) vals_name_passwd_bt[i]) %>% 
-    setNames(attrs_name_passwd_bt)
-  # add email and passwd
-  l <- l %>% purrr::update_list(mCod = .email, mSenha = .passwd)
-  # r <- httr::POST(link, body = l, encode = "form", verbose())
-  r <- httr::POST(link, body = l, encode = "form")
-  if(httr::status_code(r) == 200 & .verbose) message("Login sucessfull.")
+  #.email = "jdtatsch@gmail.com"; .passwd = "d17ulev5"
+  bdmep_form_l <- bdmep_login_att(link, .email, .passwd)
+  r <- httr::POST(link, body = bdmep_form_l, encode = "form")
+   if (httr::status_code(r) == 200 & .verbose) {
+     message("-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
+             "station: " , .id, "\n", 
+             "Login sucessfull.")
+   }
   # visualize(r)
   gc()
   
   # step 2 - get data
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
+  #url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=83980&btnProcesso=serie&mRelDtInicio=01/01/1961&mRelDtFim=01/01/2017&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
+  
+  # link to station data
   url_data <-  url_data %>%
     stringr::str_replace("XXXXX", as.character(.id)) %>%
     stringr::str_replace("dd/mm/yyyy", .sdate) %>%
     stringr::str_replace("DD/MM/YYYY", .edate) 
+  
   # raw data  
   x <- httr::GET(url_data) %>%
     httr::content('text') %>%
     textConnection(local = TRUE) %>%
     readLines()
-  #closeAllConnections()
 
   # tidy data and output
-  xtidy <- read_bdmep(x)
+  xtidy <- bdmep_read(x)
   return(xtidy)
 }
 
@@ -192,7 +210,7 @@ import_data <- function(.id = "83586" ,
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria and Porto Alegre
-##' metdata <- import_bdmep(ids = c("83936", "83967"), 
+##' metdata <- bdmep_import(ids = c("83936", "83967"), 
 ##'                         sdate = "01/01/1961",
 ##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
 ##'                         email = "your-email",
@@ -202,14 +220,14 @@ import_data <- function(.id = "83586" ,
 ##' tail(metdata)
 ##' summary(metdata)
 ##' 
-import_bdmep <- function(ids = c("83936", "83967") ,
+bdmep_import <- function(ids = c("83936", "83967") ,
                         sdate = "01/01/1961",
                         edate = format(Sys.Date(), '%d/%m/%Y'),
                         email = "your-email",
                         passwd = "your-password",
                         verbose = TRUE){
   
-  purrr::map_df(ids, ~import_data(.x, 
+  purrr::map_df(ids, ~bdmep_import_station(.x, 
                                .sdate = sdate, 
                                .edate = edate, 
                                .email = email,
@@ -278,7 +296,7 @@ bdmep_metadata <- function(){
 ##' Get basic information on meteorological station from INMET
 ##'
 ##' This function is used to find the OMM station ID that can be
-##' used to import BDMEP data using \code{\link{import_bdmep}}
+##' used to import BDMEP data using \code{\link{bdmep_import}}
 ##' @description Get OMM code, state and station name on meteorological stations from INMET
 ##' \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
 ##' @importFrom dplyr %>%
@@ -328,9 +346,9 @@ bdmep_stations <- function(){
 }
 
 
-##' Meteorological variables description
+##' Units of meteorological variables 
 ##'
-##' This function describe the Meteorological variables imported with \code{\link{import_bdmep}}
+##' This function describe the Meteorological variables imported with \code{\link{bdmep_import}}
 ##' @description Get variable names, description and units
 ##' @importFrom dplyr %>%
 ##' @details to information about instruments see \url{http://www.inmet.gov.br/portal/index.php?r=home/page&page=instrumentos}
@@ -339,10 +357,10 @@ bdmep_stations <- function(){
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
-##' met_vars <- data_description()
+##' met_vars <- bdmep_units()
 ##' met_vars
 ##' 
-data_description<- function() {
+bdmep_units <- function() {
   data.frame(varname     = c("date", 
                              "id", 
                              "prec",  
