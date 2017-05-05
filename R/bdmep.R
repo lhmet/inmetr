@@ -159,7 +159,6 @@ bdmep_import_station <- function(.id = "83967" ,
   
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
-  #.email = "jdtatsch@gmail.com"; .passwd = "d17ulev5"
   bdmep_form_l <- bdmep_login_att(link, .email, .passwd)
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
    if (httr::status_code(r) == 200 & .verbose) {
