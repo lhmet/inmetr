@@ -21,7 +21,7 @@ Imports:
     tidyr,
     stringi,
     selectr
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
 URL: http://github.com/lhmet/inmetr
