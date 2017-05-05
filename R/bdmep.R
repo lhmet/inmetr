@@ -161,11 +161,11 @@ bdmep_import_station <- function(.id = "83967" ,
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
   bdmep_form_l <- bdmep_login_att(link, .email, .passwd)
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
-   if (httr::status_code(r) == 200 & .verbose) {
-     message("-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
-             "station: " , .id, "\n", 
-             "Login sucessfull.")
-   }
+  if (httr::status_code(r) == 200 & .verbose) {
+    message("-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
+            "station: " , .id, "\n", 
+            "Login sucessfull.")
+  }
   # visualize(r)
   gc()
   
@@ -179,8 +179,15 @@ bdmep_import_station <- function(.id = "83967" ,
     stringr::str_replace("dd/mm/yyyy", .sdate) %>%
     stringr::str_replace("DD/MM/YYYY", .edate) 
   
-  # raw data  
-  x <- httr::GET(url_data) %>%
+  # request data  
+  r2 <- httr::GET(url_data)
+  httr::stop_for_status(r2)
+  
+  if (httr::status_code(r2) == 200 & .verbose) {
+    message("Request data ok.", "|n")
+  }
+  
+  x <- r2 %>%
     httr::content('text') %>%
     textConnection(local = TRUE) %>%
     readLines()
