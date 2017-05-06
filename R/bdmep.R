@@ -83,7 +83,8 @@ bdmep_read <- function(x){
            data = NULL,
            hora = NULL,
            id = as.character(codigo),
-           codigo = NULL) 
+           codigo = NULL,
+           request_status = "sucessfull") 
   # reorder columns
   bdmepd <- bdmepd %>% 
     dplyr::select(date, id, prec:ws, -tcomp)
@@ -162,9 +163,8 @@ bdmep_import_station <- function(.id = "83967" ,
   bdmep_form_l <- bdmep_login_att(link, .email, .passwd)
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
   if (httr::status_code(r) == 200 & .verbose) {
-    message("-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
-            "station: " , .id, "\n", 
-            "Login sucessfull.")
+    message("\n", "-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
+            "station: " , .id, "\n")
   }
   # visualize(r)
   gc()
@@ -181,10 +181,22 @@ bdmep_import_station <- function(.id = "83967" ,
   
   # request data  
   r2 <- httr::GET(url_data)
-  httr::stop_for_status(r2)
   
-  if (httr::status_code(r2) == 200 & .verbose) {
-    message("Request data ok.", "|n")
+  #httr::stop_for_status(r2)
+  if (.verbose) {
+    if (httr::status_code(r2) == 200) {
+      message("Request data ok.", "\n")
+    } else {
+      httr::message_for_status(r2)    
+    }
+  }  
+  
+  if(httr::status_code(r2) != 200){
+    msg <- httr::http_status(r2)$message
+    xtidy <- data.frame(id = .id, 
+                        request_status = msg, 
+                        stringsAsFactors = FALSE)
+    return(xtidy)
   }
   
   x <- r2 %>%
