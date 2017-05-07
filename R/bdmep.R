@@ -87,7 +87,7 @@ bdmep_read <- function(x){
            request_status = "sucessfull") 
   # reorder columns
   bdmepd <- bdmepd %>% 
-    dplyr::select(date, id, prec:ws, -tcomp)
+    dplyr::select(date, id, prec:ws, -tcomp, request_status)
   
   # duplicated rows
     bdmepd <- dplyr::distinct(bdmepd)
@@ -151,7 +151,7 @@ bdmep_login_att <- function(lnk, email, passwd){
 ##' @return a data frame with variables in columns and observations along rows
 ##' @author Jonatan Tatsch
 ##' 
-bdmep_import_station <- function(.id = "83967" ,
+bdmep_import_station <- function(.id = "83552" ,
                          .sdate = "01/01/1961",
                          .edate = format(Sys.Date(), '%d/%m/%Y'),
                          .email = "your-email",
@@ -187,15 +187,19 @@ bdmep_import_station <- function(.id = "83967" ,
     if (httr::status_code(r2) == 200) {
       message("Request data ok.", "\n")
     } else {
-      httr::message_for_status(r2)    
+      httr::message_for_status(r2)  
+      cat("\n")
     }
   }  
   
   if(httr::status_code(r2) != 200){
     msg <- httr::http_status(r2)$message
-    xtidy <- data.frame(id = .id, 
-                        request_status = msg, 
-                        stringsAsFactors = FALSE)
+    varnames <- bdmep_units()[, "varname"]
+    xtidy <- as.data.frame(t(rep(NA, length(varnames))), stringsAsFactors = FALSE) 
+    xtidy <- xtidy %>%
+      setNames(varnames) %>%
+      dplyr::mutate(id = .id,
+                    request_status = msg)
     return(xtidy)
   }
   
@@ -412,8 +416,7 @@ bdmep_units <- function() {
                              "cloud cover",
                              "evaporation",
                              "relative humidity",
-                             "wind speed"
-                             ),
+                             "wind speed"),
              unit        = c("-",
                              "-",
                              "mm",
@@ -430,6 +433,6 @@ bdmep_units <- function() {
                              "-",
                              "mm",
                              "%",
-                             "m/s"
-                             ))
+                             "m/s"),
+             stringsAsFactors = FALSE)
 }
