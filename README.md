@@ -79,12 +79,14 @@ met_data <- bdmep_import(ids = stns_codes,
                          verbose = TRUE)
 ```
 
+    #> 
     #> -.-.-.-.-.-.-.-.-.-.-.-.
     #> station: 83936
-    #> Login sucessfull.
+    #> Request data ok.
+    #> 
     #> -.-.-.-.-.-.-.-.-.-.-.-.
     #> station: 83967
-    #> Login sucessfull.
+    #> Request data ok.
 
 ``` r
 # check de start date
@@ -124,7 +126,7 @@ tail(met_data)
 #> 109269 1008.2 32 0.51444  NA  8.75   NA    NA      NA
 ```
 
-A description about the meteorological variables can be obtained with `data_description()`.
+The units of meteorological variables can be viewed with `bdmep_units()`.
 
 ``` r
 bdmep_units()
@@ -147,6 +149,17 @@ bdmep_units()
 #> 16      ur                   relative humidity     %
 #> 17      ws                          wind speed   m/s
 ```
+
+Eventually, the request to INMET server failed and a message will be promped with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes):
+
+    -.-.-.-.-.-.-.-.-.-.-.-.
+    station: 83936
+    Bad Gateway (HTTP 502).
+    -.-.-.-.-.-.-.-.-.-.-.-.
+    station: 83967
+    Bad Gateway (HTTP 502).
+
+The output data will be a dataframe filled with `NA` and the `request_status` variable return the HTTP status code.
 
 To cite this software
 ---------------------
