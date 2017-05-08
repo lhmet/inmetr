@@ -446,7 +446,7 @@ new_line <- dplyr::data_frame(varname = "request_status",
 #' @importFrom dplyr %>%
 #' @return a dataframe with values filled with NA, except for id and request_status
 #' @examples 
-#' bdmep_template(id = "83936", req_msg = "Bad Gateway HTTP 502")
+#' bdmep_template(id = "83936", req_msg = "Bad Gateway (HTTP 502).")
 bdmep_template <- function(id, req_msg){
   id <- as.character(id)
   req_msg <- as.character(req_msg)
