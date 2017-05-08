@@ -445,8 +445,6 @@ new_line <- dplyr::data_frame(varname = "request_status",
 #' @param .req_status character scalar with information on the status of a request
 #' @importFrom dplyr %>%
 #' @return a dataframe with values filled with NA, except for id and request_status
-#' @examples 
-#' bdmep_template(.id = "83936", .req_status = "Bad Gateway (HTTP 502).")
 bdmep_template <- function(.id, .req_status){
   varnames <- bdmep_description()[, "varname"]
   templ_df <- as.data.frame(t(rep(NA, length(varnames))), stringsAsFactors = FALSE) 
