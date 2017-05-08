@@ -4,12 +4,12 @@
 \alias{bdmep_template}
 \title{Template bdmep dataframe to be used when the status of a request was not successfully executed.}
 \usage{
-bdmep_template(id, req_msg)
+bdmep_template(.id, .req_status)
 }
 \arguments{
-\item{id}{a character scalar with the meteorological station code}
+\item{.id}{a character scalar with the meteorological station code}
 
-\item{req_msg}{character scalar with information on the status of a request}
+\item{.req_status}{character scalar with information on the status of a request}
 }
 \value{
 a dataframe with values filled with NA, except for id and request_status
@@ -18,5 +18,5 @@ a dataframe with values filled with NA, except for id and request_status
 Template bdmep dataframe to be used when the status of a request was not successfully executed.
 }
 \examples{
-bdmep_template(id = "83936", req_msg = "Bad Gateway (HTTP 502).")
+bdmep_template(.id = "83936", .req_status = "Bad Gateway (HTTP 502).")
 }
