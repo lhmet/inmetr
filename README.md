@@ -47,7 +47,7 @@ head(info)
 #> 6 ALTO PARNAIBA    MA 82970
 ```
 
-This function returns a data frame with: station name, brazilian state, and OMM code. OMM code is a necessary argument to `import_bdmep()` function. This function download data from meteorological stations into the R.
+This function returns a data frame with: station name, brazilian state, and OMM code. OMM code is a necessary argument to `bdmep_import()` function. This function download data from meteorological stations into the R.
 
 Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological stations at two cities (Santa Maria and Porto Alegre), both in Rio Grande do Sul state.
 
