@@ -5,10 +5,10 @@
 #'	@section inmetr functions:
 #'	The main functions are:
 #' \itemize{
-#'    \item \code{\link{import_bdmep}}  
+#'    \item \code{\link{bdmep_import}}  
 #'    \item \code{\link{bdmep_stations}} 
 #'    \item \code{\link{bdmep_metadata}} 
-#'    \item \code{\link{data_description}} 
+#'    \item \code{\link{bdmep_description}} 
 #' }
 #'
 #'	@docType package
