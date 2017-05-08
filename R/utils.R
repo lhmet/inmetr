@@ -1,6 +1,6 @@
 utils::globalVariables(c(".", "data", "hora", "codigo", 
                          "nome_estacao","prec", "site",
-                         "ws", "tcomp", "id"))
+                         "ws", "tcomp", "id", "request_status"))
 
 #' Pipe operator
 #'
