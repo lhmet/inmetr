@@ -224,7 +224,7 @@ bdmep_import_station <- function(.id = "83552" ,
 ##' @param passwd password to access BDMEP
 ##' @param verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' 
-##' @return a data frame with variables in columns and observations along rows
+##' @return a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
