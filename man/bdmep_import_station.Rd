@@ -4,12 +4,12 @@
 \alias{bdmep_import_station}
 \title{Import data of a meteorological station}
 \usage{
-bdmep_import_station(.id = "83967", .sdate = "01/01/1961",
+bdmep_import_station(.id = "83552", .sdate = "01/01/1961",
   .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
   .passwd = "your-password", .verbose = TRUE)
 }
 \arguments{
-\item{.id}{a numeric vector with the meteorological station code}
+\item{.id}{a character vector with the meteorological station code}
 
 \item{.sdate}{start date in "d/m/Y" format}
 
@@ -22,7 +22,7 @@ bdmep_import_station(.id = "83967", .sdate = "01/01/1961",
 \item{.verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
 }
 \value{
-a data frame with variables in columns and observations along rows
+a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
 }
 \description{
 Import data of a meteorological station
