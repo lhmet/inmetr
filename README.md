@@ -47,7 +47,7 @@ head(info)
 #> 6 ALTO PARNAIBA    MA 82970
 ```
 
-This function return a data frame with: station name, brazilian state, and OMM code. OMM code is a necessary argument to `import_bdmep()` function. This function download data from meteorological stations into the R.
+This function returns a data frame with: station name, brazilian state, and OMM code. OMM code is a necessary argument to `import_bdmep()` function. This function download data from meteorological stations into the R.
 
 Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological stations at two cities (Santa Maria and Porto Alegre), both in Rio Grande do Sul state.
 
@@ -98,13 +98,13 @@ head(met_data)
 #> 4 1961-01-02 00:00:00 83936   NA 27.7 24.4 34.0   NA    75 986.4   NA NA
 #> 5 1961-01-02 12:00:00 83936    0 26.4 23.8   NA 23.5    79 989.4   NA NA
 #> 6 1961-01-02 18:00:00 83936   NA 30.8 25.2   NA   NA    62 989.0   NA NA
-#>   wsmax   n cc evap    ur       ws
-#> 1    NA 7.7 NA  1.1 73.00 1.000000
-#> 2     0  NA  0   NA    NA       NA
-#> 3     3  NA  9   NA    NA       NA
-#> 4     0 6.0  0  2.7 74.25 0.666667
-#> 5     0  NA  4   NA    NA       NA
-#> 6     1  NA 10   NA    NA       NA
+#>   wsmax   n cc evap    ur       ws request_status
+#> 1    NA 7.7 NA  1.1 73.00 1.000000     sucessfull
+#> 2     0  NA  0   NA    NA       NA     sucessfull
+#> 3     3  NA  9   NA    NA       NA     sucessfull
+#> 4     0 6.0  0  2.7 74.25 0.666667     sucessfull
+#> 5     0  NA  4   NA    NA       NA     sucessfull
+#> 6     1  NA 10   NA    NA       NA     sucessfull
 ```
 
 ``` r
@@ -117,40 +117,41 @@ tail(met_data)
 #> 109267 2016-12-31 00:00:00 83967   NA 25.6 NA 30.2   NA    89 1003.4
 #> 109268 2016-12-31 12:00:00 83967 23.2 25.0 NA   NA 22.8    94 1004.8
 #> 109269 2016-12-31 18:00:00 83967   NA 30.0 NA   NA   NA    68 1002.7
-#>          pnmm wd   wsmax   n    cc evap    ur      ws
-#> 109264 1011.1 14 1.54332 6.7 10.00   NA 82.75 1.02888
-#> 109265 1011.4  0 0.00000  NA  7.50   NA    NA      NA
-#> 109266 1008.7 14 1.54332  NA  6.25   NA    NA      NA
-#> 109267 1009.0 14 1.54332 2.6  7.50   NA 78.50 1.02888
-#> 109268 1010.4  0 0.00000  NA  7.50   NA    NA      NA
-#> 109269 1008.2 32 0.51444  NA  8.75   NA    NA      NA
+#>          pnmm wd   wsmax   n    cc evap    ur      ws request_status
+#> 109264 1011.1 14 1.54332 6.7 10.00   NA 82.75 1.02888     sucessfull
+#> 109265 1011.4  0 0.00000  NA  7.50   NA    NA      NA     sucessfull
+#> 109266 1008.7 14 1.54332  NA  6.25   NA    NA      NA     sucessfull
+#> 109267 1009.0 14 1.54332 2.6  7.50   NA 78.50 1.02888     sucessfull
+#> 109268 1010.4  0 0.00000  NA  7.50   NA    NA      NA     sucessfull
+#> 109269 1008.2 32 0.51444  NA  8.75   NA    NA      NA     sucessfull
 ```
 
-The units of meteorological variables can be viewed with `bdmep_units()`.
+The units of meteorological variables can be viewed with `bdmep_description()`.
 
 ``` r
-bdmep_units()
-#>    varname                         description  unit
-#> 1     date           date and time information     -
-#> 2       id                          station ID     -
-#> 3     prec                       precipitation    mm
-#> 4     tair                     air temperature deg C
-#> 5       tw                wet bulb temperature deg C
-#> 6     tmax             maximum air temperature deg C
-#> 7     tmin             minimum air temperature deg C
-#> 8    urmax           maximum relative humidity     %
-#> 9     patm                atmospheric pressure   hPa
-#> 10    pnmm mean sea level atmospheric pressure   hPa
-#> 11      wd                      wind direction   deg
-#> 12   wsmax                           wind gust   m/s
-#> 13       n                      sunshine hours     h
-#> 14      cc                         cloud cover     -
-#> 15    evap                         evaporation    mm
-#> 16      ur                   relative humidity     %
-#> 17      ws                          wind speed   m/s
+bdmep_description()
+#>           varname                            description  unit
+#> 1            date              date and time information     -
+#> 2              id                             station ID     -
+#> 3            prec                          precipitation    mm
+#> 4            tair                        air temperature deg C
+#> 5              tw                   wet bulb temperature deg C
+#> 6            tmax                maximum air temperature deg C
+#> 7            tmin                minimum air temperature deg C
+#> 8           urmax              maximum relative humidity     %
+#> 9            patm                   atmospheric pressure   hPa
+#> 10           pnmm    mean sea level atmospheric pressure   hPa
+#> 11             wd                         wind direction   deg
+#> 12          wsmax                              wind gust   m/s
+#> 13              n                         sunshine hours     h
+#> 14             cc                            cloud cover     -
+#> 15           evap                            evaporation    mm
+#> 16             ur                      relative humidity     %
+#> 17             ws                             wind speed   m/s
+#> 18 request_status Information on the status of a request  <NA>
 ```
 
-Eventually, the request to INMET server failed and a message will be promped with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes):
+Eventually, if the request failed a message will be promped with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), for example:
 
     -.-.-.-.-.-.-.-.-.-.-.-.
     station: 83936
@@ -159,7 +160,12 @@ Eventually, the request to INMET server failed and a message will be promped wit
     station: 83967
     Bad Gateway (HTTP 502).
 
-The output data will be a dataframe filled with `NA` and the `request_status` variable return the HTTP status code.
+In this case the outcome data frame will be filled with `NA`, except for `request_status` which will return information on the request status.
+
+    #>   date    id prec tair tw tmax tmin urmax patm pnmm wd wsmax  n cc evap ur
+    #> 1   NA 83936   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #>   ws          request_status
+    #> 1 NA Bad Gateway (HTTP 502).
 
 To cite this software
 ---------------------
