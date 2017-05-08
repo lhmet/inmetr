@@ -17,11 +17,10 @@ NULL
 
 #' Detect if a string is empty
 #'
-#' @param string 
+#' @param string Input vector. Either a character vector, or something coercible to one.
 #'
 #' @return logical, TRUE in the absence of a string (""), otherwise FALSE.
-#'
-#' @examples
 str_empty <- function(string) {
+  string <- as.character(string)
   string == ""
 } 
