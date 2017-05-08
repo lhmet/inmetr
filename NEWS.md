@@ -2,14 +2,14 @@
 
 - [x] remove dependence on plyr
 
-- [x] Functions (see below) were renamed to have consistent names. All functions have a 'bdmep' prefix. This allows you to type the prefix and see all the members of bdmep's family functions.
+- [x] Functions (see below) were renamed to have consistent names. Now all functions have a 'bdmep' prefix. This allows you to type the prefix and see all the members of bdmep's family functions.
     - `import_bdmep` changes to `bdmep_import` 
     - `data_description` changes to `bdmep_description`
 
 - [x] `bdmep_import()` changes:
     - supports a vector of stations IDs allowing to data import from multiple meteorological stations.
     - the first argument of `bdmep_import()` changed the name, from `id` to `ids`, to emphasize the new feature.
-    - the outcome data frame include a new column `request status` (character) to inform on the outcome of the execution of the request on the server. 
+    - returned data frame include a new column `request status` (character) to inform on the outcome of the execution of the request on the server.
 
 - [ ] get stations metadata from [here]("http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls")
 - [ ] add function to provide daily data.
