@@ -22,7 +22,7 @@ bdmep_import(ids = c("83936", "83967"), sdate = "01/01/1961",
 \item{verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
 }
 \value{
-a data frame with variables in columns and observations along rows
+a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
 }
 \description{
 Import data from Brazilian meteorological stations
