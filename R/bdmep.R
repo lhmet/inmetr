@@ -97,9 +97,11 @@ bdmep_read <- function(x){
 }## end function readInmet
 
 
-#' Get login attributes form to acces BDMEP
+#' Get login attributes form to access BDMEP
 #'
-#' @param lnk url to BDMEP
+#' @param lnk url to BDMEP access
+#' @param email e-mail to access BDMEP
+#' @param passwd password to access BDMEP
 #'
 ##' @return a named list with user name, password and text of button access
 ##' @author Jonatan Tatsch
@@ -141,14 +143,14 @@ bdmep_login_att <- function(lnk, email, passwd){
 ##' This include: a chronological sequence check; filling data from missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
-##' @param .id a numeric vector with the meteorological station code
+##' @param .id a character vector with the meteorological station code
 ##' @param .sdate start date in "d/m/Y" format
 ##' @param .edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param .email e-mail to access BDMEP 
 ##' @param .passwd password to access BDMEP
 ##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' 
-##' @return a data frame with variables in columns ((see \code{\link{bdmep_units}})) and observations (date and time) along rows.
+##' @return a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
 ##' 
 bdmep_import_station <- function(.id = "83552" ,
@@ -194,12 +196,7 @@ bdmep_import_station <- function(.id = "83552" ,
   
   if(httr::status_code(r2) != 200){
     msg <- httr::http_status(r2)$message
-    varnames <- bdmep_units()[, "varname"]
-    xtidy <- as.data.frame(t(rep(NA, length(varnames))), stringsAsFactors = FALSE) 
-    xtidy <- xtidy %>%
-      setNames(varnames) %>%
-      dplyr::mutate(id = .id,
-                    request_status = msg)
+    xtidy <- bdmep_template(id = .id, req_msg = msg)
     return(xtidy)
   }
   
@@ -367,10 +364,9 @@ bdmep_stations <- function(){
     return(tab)
 }
 
-
-##' Units of meteorological variables 
+##' Description of meteorological variables 
 ##'
-##' This function describe the Meteorological variables imported with \code{\link{bdmep_import}}
+##' This function describe the Meteorological variables imported by \code{\link{bdmep_import}}
 ##' @description Get variable names, description and units
 ##' @importFrom dplyr %>%
 ##' @details to information about instruments see \url{http://www.inmet.gov.br/portal/index.php?r=home/page&page=instrumentos}
@@ -379,11 +375,11 @@ bdmep_stations <- function(){
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
-##' met_vars <- bdmep_units()
+##' met_vars <- bdmep_description()
 ##' met_vars
 ##' 
-bdmep_units <- function() {
-  data.frame(varname     = c("date", 
+bdmep_description <- function() {
+desc <- data.frame(varname = c("date", 
                              "id", 
                              "prec",  
                              "tair", 
@@ -417,7 +413,7 @@ bdmep_units <- function() {
                              "evaporation",
                              "relative humidity",
                              "wind speed"),
-             unit        = c("-",
+                    unit = c("-",
                              "-",
                              "mm",
                              "deg C",
@@ -434,5 +430,31 @@ bdmep_units <- function() {
                              "mm",
                              "%",
                              "m/s"),
-             stringsAsFactors = FALSE)
+         stringsAsFactors = FALSE)
+new_line <- dplyr::data_frame(varname = "request_status",
+                  description = "Information on the status of a request",
+                  unit = NA_character_)
+ desc <- dplyr::bind_rows(desc, new_line)
+ return(desc)
+}
+
+
+#' Template bdmep dataframe to be used when the status of a request was not successfully executed.
+#'
+#' @param id a character scalar with the meteorological station code
+#' @param req_msg character scalar with information on the status of a request
+#' @importFrom dplyr %>%
+#' @return a dataframe with values filled with NA, except for id and request_status
+#' @examples 
+#' bdmep_template(id = "83936", req_msg = "Bad Gateway HTTP 502")
+bdmep_template <- function(id, req_msg){
+  id <- as.character(id)
+  req_msg <- as.character(req_msg)
+  varnames <- bdmep_description()[, "varname"]
+  templ_df <- as.data.frame(t(rep(NA, length(varnames))), stringsAsFactors = FALSE) 
+  templ_df <- templ_df %>%
+    setNames(varnames) %>%
+    dplyr::mutate(id = id,
+                  request_status = req_msg)
+  templ_df
 }
