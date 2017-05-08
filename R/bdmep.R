@@ -53,7 +53,7 @@ bdmep_read <- function(x){
                      na.strings = "")
 
   # stop if there is conflict between ncol(x) and length(hvec)
-  if(ncol(bdmepd) != length(vnames)) {
+  if (ncol(bdmepd) != length(vnames)) {
     print(head(bdmepd))
     cat("ncol(x) = ", ncol(bdmepd), "\n", 
         "hvec = ", vnames, "\n", "\n")
@@ -73,18 +73,19 @@ bdmep_read <- function(x){
   ## date conversion
   bdmepd <- bdmepd %>%
     dplyr::mutate(hora = doBy::recodeVar(as.character(hora),
-                                  src = as.list(c("1800","0","1200")), 
-                                  tgt = as.list(c("18:00","00:00","12:00"))),
-           date = as.POSIXct(paste(as.Date(data,
-                                           format="%d/%m/%Y"),
-                                   hora,
-                                   sep = " "), 
-                             tz = "UTC"),
-           data = NULL,
-           hora = NULL,
-           id = as.character(codigo),
-           codigo = NULL,
-           request_status = "sucessfull") 
+                                         src = as.list(c("1800","0","1200")), 
+                                         tgt = as.list(c("18:00","00:00","12:00"))
+                                         ),
+                  date = as.POSIXct(paste(as.Date(data,
+                                                  format = "%d/%m/%Y"),
+                                          hora,
+                                          sep = " "), 
+                                    tz = "UTC"),
+                  data = NULL,
+                  hora = NULL,
+                  id = as.character(codigo),
+                  codigo = NULL,
+                  request_status = "sucessfull") 
   # reorder columns
   bdmepd <- bdmepd %>% 
     dplyr::select(date, id, prec:ws, -tcomp, request_status)
@@ -154,23 +155,22 @@ bdmep_login_att <- function(lnk, email, passwd){
 ##' @author Jonatan Tatsch
 ##' 
 bdmep_import_station <- function(.id = "83552" ,
-                         .sdate = "01/01/1961",
-                         .edate = format(Sys.Date(), '%d/%m/%Y'),
-                         .email = "your-email",
-                         .passwd = "your-password",
-                         .verbose = TRUE){
-  
+                                 .sdate = "01/01/1961",
+                                 .edate = format(Sys.Date(), '%d/%m/%Y'),
+                                 .email = "your-email",
+                                 .passwd = "your-password",
+                                 .verbose = TRUE){
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
   bdmep_form_l <- bdmep_login_att(link, .email, .passwd)
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
+  
   if (httr::status_code(r) == 200 & .verbose) {
     message("\n", "-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
             "station: " , .id)
   }
   # visualize(r)
   gc()
-  
   # step 2 - get data
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
   #url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=83980&btnProcesso=serie&mRelDtInicio=01/01/1961&mRelDtFim=01/01/2017&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
@@ -194,7 +194,7 @@ bdmep_import_station <- function(.id = "83552" ,
     }
   }  
   
-  if(httr::status_code(r2) != 200){
+  if (httr::status_code(r2) != 200) {
     msg <- httr::http_status(r2)$message
     xtidy <- bdmep_template(.id , msg)
     return(xtidy)
@@ -204,7 +204,7 @@ bdmep_import_station <- function(.id = "83552" ,
     httr::content('text') %>%
     textConnection(local = TRUE) %>%
     readLines()
-
+  
   # tidy data and output
   xtidy <- bdmep_read(x)
   return(xtidy)
@@ -240,18 +240,18 @@ bdmep_import_station <- function(.id = "83552" ,
 ##' summary(metdata)
 ##' 
 bdmep_import <- function(ids = c("83936", "83967") ,
-                        sdate = "01/01/1961",
-                        edate = format(Sys.Date(), '%d/%m/%Y'),
-                        email = "your-email",
-                        passwd = "your-password",
-                        verbose = TRUE){
+                         sdate = "01/01/1961",
+                         edate = format(Sys.Date(), '%d/%m/%Y'),
+                         email = "your-email",
+                         passwd = "your-password",
+                         verbose = TRUE){
   
   purrr::map_df(ids, ~bdmep_import_station(.x, 
-                               .sdate = sdate, 
-                               .edate = edate, 
-                               .email = email,
-                               .passwd = passwd,
-                               .verbose = verbose))
+                                           .sdate = sdate, 
+                                           .edate = edate, 
+                                           .email = email,
+                                           .passwd = passwd,
+                                           .verbose = verbose))
 } 
 
 ##' Get metadata on meteorological stations
@@ -338,14 +338,12 @@ bdmep_stations <- function(){
     xml2::read_html() %>%
     rvest::html_node("table") %>%
     rvest::html_table(header = TRUE)
-  
-  is_space <- function(x) x == ""
-  
-  # remove colum named " "
+
+  ## remove colum named " "
   tab <- tab %>%
     names() %>%
-    stringr::str_trim() %>%
-    purrr::discard(is_space) %>%
+    stringr::str_trim(.) %>%
+    purrr::discard(str_empty) %>%
     subset(tab, sel = .)
   
   tab <- tab %>%
@@ -431,11 +429,11 @@ desc <- data.frame(varname = c("date",
                              "%",
                              "m/s"),
          stringsAsFactors = FALSE)
-new_line <- dplyr::data_frame(varname = "request_status",
-                  description = "Information on the status of a request",
-                  unit = NA_character_)
- desc <- dplyr::bind_rows(desc, new_line)
- return(desc)
+    new_line <- dplyr::data_frame(varname = "request_status",
+                                  description = "Information on the status of a request",
+                                  unit = NA_character_)
+    desc <- dplyr::bind_rows(desc, new_line)
+      return(desc)
 }
 
 
