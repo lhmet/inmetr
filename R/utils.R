@@ -13,3 +13,15 @@ utils::globalVariables(c(".", "data", "hora", "codigo",
 #' @importFrom dplyr %>%
 #' @usage lhs \%>\% rhs
 NULL
+
+
+#' Detect if a string is empty
+#'
+#' @param string 
+#'
+#' @return logical, TRUE in the absence of a string (""), otherwise FALSE.
+#'
+#' @examples
+str_empty <- function(string) {
+  string == ""
+} 
