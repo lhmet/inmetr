@@ -126,7 +126,7 @@ tail(met_data)
 #> 109269 1008.2 32 0.51444  NA  8.75   NA    NA      NA     sucessfull
 ```
 
-The units of meteorological variables can be viewed with `bdmep_description()`.
+A description of meteorological variables can be obtained by `bdmep_description()`.
 
 ``` r
 bdmep_description()
