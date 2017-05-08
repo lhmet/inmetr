@@ -441,20 +441,18 @@ new_line <- dplyr::data_frame(varname = "request_status",
 
 #' Template bdmep dataframe to be used when the status of a request was not successfully executed.
 #'
-#' @param id a character scalar with the meteorological station code
-#' @param req_msg character scalar with information on the status of a request
+#' @param .id a character scalar with the meteorological station code
+#' @param .req_status character scalar with information on the status of a request
 #' @importFrom dplyr %>%
 #' @return a dataframe with values filled with NA, except for id and request_status
 #' @examples 
-#' bdmep_template(id = "83936", req_msg = "Bad Gateway (HTTP 502).")
-bdmep_template <- function(id, req_msg){
-  id <- as.character(id)
-  req_msg <- as.character(req_msg)
+#' bdmep_template(.id = "83936", .req_status = "Bad Gateway (HTTP 502).")
+bdmep_template <- function(.id, .req_status){
   varnames <- bdmep_description()[, "varname"]
   templ_df <- as.data.frame(t(rep(NA, length(varnames))), stringsAsFactors = FALSE) 
   templ_df <- templ_df %>%
     setNames(varnames) %>%
-    dplyr::mutate(id = id,
-                  request_status = req_msg)
+    dplyr::mutate(id = as.character(.id),
+                  request_status = as.character(.req_status))
   templ_df
 }
