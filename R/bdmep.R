@@ -196,7 +196,7 @@ bdmep_import_station <- function(.id = "83552" ,
   
   if(httr::status_code(r2) != 200){
     msg <- httr::http_status(r2)$message
-    xtidy <- bdmep_template(id = .id, req_msg = msg)
+    xtidy <- bdmep_template(.id , msg)
     return(xtidy)
   }
   
