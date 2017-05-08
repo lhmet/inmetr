@@ -18,5 +18,5 @@ a dataframe with values filled with NA, except for id and request_status
 Template bdmep dataframe to be used when the status of a request was not successfully executed.
 }
 \examples{
-bdmep_template(id = "83936", req_msg = "Bad Gateway HTTP 502")
+bdmep_template(id = "83936", req_msg = "Bad Gateway (HTTP 502).")
 }
