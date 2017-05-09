@@ -1,24 +1,25 @@
-# inmetr 0.0.2.9000
+News
+================
 
-- [x] remove dependence on plyr
+inmetr 0.0.2.9000
+=================
 
-- [x] Functions (see below) were renamed to have consistent names. Now all functions have a 'bdmep' prefix. This allows you to type the prefix and see all the members of bdmep's family functions.
-    - `import_bdmep` changes to `bdmep_import` 
-    - `data_description` changes to `bdmep_description`
+-   \[ \] get stations metadata from [here](%22http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls%22)
+-   \[ \] add function to provide daily data.
+-   \[ \] add function to write csv files of station data.
+-   \[x\] Functions (see below) were renamed to have consistent names. Now all functions have a 'bdmep' prefix. This allows you to type the prefix and see all the members of bdmep's family functions.
+    -   `import_bdmep` changes to `bdmep_import`
+    -   `data_description` changes to `bdmep_description`
+-   \[x\] `bdmep_import()` changes:
+    -   supports a vector of stations IDs allowing to data import from multiple meteorological stations.
+    -   the first argument of `bdmep_import()` changed the name, from `id` to `ids`, to emphasize the new feature.
+    -   returned data frame include a new column `request status` (character) to inform on the outcome of the execution of the request on the server.
+-   \[x\] remove dependence on plyr
+-   \[ \] fix note about zenodo
 
-- [x] `bdmep_import()` changes:
-    - supports a vector of stations IDs allowing to data import from multiple meteorological stations.
-    - the first argument of `bdmep_import()` changed the name, from `id` to `ids`, to emphasize the new feature.
-    - returned data frame include a new column `request status` (character) to inform on the outcome of the execution of the request on the server.
+inmetr 0.0.2
+============
 
-- [ ] get stations metadata from [here]("http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls")
-- [ ] add function to provide daily data.
-- [ ] add function to write csv files of station data.
-- [ ] fix note about zenodo
+-   fixed issue (\#1, @sillasgonzaga)
 
-
-# inmetr 0.0.2
-
-- fixed issue (#1, @sillasgonzaga)
-
-- `import_bmep()` has a new argument `verbose` to print if the status of connection is ok.  
+-   `import_bmep()` has a new argument `verbose` to print if the status of connection is ok.
