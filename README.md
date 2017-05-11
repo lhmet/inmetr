@@ -18,7 +18,7 @@ library(devtools)
 ```
 
 ``` r
-install_github('jdtatsch/inmetr')
+install_github('lhmet/inmetr')
 ```
 
 Load package
