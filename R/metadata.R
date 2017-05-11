@@ -56,11 +56,16 @@ bdmep_metadata <- function(){
 } # end function bdmep_metadata
 
 
+#' Get metadata on meteorological stations from alternative link to climate stations from INMET
+#'
+#' @importFrom readxl read_excel
+#' @return A data frame is returned with metadata, including the stations
+#'  \code{id}, and coordinates (\code{lon}, \code{lat}, \code{alt})
 bdmep_metadata_normclim <- function(){
   
   stn_meteo_nc_xls <- "http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls"
   tmp_file <- paste0(tempfile(), ".xls")
-  download.file(stn_meteo_nc_xls, destfile = tmp_file)
+  invisible(download.file(stn_meteo_nc_xls, destfile = tmp_file))
    stn_meteo_nc <- readxl::read_excel(tmp_file, col_names = TRUE)
    #file.remove(tmp_file)
    
@@ -75,8 +80,8 @@ bdmep_metadata_normclim <- function(){
    setNames(., stringr::str_replace(names(.), "\\'", "")) -> .
    setNames(., stringr::str_replace(names(.), "\\(", "")) -> .
    setNames(., stringr::str_replace(names(.), "\\)", "")) -> .
-   setNames(., stringr::str_replace(names(.), "°", "")) -> .
-   setNames(., stringr::str_replace(names(.), "º", "")) -> .
+   setNames(., stringr::str_replace(names(.), "\\°", "")) -> .
+   setNames(., stringr::str_replace(names(.), "\\º", "")) -> .
    setNames(., stringr::str_replace(names(.), " ", "_")) -> .
    setNames(., stringr::str_replace(names(.), "\\`", "_")) -> .
    setNames(., stringr::str_replace(names(.), "_m", "")) -> .
@@ -86,8 +91,8 @@ bdmep_metadata_normclim <- function(){
   # data clean
    stn_meteo_nc -> .
    dplyr::mutate(., 
-          latitude = stringr::str_replace(latitude, "º|°", "_"),
-          longitude = stringr::str_replace(longitude, "º|°", "_"),
+          latitude = stringr::str_replace(latitude, "\\º|\\°", "_"),
+          longitude = stringr::str_replace(longitude, "\\º|\\°", "_"),
           latitude = stringr::str_replace(latitude, "\\'", "_"),
           longitude = stringr::str_replace(longitude, "\\'", "_"))
    
