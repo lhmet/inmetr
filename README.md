@@ -189,7 +189,7 @@ Stations},
     note = {R package version 0.0.2.9000},
     doi = {http://doi.org/10.5281/ZENODO.59652},
     institution = {Universidade Federal de Santa Maria-UFSM},
-    url = {https://github.com/jdtatsch/inmetr},
+    url = {https://github.com/lhmet/inmetr},
     address = {Santa Maria-RS, Brazil},
   }
 ```
