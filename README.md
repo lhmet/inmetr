@@ -52,15 +52,17 @@ This function returns a data frame with: station name, brazilian state, and OMM 
 Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for the meterological stations at two cities (Santa Maria and Porto Alegre), both in Rio Grande do Sul state.
 
 ``` r
-stations <- c("SANTA MARIA", "PORTO ALEGRE")
+#stations <- c("SANTA MARIA", "PORTO ALEGRE")
+# randon sample of two stations names 
+stations <- sample(info$name,2)
 stations_rows <- pmatch(stations, info$name)
 info[stations_rows, ]
-#>             name state    id
-#> 221  SANTA MARIA    RS 83936
-#> 199 PORTO ALEGRE    RS 83967
+#>               name state    id
+#> 32 BENTO GONCALVES    RS 83941
+#> 53        CANARANA    MT 83270
 stns_codes <- info[stations_rows, "id"] 
 stns_codes
-#> [1] "83936" "83967"
+#> [1] "83941" "83270"
 ```
 
 Import data
@@ -81,49 +83,49 @@ met_data <- bdmep_import(ids = stns_codes,
 
     #> 
     #> -.-.-.-.-.-.-.-.-.-.-.-.
-    #> station: 83936
-    #> Request data ok.
+    #> station: 83941
+    #> OK (HTTP 200).
     #> 
     #> -.-.-.-.-.-.-.-.-.-.-.-.
-    #> station: 83967
-    #> Request data ok.
+    #> station: 83270
+    #> OK (HTTP 200).
 
 ``` r
 # check de start date
 head(met_data)
-#>                  date    id prec tair   tw tmax tmin urmax  patm pnmm wd
-#> 1 1961-01-01 00:00:00 83936   NA   NA   NA 31.9   NA    NA    NA   NA NA
-#> 2 1961-01-01 12:00:00 83936   NA 23.9 21.4   NA 18.1    79 990.3   NA NA
-#> 3 1961-01-01 18:00:00 83936   NA 30.6 25.1   NA   NA    63 988.2   NA NA
-#> 4 1961-01-02 00:00:00 83936   NA 27.7 24.4 34.0   NA    75 986.4   NA NA
-#> 5 1961-01-02 12:00:00 83936    0 26.4 23.8   NA 23.5    79 989.4   NA NA
-#> 6 1961-01-02 18:00:00 83936   NA 30.8 25.2   NA   NA    62 989.0   NA NA
-#>   wsmax   n cc evap    ur       ws request_status
-#> 1    NA 7.7 NA  1.1 73.00 1.000000     sucessfull
-#> 2     0  NA  0   NA    NA       NA     sucessfull
-#> 3     3  NA  9   NA    NA       NA     sucessfull
-#> 4     0 6.0  0  2.7 74.25 0.666667     sucessfull
-#> 5     0  NA  4   NA    NA       NA     sucessfull
-#> 6     1  NA 10   NA    NA       NA     sucessfull
+#>                  date    id prec tair   tw tmax tmin urmax patm pnmm wd
+#> 1 1961-01-01 00:00:00 83941   NA   NA   NA 29.0   NA    NA   NA   NA NA
+#> 2 1961-01-01 12:00:00 83941   NA 22.5 20.0   NA 17.0    78   NA   NA  9
+#> 3 1961-01-01 18:00:00 83941   NA 28.0 23.5   NA   NA    67   NA   NA 14
+#> 4 1961-01-02 00:00:00 83941   NA 23.0 20.5 31.5   NA    79   NA   NA 14
+#> 5 1961-01-02 12:00:00 83941    0 23.5 20.0   NA 18.5    72   NA   NA 36
+#> 6 1961-01-02 18:00:00 83941   NA 30.0 22.0   NA   NA    48   NA   NA 23
+#>   wsmax  n cc evap    ur ws    request_status
+#> 1    NA NA NA   NA 75.75  1 Success: (200) OK
+#> 2     1 NA  2   NA    NA NA Success: (200) OK
+#> 3     1 NA  0   NA    NA NA Success: (200) OK
+#> 4     1 NA  2   NA 78.00  1 Success: (200) OK
+#> 5     1 NA  0   NA    NA NA Success: (200) OK
+#> 6     1 NA  2   NA    NA NA Success: (200) OK
 ```
 
 ``` r
 # check de end date
 tail(met_data)
-#>                       date    id prec tair tw tmax tmin urmax   patm
-#> 109264 2016-12-30 00:00:00 83967   NA 22.5 NA 33.5   NA    96 1005.5
-#> 109265 2016-12-30 12:00:00 83967 10.5 25.1 NA   NA 21.4    89 1005.8
-#> 109266 2016-12-30 18:00:00 83967   NA 33.3 NA   NA   NA    64 1003.2
-#> 109267 2016-12-31 00:00:00 83967   NA 25.6 NA 30.2   NA    89 1003.4
-#> 109268 2016-12-31 12:00:00 83967 23.2 25.0 NA   NA 22.8    94 1004.8
-#> 109269 2016-12-31 18:00:00 83967   NA 30.0 NA   NA   NA    68 1002.7
-#>          pnmm wd   wsmax   n    cc evap    ur      ws request_status
-#> 109264 1011.1 14 1.54332 6.7 10.00   NA 82.75 1.02888     sucessfull
-#> 109265 1011.4  0 0.00000  NA  7.50   NA    NA      NA     sucessfull
-#> 109266 1008.7 14 1.54332  NA  6.25   NA    NA      NA     sucessfull
-#> 109267 1009.0 14 1.54332 2.6  7.50   NA 78.50 1.02888     sucessfull
-#> 109268 1010.4  0 0.00000  NA  7.50   NA    NA      NA     sucessfull
-#> 109269 1008.2 32 0.51444  NA  8.75   NA    NA      NA     sucessfull
+#>                      date    id prec tair tw tmax tmin urmax  patm   pnmm
+#> 69253 2016-12-30 00:00:00 83270   NA 24.2 NA 31.4   NA    90 966.0 1014.3
+#> 69254 2016-12-30 12:00:00 83270  0.0 26.0 NA   NA 19.9    82 966.5 1014.6
+#> 69255 2016-12-30 18:00:00 83270   NA 29.0 NA   NA   NA    62 964.8 1012.9
+#> 69256 2016-12-31 00:00:00 83270   NA 25.0 NA 31.7   NA    86 965.9 1013.9
+#> 69257 2016-12-31 12:00:00 83270 25.3 23.8 NA   NA 19.5    90 967.3 1015.5
+#> 69258 2016-12-31 18:00:00 83270   NA 25.4 NA   NA   NA    83 964.4 1012.7
+#>       wd wsmax   n   cc evap    ur ws    request_status
+#> 69253  0     0 4.9  5.0   NA 79.00  0 Success: (200) OK
+#> 69254  0     0  NA  5.0   NA    NA NA Success: (200) OK
+#> 69255  0     0  NA  7.5   NA    NA NA Success: (200) OK
+#> 69256  0     0 2.1  7.5   NA 89.75  0 Success: (200) OK
+#> 69257  0     0  NA 10.0   NA    NA NA Success: (200) OK
+#> 69258  0     0  NA  7.5   NA    NA NA Success: (200) OK
 ```
 
 A description of meteorological variables can be obtained by `bdmep_description()`.
@@ -154,18 +156,20 @@ bdmep_description()
 Eventually, if the request failed a message will be promped with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), for example:
 
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83936
+    station: 83941
     Bad Gateway (HTTP 502).
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83967
+    station: 83270
     Bad Gateway (HTTP 502).
 
 In this case the outcome data frame will be filled with `NA`, except for `request_status` which will return information on the request status.
 
     #>   date    id prec tair tw tmax tmin urmax patm pnmm wd wsmax  n cc evap ur
-    #> 1   NA 83936   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 1   NA 83941   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 2   NA 83270   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
     #>   ws          request_status
     #> 1 NA Bad Gateway (HTTP 502).
+    #> 2 NA Bad Gateway (HTTP 502).
 
 To cite this software
 ---------------------
