@@ -20,6 +20,6 @@ output: github_document
 
 # inmetr 0.0.2
 
-- fixed issue (#1, @sillasgonzaga)
+- fixed issue #1, thanks to @sillasgonzaga.
 
 - `import_bmep()` has a new argument `verbose` to print if the status of connection is ok.  
