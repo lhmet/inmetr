@@ -3,8 +3,6 @@ title: "News"
 output: github_document
 ---
 
-[![GitHub forks](https://img.shields.io/github/forks/badges/inmetr.svg?style=social&label=Fork)]()
-
 # inmetr 0.0.2.9000
 
 - [ ] get stations metadata from [here]("http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls")
