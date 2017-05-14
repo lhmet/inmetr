@@ -12,8 +12,11 @@ bdmep_template(.id, .req_status)
 \item{.req_status}{character scalar with information on the status of a request}
 }
 \value{
-a dataframe with values filled with NA, except for id and request_status
+a dataframe with variables filled with NA, except for id and request_status
 }
 \description{
 Template bdmep dataframe to be used when the status of a request was not successfully executed.
+}
+\details{
+This is used when the status of a request
 }
