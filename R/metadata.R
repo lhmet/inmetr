@@ -137,7 +137,8 @@ read_meteo_stn_xls <- function(file = "./inst/extdata/relac_est_meteo_nc.xls",
                                 lon = parse_coords(lon))
   stn_meteo_nc <- dplyr::select(stn_meteo_nc, 
                                 dplyr::one_of("id", "lon", "lat", "alt", "nome", "estado", "uf"))
-  stn_meteo_nc <- dplyr::rename("state" = estado,
+  stn_meteo_nc <- dplyr::rename(stn_meteo_nc,
+                                "state" = estado,
                                 "name" = nome)
   return(as.data.frame(stn_meteo_nc))
   }
@@ -149,25 +150,34 @@ read_meteo_stn_xls <- function(file = "./inst/extdata/relac_est_meteo_nc.xls",
 #' @return data frame with variables:
 #'  \code{id}, \code{lon}, \code{lat}, \code{alt}, 
 #'  \code{name}, \code{state}, \code{uf}.
-#'  @details First the function try read metadata in ./data/relac_est_meteo_nc.rds
+#'  @details First the function try read metadata in ./data/relac_est_meteo_nc.RData.
+#'   If it was not found, it is downloaded from \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls}
+#'   and saved at ./inst/extdata as \emph{relac_est_meteo_nc.xls}
+#'    
 #' @examples
 #'  metadt <- bdmep_metadata_normclim()
 #'  head(metadt)
-bdmep_metadata_normclim <- function(metadata_file = "data/relac_est_meteo_nc.RData",
+bdmep_metadata_normclim <- function(metadata_file = "./data/relac_est_meteo_nc.rda",
                                     verbose = TRUE){
   
   if(!file.exists(metadata_file)){
-    # download excel file
-    stn_meteo_nc_xls <- "http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls"
     ext_data_file <- "./inst/extdata/relac_est_meteo_nc.xls"
-    invisible(download.file(stn_meteo_nc_xls, destfile = ext_data_file))
-    # import data
-    stn_meteo_nc <- read_meteo_stn_xls(ext_data_file, verbose)
-    save(stn_meteo_nc, file = metadata_file)
+    if(!file.exists(ext_data_file)){
+      # download excel file
+      stn_meteo_nc_xls <- "http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls"
+      
+      invisible(download.file(stn_meteo_nc_xls, destfile = ext_data_file))
+    }
+      # import data from xls
+      relac_est_meteo_nc <- read_meteo_stn_xls(ext_data_file, verbose)
+      # save clean data
+      save(relac_est_meteo_nc, file = metadata_file)
+      return(relac_est_meteo_nc)
   }
   
+  # clean data
   load(metadata_file)
-   return(stn_meteo_nc)
+   return(relac_est_meteo_nc)
   
 } # end function bdmep_metadata_normclim
 
