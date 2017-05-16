@@ -1,10 +1,9 @@
 ##' Metadata on 394 meteorological stations of INMET
 ##'
 ##' Spatial coordinates, altitude and others informations of INMET's 
-##' meteorological stations.
-##' 
-##' \code{bdmep_meta} is supplied with the \code{inmetr} package and
+##' meteorological stations. \code{bdmep_meta} is supplied with the \code{inmetr} package and
 ##' consists of the following information.
+##' 
 ##' @name bdmep_meta
 ##' @keywords datasets
 ##' @docType data
