@@ -5,7 +5,7 @@
 ##' 
 ##' \code{bdmep_meta} is supplied with the \code{inmetr} package and
 ##' consists of the following information.
-##'
+##' @name bdmep_meta
 ##' @keywords datasets
 ##' @docType data
 ##'  
@@ -23,7 +23,7 @@
 ##' @source \code{bdmep_meta} was compiled from 
 ##' \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls} 
 ##'
-"bdmep_meta"
+NULL
 
 
 ##' Description of meteorological variables 
@@ -112,7 +112,7 @@ bdmep_description <- function() {
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' 
-##' info <- bdmep_metadata()
+##' info <- bdmep_coords()
 ##' head(info)
 
 bdmep_coords <- function(){
@@ -155,7 +155,7 @@ bdmep_coords <- function(){
   #tab_info <- dplyr::full_join(bdmep_stations(), tab_info, by = "id")
   
   return(tab_info)
-} # end function bdmep_metadata
+} # end function 
 
 
 
