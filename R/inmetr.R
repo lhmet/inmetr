@@ -6,11 +6,12 @@
 #'	The main functions are:
 #' \itemize{
 #'    \item \code{\link{bdmep_import}}  
-#'    \item \code{\link{bdmep_stations}} 
-#'    \item \code{\link{bdmep_metadata}} 
 #'    \item \code{\link{bdmep_description}} 
 #' }
-#'
+#'  The data included in \code{inmetr} is:
+#' \itemize{
+#'    \item \code{\link{bdmep_meta}}  
+#' }
 #'	@docType package
 #'	@name	inmetr
 NULL
