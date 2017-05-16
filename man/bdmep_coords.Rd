@@ -14,11 +14,6 @@ A data frame is returned with metadata, including the stations
 Fetch the coordinates on meteorological stations from INMET
 \url{http://www.inmet.gov.br/projetos/rede/pesquisa/lista_estacao.php}
 }
-\examples{
-
-info <- bdmep_coords()
-head(info)
-}
 \author{
 Jonatan Tatsch
 }

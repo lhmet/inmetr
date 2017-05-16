@@ -111,10 +111,6 @@ bdmep_description <- function() {
 ##' @return A data frame is returned with metadata, including the stations
 ##'  \code{id}, and coordinates (\code{lon}, \code{lat}, \code{alt})
 ##' @author Jonatan Tatsch
-##' @examples 
-##' 
-##' info <- bdmep_coords()
-##' head(info)
 
 bdmep_coords <- function(){
   # omm id, lat, lon, alt
