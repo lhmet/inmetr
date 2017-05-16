@@ -18,12 +18,16 @@
 \code{bdmep_meta} was compiled from 
 \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls}
 }
+\usage{
+bdmep_meta
+}
 \description{
 Spatial coordinates, altitude and others informations of INMET's 
-meteorological stations.
-}
-\details{
-\code{bdmep_meta} is supplied with the \code{inmetr} package and
+meteorological stations. \code{bdmep_meta} is supplied with the \code{inmetr} package and
 consists of the following information.
+}
+\examples{
+head(bdmep_meta)
+with(bdmep_meta, plot(lon, lat, pch = 4, cex = 0.5))
 }
 \keyword{datasets}
