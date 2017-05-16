@@ -24,7 +24,7 @@
 ##' \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls} 
 ##' @examples 
 ##' head(bdmep_meta)
-##' with(bdmep_meta, plot(lon, lat, pch = 4))
+##' with(bdmep_meta, plot(lon, lat, pch = 4, cex = 0.5))
 "bdmep_meta"
 
 
