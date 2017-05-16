@@ -22,8 +22,10 @@
 ##' 
 ##' @source \code{bdmep_meta} was compiled from 
 ##' \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls} 
-##'
-NULL
+##' @examples 
+##' head(bdmep_meta)
+##' with(bdmep_meta, plot(lon, lat, pch = 4))
+"bdmep_meta"
 
 
 ##' Description of meteorological variables 
