@@ -90,14 +90,14 @@ read_meteo_stn_xls <- function(file = "./inst/extdata/relac_est_meteo_nc.xls",
 #' @return data frame with variables:
 #'  \code{id}, \code{lon}, \code{lat}, \code{alt}, 
 #'  \code{name}, \code{state}, \code{uf}.
-#'  @details First the function try read metadata in ./data/relac_est_meteo_nc.RData.
+#'  @details First the function try read metadata in ./data/bdmep_meta.RData.
 #'   If it was not found, it is downloaded from \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls}
-#'   and saved at ./inst/extdata as \emph{relac_est_meteo_nc.xls}
+#'   and saved at ./inst/extdata as \emph{bdmep_meta.xls}
 #'    
 #' @examples
 #'  metadt <- bdmep_metadata_normclim()
 #'  head(metadt)
-bdmep_metadata_normclim <- function(metadata_file = "./data/relac_est_meteo_nc.rda",
+bdmep_metadata_normclim <- function(metadata_file = "./data/bdmep_meta.rda",
                                     verbose = TRUE){
   
   if(!file.exists(metadata_file)){
@@ -108,21 +108,21 @@ bdmep_metadata_normclim <- function(metadata_file = "./data/relac_est_meteo_nc.r
       invisible(download.file(stn_meteo_nc_xls, destfile = ext_data_file))
     }
     # import data from xls
-    relac_est_meteo_nc <- read_meteo_stn_xls(ext_data_file, verbose)
+    bdmep_meta <- read_meteo_stn_xls(ext_data_file, verbose)
     # save clean data
-    save(relac_est_meteo_nc, file = metadata_file)
-    return(relac_est_meteo_nc)
+    save(bdmep_meta, file = metadata_file)
+    return(bdmep_meta)
   }
   
   # clean data
   load(metadata_file)
-  return(relac_est_meteo_nc)
+  return(bdmep_meta)
   
 } # end function bdmep_metadata_normclim
 
 
 # Generate data ------------------------------------------------
 # setwd("./data-raw")
-bdmep_metadata <- bdmep_metadata_normclim("./data/relac_est_meteo_nc.rda", verbose = FALSE)
+bdmep_metadata <- bdmep_metadata_normclim("./data/bdmep_meta.rda", verbose = FALSE)
 # setwd("../")
 devtools::use_data(bdmep_metadata)
