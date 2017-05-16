@@ -256,7 +256,7 @@ bdmep_import <- function(ids = c("83936", "83967") ,
 
 #' Template bdmep dataframe to be used when the status of a request was not successfully executed.
 #' 
-#' @details This is used when the status of a request 
+#' @details This is used when the status of a request code is not 200.
 #' 
 #' @param .id a character scalar with the meteorological station code
 #' @param .req_status character scalar with information on the status of a request
