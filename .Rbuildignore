@@ -5,3 +5,4 @@
 ^inmetr\.Rproj$
 ^.*\.csv$
 ^\.travis\.yml$
+^data-raw$
