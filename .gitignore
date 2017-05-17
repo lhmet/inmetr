@@ -4,6 +4,6 @@
 .Ruserdata
 inst/doc
 README.Rmd
-NEWS.Rmd
+^NEWS\.Rmd$
 tasklist.Rmd
 .csv
