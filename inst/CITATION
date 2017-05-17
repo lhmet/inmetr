@@ -1,7 +1,7 @@
 citHeader("To cite package 'inmetr' in publications use:")
 
 year <- as.integer(format(Sys.Date(), "%Y"))
-vers <- paste("R package version", meta$Version)
+vers <- paste("R package version", "0.0.3")
 
 citEntry(entry = "Manual",
          title = "inmetr: A Package to Import Historical Data from Brazilian Meteorological
