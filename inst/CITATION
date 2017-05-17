@@ -13,7 +13,7 @@ Stations",
 
          textVersion = paste0("Tatsch, J.D. ",
                year,
-               ". inmetr: A Package to Import Historical Data from Brazilian Meteorological Stations. ",
+               ". inmetr: Historical Data from Brazilian Meteorological Stations in R ",
                "Zenodo, doi:10.5281/zenodo.59652."
                
                ),
