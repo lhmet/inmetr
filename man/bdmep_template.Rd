@@ -18,5 +18,5 @@ a dataframe with variables filled with NA, except for id and request_status
 Template bdmep dataframe to be used when the status of a request was not successfully executed.
 }
 \details{
-This is used when the status of a request
+This is used when the status of a request code is not 200.
 }

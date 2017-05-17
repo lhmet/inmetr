@@ -4,12 +4,12 @@
 \alias{bdmep_import}
 \title{Import data from Brazilian meteorological stations}
 \usage{
-bdmep_import(ids = c("83936", "83967"), sdate = "01/01/1961",
+bdmep_import(id = c("83936", "83967"), sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your-email",
   passwd = "your-password", verbose = TRUE)
 }
 \arguments{
-\item{ids}{a character vector with codes of meteorological stations}
+\item{id}{a character vector with codes of meteorological stations}
 
 \item{sdate}{start date in "d/m/Y" format}
 
@@ -34,7 +34,7 @@ remove duplicated data. Time variables (year, month, day, hour) are aggregated i
 }
 \examples{
 # download data for Santa Maria and Porto Alegre
-metdata <- bdmep_import(ids = c("83936", "83967"), 
+metdata <- bdmep_import(id = c("83936", "83967"), 
                         sdate = "01/01/1961",
                         edate = format(Sys.Date(), '\%d/\%m/\%Y'),
                         email = "your-email",
