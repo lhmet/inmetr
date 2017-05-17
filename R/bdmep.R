@@ -216,7 +216,7 @@ bdmep_import_station <- function(.id = "83552" ,
 ##' This include: a chronological sequence check; filling data from missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
-##' @param ids a character vector with codes of meteorological stations
+##' @param id a character vector with codes of meteorological stations
 ##' @param sdate start date in "d/m/Y" format
 ##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param email e-mail to access BDMEP 
@@ -228,7 +228,7 @@ bdmep_import_station <- function(.id = "83552" ,
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria and Porto Alegre
-##' metdata <- bdmep_import(ids = c("83936", "83967"), 
+##' metdata <- bdmep_import(id = c("83936", "83967"), 
 ##'                         sdate = "01/01/1961",
 ##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
 ##'                         email = "your-email",
@@ -238,14 +238,14 @@ bdmep_import_station <- function(.id = "83552" ,
 ##' tail(metdata)
 ##' summary(metdata)
 ##' 
-bdmep_import <- function(ids = c("83936", "83967") ,
+bdmep_import <- function(id = c("83936", "83967") ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
                          email = "your-email",
                          passwd = "your-password",
                          verbose = TRUE){
   
-  purrr::map_df(ids, ~bdmep_import_station(.x, 
+  purrr::map_df(id, ~bdmep_import_station(.x, 
                                            .sdate = sdate, 
                                            .edate = edate, 
                                            .email = email,
