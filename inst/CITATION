@@ -4,20 +4,18 @@ year <- as.integer(format(Sys.Date(), "%Y"))
 vers <- paste("R package version", "0.0.3")
 
 citEntry(entry = "Manual",
-         title = "inmetr: A Package to Import Historical Data from Brazilian Meteorological
-Stations",
+         title = "inmetr: Historical Data from Brazilian Meteorological Stations in R",
          author = personList(as.person("Jonatan Tatsch")),
          year = year,
          note = vers,
-         doi = "http://doi.org/10.5281/ZENODO.59652",
+         doi = "https://doi.org/10.5281/zenodo.580813",
 
          textVersion = paste0("Tatsch, J.D. ",
                year,
-               ". inmetr: Historical Data from Brazilian Meteorological Stations in R ",
-               "Zenodo, doi:10.5281/zenodo.59652."
+               ". inmetr: Historical Data from Brazilian Meteorological Stations in R. ",
+               "Zenodo. https://doi.org/10.5281/zenodo.580813."
                
                ),
          institution = "Universidade Federal de Santa Maria-UFSM",
-         url = "https://github.com/lhmet/inmetr",
-         address = "Santa Maria-RS, Brazil")
+         url = "https://github.com/lhmet/inmetr")
          
