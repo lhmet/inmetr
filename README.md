@@ -2,7 +2,7 @@ inmetr: Historical Data from Brazilian Meteorological Stations in R
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.59652.svg)](http://dx.doi.org/10.5281/zenodo.59652) [![Version](https://img.shields.io/badge/Version-0.0.3-orange.svg)](https://img.shields.io/badge/Version-0.0.3-orange.svg) [![Build Status](https://travis-ci.org/lhmet/inmetr.svg?branch=master)](https://travis-ci.org/lhmet/inmetr)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.580813.svg)](https://doi.org/10.5281/zenodo.580813) [![Version](https://img.shields.io/badge/Version-0.0.3-orange.svg)](https://img.shields.io/badge/Version-0.0.3-orange.svg) [![Build Status](https://travis-ci.org/lhmet/inmetr.svg?branch=master)](https://travis-ci.org/lhmet/inmetr)
 
 Overview
 --------
@@ -62,12 +62,12 @@ Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/v
 stations <- sample(bdmep_meta$name,2)
 stations_rows <- pmatch(stations, bdmep_meta$name)
 bdmep_meta[stations_rows, ]
-#>        id       lon        lat    alt   name          state uf
-#> 281 83757 -43.90000 -22.633333 388.15  Piraí Rio de Janeiro RJ
-#> 108 82568 -46.46667  -5.816667 163.07 Grajaú       Maranhão MA
+#>        id       lon       lat     alt          name        state uf
+#> 165 83385 -44.86667 -15.95000  446.49 São Francisco Minas Gerais MG
+#> 254 83860 -51.98333 -26.48333 1090.52        Palmas       Paraná PR
 stns_codes <- bdmep_meta[stations_rows, "id"] 
 stns_codes
-#> [1] "83757" "82568"
+#> [1] "83385" "83860"
 ```
 
 Import data
@@ -88,49 +88,49 @@ met_data <- bdmep_import(id = stns_codes,
 
     #> 
     #> -.-.-.-.-.-.-.-.-.-.-.-.
-    #> station: 83757
+    #> station: 83385
     #> OK (HTTP 200).
     #> 
     #> -.-.-.-.-.-.-.-.-.-.-.-.
-    #> station: 82568
+    #> station: 83860
     #> OK (HTTP 200).
 
 ``` r
 # check de start date
 head(met_data)
 #>                  date    id prec tair   tw tmax tmin urmax  patm pnmm wd
-#> 1 1961-01-01 00:00:00 83757   NA   NA   NA 28.9   NA    NA    NA   NA NA
-#> 2 1961-01-01 12:00:00 83757   NA 24.4 23.0   NA 19.8    88 968.4   NA  0
-#> 3 1961-01-01 18:00:00 83757   NA 25.4 23.2   NA   NA    83 967.2   NA 18
-#> 4 1961-01-02 00:00:00 83757   NA 21.9 21.8 27.5   NA    99 968.6   NA  0
-#> 5 1961-01-02 12:00:00 83757  7.7 24.9 23.0   NA 20.8    85 966.8   NA 32
-#> 6 1961-01-02 18:00:00 83757   NA 25.9 24.8   NA   NA    91 965.2   NA  0
+#> 1 1961-01-01 00:00:00 83385   NA   NA   NA 32.2   NA    NA    NA   NA NA
+#> 2 1961-01-01 12:00:00 83385   NA 23.4 22.4   NA 16.7    91 958.0   NA 23
+#> 3 1961-01-01 18:00:00 83385   NA 31.4 25.2   NA   NA    60 953.8   NA  0
+#> 4 1961-01-02 00:00:00 83385   NA 21.8 20.0 31.8   NA    84 958.0   NA 14
+#> 5 1961-01-02 12:00:00 83385  8.2 23.8 22.8   NA 15.9    91 959.4   NA  0
+#> 6 1961-01-02 18:00:00 83385   NA 30.4 25.2   NA   NA    65 955.1   NA  0
 #>   wsmax  n cc evap    ur       ws    request_status
-#> 1    NA NA NA   NA 92.25 0.333333 Success: (200) OK
-#> 2     0 NA 10   NA    NA       NA Success: (200) OK
-#> 3     1 NA 10   NA    NA       NA Success: (200) OK
-#> 4     0 NA 10   NA 92.50 0.666667 Success: (200) OK
-#> 5     2 NA 10   NA    NA       NA Success: (200) OK
-#> 6     0 NA 10   NA    NA       NA Success: (200) OK
+#> 1    NA NA NA  4.8 79.75 1.333333 Success: (200) OK
+#> 2     2 NA  9   NA    NA       NA Success: (200) OK
+#> 3     0 NA  2   NA    NA       NA Success: (200) OK
+#> 4     2 NA  8  1.0 79.00 0.000000 Success: (200) OK
+#> 5     0 NA  9   NA    NA       NA Success: (200) OK
+#> 6     0 NA  4   NA    NA       NA Success: (200) OK
 ```
 
 ``` r
 # check de end date
 tail(met_data)
 #>                      date    id prec tair   tw tmax tmin urmax  patm pnmm
-#> 67498 1995-10-30 12:00:00 82568  0.0 27.5 23.2   NA 23.8    70 991.8   NA
-#> 67499 1995-10-30 18:00:00 82568   NA 31.2 24.5   NA   NA    58 988.2   NA
-#> 67500 1995-10-31 00:00:00 82568   NA 24.7 21.5 31.3   NA    76 991.5   NA
-#> 67501 1995-10-31 12:00:00 82568  3.1 25.9 23.3   NA 22.0    80 992.9   NA
-#> 67502 1995-10-31 18:00:00 82568   NA 25.7 24.6   NA   NA    91 989.0   NA
-#> 67503 1995-11-01 00:00:00 82568   NA 23.7 22.8   NA   NA    93 992.8   NA
-#>       wd wsmax   n cc evap    ur       ws    request_status
-#> 67498 32     1  NA 10   NA    NA       NA Success: (200) OK
-#> 67499 36     1  NA  7   NA    NA       NA Success: (200) OK
-#> 67500  0     0 0.9 10  3.9 89.25 0.333333 Success: (200) OK
-#> 67501  0     0  NA 10   NA    NA       NA Success: (200) OK
-#> 67502  5     1  NA 10   NA    NA       NA Success: (200) OK
-#> 67503  0     0  NA  6   NA    NA       NA Success: (200) OK
+#> 35472 1985-01-30 12:00:00 83860    0 20.4 19.1   NA 16.3    88 890.9   NA
+#> 35473 1985-01-30 18:00:00 83860   NA 29.1 22.1   NA   NA    54 890.5   NA
+#> 35474 1985-01-31 00:00:00 83860   NA 21.0 19.0 29.3   NA    83 888.1   NA
+#> 35475 1985-01-31 12:00:00 83860    0 20.4 19.2   NA 17.4    89 885.7   NA
+#> 35476 1985-01-31 18:00:00 83860   NA 28.3 22.2   NA   NA    58 892.1   NA
+#> 35477 1985-02-01 00:00:00 83860   NA 22.3 20.1   NA   NA    82 890.5   NA
+#>       wd wsmax    n cc evap    ur       ws    request_status
+#> 35472  5     6   NA 10   NA    NA       NA Success: (200) OK
+#> 35473 27     5   NA  6   NA    NA       NA Success: (200) OK
+#> 35474  0     0 10.8  0    5 77.75 1.333333 Success: (200) OK
+#> 35475  0     0   NA  4   NA    NA       NA Success: (200) OK
+#> 35476 23     4   NA  6   NA    NA       NA Success: (200) OK
+#> 35477  0     0   NA  0   NA    NA       NA Success: (200) OK
 ```
 
 A description of meteorological variables can be obtained by `bdmep_description()`.
@@ -161,17 +161,17 @@ bdmep_description()
 Eventually, if the request failed a message will be prompted with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), for example:
 
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83757
+    station: 83385
     Bad Gateway (HTTP 502).
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 82568
+    station: 83860
     Bad Gateway (HTTP 502).
 
 In this case the outcome data frame will be filled with `NA`, except for `request_status` which will return information on the request status.
 
     #>   date    id prec tair tw tmax tmin urmax patm pnmm wd wsmax  n cc evap ur
-    #> 1   NA 83757   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
-    #> 2   NA 82568   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 1   NA 83385   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 2   NA 83860   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
     #>   ws          request_status
     #> 1 NA Bad Gateway (HTTP 502).
     #> 2 NA Bad Gateway (HTTP 502).
@@ -184,20 +184,19 @@ citation("inmetr")
 
 To cite package 'inmetr' in publications use:
 
-  Tatsch, J.D. 2017. inmetr: Historical Data from Brazilian
-  Meteorological Stations in R Zenodo, doi:10.5281/zenodo.59652.
+  Tatsch, J.D. 2017. inmetr R package (v 0.0.3): Historical Data
+  from Brazilian Meteorological Stations in R. Zenodo.
+  10.5281/zenodo.580813.
 
 A BibTeX entry for LaTeX users is
 
   @Manual{,
-    title = {inmetr: A Package to Import Historical Data from Brazilian Meteorological
-Stations},
+    title = {inmetr: Historical Data from Brazilian Meteorological Stations in R},
     author = {Jonatan Tatsch},
     year = {2017},
     note = {R package version 0.0.3},
-    doi = {http://doi.org/10.5281/ZENODO.59652},
+    doi = {10.5281/zenodo.580813},
     institution = {Universidade Federal de Santa Maria-UFSM},
     url = {https://github.com/lhmet/inmetr},
-    address = {Santa Maria-RS, Brazil},
   }
 ```
