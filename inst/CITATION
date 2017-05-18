@@ -8,12 +8,12 @@ citEntry(entry = "Manual",
          author = personList(as.person("Jonatan Tatsch")),
          year = year,
          note = vers,
-         doi = "10.5281/zenodo.580813",
+         doi = "https://doi.org/10.5281/zenodo.580813",
 
          textVersion = paste0("Tatsch, J.D. ",
                year,
                ". inmetr R package (v 0.0.3): Historical Data from Brazilian Meteorological Stations in R. ",
-               "Zenodo. 10.5281/zenodo.580813."
+               "Zenodo. https://doi.org/10.5281/zenodo.580813."
                
                ),
          institution = "Universidade Federal de Santa Maria-UFSM",
