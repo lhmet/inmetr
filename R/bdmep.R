@@ -97,16 +97,16 @@ bdmep_read <- function(x){
 }## end function readInmet
 
 
-#' Get login attributes form to access BDMEP
+#' Set username and password for the BDMEP access
 #'
 #' @param lnk url to BDMEP access
-#' @param email e-mail to access BDMEP
-#' @param passwd password to access BDMEP
+#' @param email your BDMEP username
+#' @param passwd your BDMEP password 
 #'
 ##' @return a named list with user name, password and text of button access
 ##' @author Jonatan Tatsch
 ##' 
-bdmep_login_att <- function(lnk, email, passwd){
+set_bdmep_user <- function(lnk, email, passwd){
   txt <- httr::GET(lnk)
   attrs_name_passwd_bt <- txt %>% 
     httr::content("text") %>% 
@@ -158,10 +158,11 @@ bdmep_import_station <- function(.id = "83552" ,
                                  .edate = format(Sys.Date(), '%d/%m/%Y'),
                                  .email = "your-email",
                                  .passwd = "your-password",
-                                 .verbose = TRUE){
+                                 .verbose = TRUE,
+                                 .daily = TRUE){
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
-  bdmep_form_l <- bdmep_login_att(link, .email, .passwd)
+  bdmep_form_l <- set_bdmep_user(link, .email, .passwd)
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
   
   if (httr::status_code(r) == 200 & .verbose) {
@@ -205,6 +206,10 @@ bdmep_import_station <- function(.id = "83552" ,
   xtidy <- bdmep_read(x)
   # column with status
   xtidy <- dplyr::mutate(xtidy, request_status = msg)
+  
+  #if(.daily){
+  #  <- bdmep_summary()
+  #}
   
   return(xtidy)
 }
