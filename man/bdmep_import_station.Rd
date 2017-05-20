@@ -6,7 +6,7 @@
 \usage{
 bdmep_import_station(.id = "83552", .sdate = "01/01/1961",
   .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
-  .passwd = "your-password", .verbose = TRUE)
+  .passwd = "your-password", .verbose = TRUE, .daily = TRUE)
 }
 \arguments{
 \item{.id}{a character vector with the meteorological station code}
