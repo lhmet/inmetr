@@ -7,7 +7,6 @@ output: github_document
 
 # inmetr 0.0.3.9000
 
-- [ ] fix note about zenodo
 - [ ] add function to provide daily data.
 - [ ] add function to write csv files of station data.
 
