@@ -7,9 +7,9 @@
                          
 
 
-mean_tresh <- function(x, thresh = 0) {
+mean_thresh <- function(x, thresh = 0) {
   # x <- c(NA, NA, 1,2,3, NA, 4)
-  if(sum(!is.na(x))/length(x) * 100 <  tresh){
+  if(sum(!is.na(x))/length(x) * 100 <  thresh){
     return(NA)  
   }
     mean(x, na.rm = TRUE)
@@ -34,8 +34,8 @@ bdmep_summary <- function(x, data_thresh = 0){
   # complete dates 
   y <- x %>%
     dplyr::group_by(id, day = lubridate::as_date(date)) %>%
-    dplyr::summarise_at(.cols = vars(-c(prec, request_status, date, ws, wd )),
-                        funs(avg = mean_tresh(., thresh = data_thresh),
+    dplyr::summarise_at(.cols = dplyr::vars(-c(prec, request_status, date, ws, wd )),
+                        dplyr::funs(avg = mean_thresh(., thresh = data_thresh),
                              n = data_cap(., percent = FALSE)) 
                         ) %>%
     dplyr::rename("date" = day) %>%
