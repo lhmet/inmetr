@@ -208,7 +208,7 @@ bdmep_import_station <- function(.id = "83552" ,
   xtidy <- dplyr::mutate(xtidy, request_status = msg)
   
   #if(.daily){
-  #  <- bdmep_summary()
+  #  xtidy <- bdmep_summary()
   #}
   
   return(xtidy)
