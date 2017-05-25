@@ -164,4 +164,4 @@ tzones <- tibble::data_frame(time_zone = timezone::getTimezone(lat = bdmep_meta$
 # Generate data  ----------------------------------
 bdmep_meta <- data.frame(bdmep_meta, tzones)
 
-devtools::use_data(bdmep_meta)
+devtools::use_data(bdmep_meta, overwrite = TRUE)
