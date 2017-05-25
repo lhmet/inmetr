@@ -117,6 +117,51 @@ bdmep_metadata_normclim <- function(metadata_file = "./data/bdmep_meta.rda",
 } # end function bdmep_metadata_normclim
 
 
-# Generate data ------------------------------------------------
+# stations metada ------------------------------------------------
 bdmep_meta <- bdmep_metadata_normclim("./data/bdmep_meta.rda", verbose = FALSE)
+bdmep_meta
 
+
+# Get time zone from lon lat ----------------------------------
+
+# option1 - github package "timezone" (https://github.com/statsmaths/timezone) 
+tzones <- tibble::data_frame(time_zone = timezone::getTimezone(lat = bdmep_meta$lat,
+                                                               lon = bdmep_meta$lon),
+                             offset_utc = timezone::getTzOffset(time_zone)/3600)
+# table(tzones$time_zone)
+# length(table(tzones$time_zone))
+# table(tzones$offset_utc)
+
+## check 
+# with(bdmep_meta, plot(lon, lat, pch = 20, col = abs(tzones$offset_utc)))
+# br <- readRDS("/home/pqgfapergs1/DBHM/data_process/geo_data_ISA/data_base/br_states.rds")
+# plot(br, add = TRUE)
+
+# ok with wikipedia https://pt.wikipedia.org/wiki/Fusos_hor%C3%A1rios_no_Brasil
+
+# option2 - from a shapefile with time zones
+# data source: https://github.com/evansiroky/timezone-boundary-builder
+
+## to keep in mind when the shapefile was downloaded because of updates.
+# dt <- as.Date(lubridate::now())
+# dest_file <- file.path("data-raw", paste0(basename(lnk), ".", dt))
+
+## import shape file
+# lnk <- "https://github.com/evansiroky/timezone-boundary-builder/releases/download/2017a/timezones.shapefile.zip"
+# download.file(url = lnk, destfile = dest_file)
+## unzip(dest_file, list = TRUE)
+# unzip(dest_file, exdir = "data-raw")
+# tzinfo <- raster::shapefile("data-raw/dist/combined_shapefile.shp")
+# tzids<- raster::extract(x = tzinfo, y = dplyr::select(bdmep_meta, lon, lat))
+
+# comparison
+#comp_tz <- tibble::data_frame(tzone_shp = as.character(tzids$tzid),
+#                      tzone_pck = as.character(tzones$time_zone)) %>%
+#filter(tzone_shp != tzone_pck)
+# time zone differences is irrelevant in terms of offset from UTC 
+#mutate(comp_tz, offset_shp = getTzOffset(tzone_shp), offset = getTzOffset(tzone_pck))
+
+# Generate data  ----------------------------------
+bdmep_meta <- data.frame(bdmep_meta, tzones)
+
+devtools::use_data(bdmep_meta)
