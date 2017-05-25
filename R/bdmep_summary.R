@@ -1,9 +1,9 @@
-x <- bdmep_import(id = c("83936"), 
-                        sdate = "01/01/1961",
-                         edate = format(Sys.Date(), '%d/%m/%Y'),
-                         email = "your-email",
-                         passwd = "your-password",
-                         verbose = TRUE)
+# x <- bdmep_import(id = c("83936"), 
+#                         sdate = "01/01/1961",
+#                          edate = format(Sys.Date(), '%d/%m/%Y'),
+#                          email = "your-email",
+#                          passwd = "your-password",
+#                          verbose = TRUE)
                          
 
 
