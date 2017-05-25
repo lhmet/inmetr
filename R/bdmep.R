@@ -149,6 +149,7 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @param .email e-mail to access BDMEP 
 ##' @param .passwd password to access BDMEP
 ##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
+##' @param .daily if TRUE return daily average or total 
 ##' 
 ##' @return a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
