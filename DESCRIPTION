@@ -20,7 +20,8 @@ Imports:
     doBy,
     tidyr,
     stringi,
-    selectr
+    selectr,
+    lubridate
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
