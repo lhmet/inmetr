@@ -8,7 +8,7 @@
 ##' @keywords datasets
 ##' @docType data
 ##'  
-##' @format A data frame with 394 rows and 7 columns.
+##' @format A data frame with 394 rows and 9 columns.
 ##' 	\describe{
 ##'			\item{id}{station id, character with 5 digits corresponding to OMM code}
 ##'			\item{lon}{longitude in decimal degrees}
@@ -17,13 +17,15 @@
 ##'			\item{name}{station name}
 ##'			\item{state}{Full name of state}
 ##'			\item{uf}{Federative Unit}
+##'			\item{time_zone}{time zone}
+##'			\item{offset_utc}{UTC offset}
 ##'	}
 ##' 
 ##' @source \code{bdmep_meta} was compiled from 
 ##' \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls} 
 ##' @examples 
 ##' head(bdmep_meta)
-##' with(bdmep_meta, plot(lon, lat, pch = 4, cex = 0.5))
+##' with(bdmep_meta, plot(lon, lat, pch = 20, col = abs(offset_utc)))
 "bdmep_meta"
 
 
