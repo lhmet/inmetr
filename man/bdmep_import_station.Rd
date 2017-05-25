@@ -20,6 +20,8 @@ bdmep_import_station(.id = "83552", .sdate = "01/01/1961",
 \item{.passwd}{password to access BDMEP}
 
 \item{.verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
+
+\item{.daily}{if TRUE return daily average or total}
 }
 \value{
 a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
