@@ -30,6 +30,16 @@ consists of the following information.
 }
 \examples{
 head(bdmep_meta)
-with(bdmep_meta, plot(lon, lat, pch = 20, col = abs(offset_utc)))
+with(bdmep_meta,
+     plot(lon, lat, 
+     pch = 20,
+     col = abs(offset_utc), 
+     main = "Met. stations of INMET")
+     )
+legend("bottomleft",
+       c("UTC-5", "UTC-4", "UTC-3"), 
+       col = c(5:3),
+       pch = 20, 
+       title = "time zone")
 }
 \keyword{datasets}
