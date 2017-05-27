@@ -1,14 +1,14 @@
 ##' Metadata on 394 meteorological stations of INMET
 ##'
 ##' Spatial coordinates, altitude and others informations of INMET's 
-##' meteorological stations. \code{bdmep_meta} is supplied with the \code{inmetr} package and
-##' consists of the following information.
+##' meteorological stations.
 ##' 
 ##' @name bdmep_meta
 ##' @keywords datasets
 ##' @docType data
 ##'  
-##' @format A data frame with 394 rows and 9 columns.
+##' @format \code{bdmep_meta} is supplied with the \code{inmetr} package and
+##' consists of the following information in a data frame with 394 rows and 9 columns.
 ##' 	\describe{
 ##'			\item{id}{station id, character with 5 digits corresponding to OMM code}
 ##'			\item{lon}{longitude in decimal degrees}
