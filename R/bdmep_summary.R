@@ -1,3 +1,5 @@
+# UNDER CONSTRUCTION
+
 # x <- bdmep_import(id = c("82915","83235"),
 #                         sdate = "01/01/1961",
 #                          edate = format(Sys.Date(), '%d/%m/%Y'),
@@ -20,7 +22,8 @@ data_cap <- function(x, percent = FALSE){
   sum(!is.na(x))
 }
 
-bdmep_summary <- function(x, data_thresh = 0, meta_data = bdmep_meta){
+bdmep_summary <- function(x, data_thresh = 0, meta_data){
+  offset_utc <- time_zone <- n <- NULL
   # xo -> x
   # remove estações indisponíveis (Bad Request (HTTP 400))
   x <- tibble::as_tibble(x) %>%
@@ -59,7 +62,7 @@ bdmep_summary <- function(x, data_thresh = 0, meta_data = bdmep_meta){
     dplyr::summarise(N = n()) %>%
     dplyr::ungroup()
   
-  ta <- timeAverage(x, avg.time = "day", statistic = "frequency", type = "site")
+  #ta <- timeAverage(x, avg.time = "day", statistic = "frequency", type = "site")
   
   z <- x %>%
     dplyr::select(date, site, wd) %>%
