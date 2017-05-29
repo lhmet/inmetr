@@ -21,7 +21,8 @@ Imports:
     tidyr,
     stringi,
     selectr,
-    lubridate
+    lubridate,
+    tibble
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
