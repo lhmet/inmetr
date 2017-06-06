@@ -6,23 +6,30 @@
 \usage{
 bdmep_import(id = c("83936", "83967"), sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your-email",
-  passwd = "your-password", verbose = TRUE)
+  passwd = "your-password", verbose = TRUE, destdir = NULL,
+  file = paste0(id, ".csv"), ...)
 }
 \arguments{
-\item{id}{a character vector with codes of meteorological stations}
+\item{id}{A character vector with codes of meteorological stations}
 
-\item{sdate}{start date in "d/m/Y" format}
+\item{sdate}{Start date in "d/m/Y" format}
 
-\item{edate}{end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}}
+\item{edate}{End date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}}
 
-\item{email}{e-mail to access BDMEP}
+\item{email}{E-mail to access BDMEP}
 
-\item{passwd}{password to access BDMEP}
+\item{passwd}{Password to access BDMEP}
 
-\item{verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
+\item{verbose}{If TRUE, prints login sucessfull.}
+
+\item{destdir}{A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.}
+
+\item{file}{A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}}
+
+\item{...}{Additional arguments for the underlying export functions (see \code{\link{export}}).}
 }
 \value{
-a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
+A data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 }
 \description{
 Import data from Brazilian meteorological stations

@@ -4,9 +4,10 @@
 \alias{bdmep_import_station}
 \title{Import data of a meteorological station}
 \usage{
-bdmep_import_station(.id = "83552", .sdate = "01/01/1961",
+bdmep_import_station(.id = "83488", .sdate = "01/01/1961",
   .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
-  .passwd = "your-password", .verbose = TRUE, .daily = TRUE)
+  .passwd = "your-password", .verbose = TRUE, .daily = TRUE,
+  .destdir = NULL, .file = paste0(.id, ".csv"), ...)
 }
 \arguments{
 \item{.id}{a character vector with the meteorological station code}
@@ -22,9 +23,15 @@ bdmep_import_station(.id = "83552", .sdate = "01/01/1961",
 \item{.verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
 
 \item{.daily}{if TRUE return daily average or total}
+
+\item{.destdir}{A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.}
+
+\item{.file}{A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}}
+
+\item{...}{Additional arguments for the underlying export functions (see \code{\link{export}}).}
 }
 \value{
-a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
+a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 }
 \description{
 Import data of a meteorological station

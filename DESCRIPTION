@@ -22,7 +22,8 @@ Imports:
     stringi,
     selectr,
     lubridate,
-    tibble
+    tibble,
+    rio
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown

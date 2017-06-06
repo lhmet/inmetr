@@ -150,17 +150,22 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @param .passwd password to access BDMEP
 ##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' @param .daily if TRUE return daily average or total 
-##' 
-##' @return a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
+##' @param .destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
+##' @param .file A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}
+##' @param ... Additional arguments for the underlying export functions (see \code{\link{export}}). 
+##' @return a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
 ##' 
-bdmep_import_station <- function(.id = "83552" ,
+bdmep_import_station <- function(.id = "83488" ,
                                  .sdate = "01/01/1961",
                                  .edate = format(Sys.Date(), '%d/%m/%Y'),
                                  .email = "your-email",
                                  .passwd = "your-password",
                                  .verbose = TRUE,
-                                 .daily = TRUE){
+                                 .daily = TRUE,
+                                 .destdir = NULL,
+                                 .file = paste0(.id, ".csv"),
+                                 ...){
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
   bdmep_form_l <- set_bdmep_user(link, .email, .passwd)
@@ -212,6 +217,13 @@ bdmep_import_station <- function(.id = "83552" ,
   #  xtidy <- bdmep_summary()
   #}
   
+  if (!is.null(.destdir)) {
+    #if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
+    if (!is.null(.file)) .file <- file.path(.destdir, .file)
+    if (.verbose) message("Data saved in ", .file)
+    rio::export(xtidy, file = .file, ...)
+  }
+  
   return(xtidy)
 }
 
@@ -222,14 +234,17 @@ bdmep_import_station <- function(.id = "83552" ,
 ##' This include: a chronological sequence check; filling data from missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 ##' 
-##' @param id a character vector with codes of meteorological stations
-##' @param sdate start date in "d/m/Y" format
-##' @param edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
-##' @param email e-mail to access BDMEP 
-##' @param passwd password to access BDMEP
-##' @param verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
+##' @param id A character vector with codes of meteorological stations
+##' @param sdate Start date in "d/m/Y" format
+##' @param edate End date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
+##' @param email E-mail to access BDMEP 
+##' @param passwd Password to access BDMEP
+##' @param verbose If TRUE, prints login sucessfull.
+##' @param destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
+##' @param file A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}
+##' @param ... Additional arguments for the underlying export functions (see \code{\link{export}}). 
 ##' 
-##' @return a data frame with variables in columns ((see \code{\link{bdmep_description}})) and observations (date and time) along rows.
+##' @return A data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples 
@@ -249,14 +264,20 @@ bdmep_import <- function(id = c("83936", "83967") ,
                          edate = format(Sys.Date(), '%d/%m/%Y'),
                          email = "your-email",
                          passwd = "your-password",
-                         verbose = TRUE){
+                         verbose = TRUE,
+                         destdir = NULL,
+                         file = paste0(id, ".csv"),
+                         ...){
   
   purrr::map_df(id, ~bdmep_import_station(.x, 
                                            .sdate = sdate, 
                                            .edate = edate, 
                                            .email = email,
                                            .passwd = passwd,
-                                           .verbose = verbose))
+                                           .verbose = verbose,
+                                           .destdir = destdir,
+                                           .file = file,
+                                           ...))
 } 
 
 
