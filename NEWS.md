@@ -2,12 +2,11 @@ News
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-inmetr 0.0.3.9000
-=================
+inmetr 0.0.4 (upcoming ...)
+===========================
 
--   \[ \] fix note about zenodo
 -   \[ \] add function to provide daily data.
--   \[ \] add function to write csv files of station data.
+-   \[x\] add function to write csv files of station data.
 
 inmetr 0.0.3
 ============

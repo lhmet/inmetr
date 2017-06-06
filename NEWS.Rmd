@@ -5,7 +5,7 @@ output: github_document
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-# inmetr 0.0.4
+# inmetr 0.0.4 (upcoming ...)
 
 - [ ] add function to provide daily data.
 - [x] add function to write csv files of station data.
