@@ -249,15 +249,15 @@ bdmep_import_station <- function(.id = "83488" ,
 ##' @author Jonatan Tatsch
 ##' @examples 
 ##' # download data for Santa Maria and Porto Alegre
-##' metdata <- bdmep_import(id = c("83936", "83967"), 
-##'                         sdate = "01/01/1961",
-##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
-##'                         email = "your-email",
-##'                         passwd = "your-password",
-##'                         verbose = TRUE)
-##' head(metdata)
-##' tail(metdata)
-##' summary(metdata)
+##' meteod <- bdmep_import(id = c("83936", "83967"), 
+##'                        sdate = "01/01/1961",
+##'                        edate = format(Sys.Date(), '%d/%m/%Y'),
+##'                        email = "your-email",
+##'                        passwd = "your-password",
+##'                        verbose = TRUE)
+##' head(meteod)
+##' tail(meteod)
+##' summary(meteod)
 ##' 
 bdmep_import <- function(id = c("83936", "83967") ,
                          sdate = "01/01/1961",
