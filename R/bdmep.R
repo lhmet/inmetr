@@ -139,6 +139,7 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' 
 ##' @importFrom stats setNames
 ##' @importFrom dplyr %>%
+##' 
 ##' @details The data are in sub-daily time scale. A minimum data quality control is applied to the data.
 ##' This include: a chronological sequence check; filling data from missing dates with NA; 
 ##' remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
@@ -151,7 +152,7 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
 ##' @param .destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
 ##' @param .file A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}
-##' @param ... Additional arguments for the underlying export functions (see \code{\link{export}}). 
+##' @param ... Additional arguments for the underlying export functions (see \code{\link{write_csv}}). 
 ##' @return a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
 ##' 
@@ -214,7 +215,10 @@ bdmep_import_station <- function(.id = "83488" ,
     #if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
     .file <- file.path(.destdir, paste0(.id, ".csv"))
     if (.verbose) message("Data saved in ", .file)
-    readr::write_csv(x = xtidy, path = .file, ...)
+    #readr::write_csv(x = dplyr::mutate(xtidy, date = as.character(date)),
+    readr::write_csv(x = xtidy,
+                     path = .file,
+                     ...)
   }
   
   return(xtidy)
