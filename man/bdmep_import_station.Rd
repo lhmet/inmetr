@@ -6,8 +6,8 @@
 \usage{
 bdmep_import_station(.id = "83488", .sdate = "01/01/1961",
   .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
-  .passwd = "your-password", .verbose = TRUE, .daily = TRUE,
-  .destdir = NULL, .file = paste0(.id, ".csv"), ...)
+  .passwd = "your-password", .verbose = TRUE, .destdir = NULL,
+  .file = paste0(.id, ".csv"), ...)
 }
 \arguments{
 \item{.id}{a character vector with the meteorological station code}
@@ -21,8 +21,6 @@ bdmep_import_station(.id = "83488", .sdate = "01/01/1961",
 \item{.passwd}{password to access BDMEP}
 
 \item{.verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
-
-\item{.daily}{if TRUE return daily average or total}
 
 \item{.destdir}{A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.}
 
