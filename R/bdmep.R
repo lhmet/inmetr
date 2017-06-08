@@ -149,9 +149,8 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @param .edate end date in "d/m/Y" format, default values \code{format(Sys.Date(), "\%d/\%m/\%Y")}
 ##' @param .email e-mail to access BDMEP 
 ##' @param .passwd password to access BDMEP
-##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
-##' @param .destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
-##' @param .file A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}
+##' @param .verbose Optional. Logical. If set to TRUE (default), print messages.
+##' @param .destdir Optional. Character Local file path to write file out to.If NULL (default) files are not written to disk.
 ##' @param ... Additional arguments for the underlying export functions (see \code{\link{write_csv}}). 
 ##' @return a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
@@ -238,7 +237,7 @@ bdmep_import_station <- function(.id = "83488" ,
 ##' @param passwd Password to access BDMEP
 ##' @param verbose If TRUE, prints login sucessfull.
 ##' @param destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
-##' @param ... Additional arguments for the underlying export functions (see \code{\link{export}}). 
+##' @param ... Additional arguments for the underlying function \code{\link{write_csv}}.
 ##' 
 ##' @return A data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @export
