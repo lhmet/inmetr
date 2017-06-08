@@ -170,7 +170,7 @@ bdmep_import_station <- function(.id = "83488" ,
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
   
   if (httr::status_code(r) == 200 & .verbose) {
-    message("\n", "-.-.-.-.-.-.-.-.-.-.-.-.", "\n", 
+    message("\n", "------------------------------", "\n", 
             "station: " , .id)
   }
   # visualize(r)
