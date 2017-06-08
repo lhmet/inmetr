@@ -162,7 +162,6 @@ bdmep_import_station <- function(.id = "83488" ,
                                  .passwd = "your-password",
                                  .verbose = TRUE,
                                  .destdir = NULL,
-                                 .file = paste0(.id, ".csv"),
                                  ...){
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
@@ -213,9 +212,9 @@ bdmep_import_station <- function(.id = "83488" ,
 
   if (!is.null(.destdir)) {
     #if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
-    if (!is.null(.file)) .file <- file.path(.destdir, .file)
+    .file <- file.path(.destdir, paste0(.id, ".csv"))
     if (.verbose) message("Data saved in ", .file)
-    rio::export(xtidy, file = .file, ...)
+    readr::write_csv(x = xtidy, path = .file, ...)
   }
   
   return(xtidy)
@@ -235,7 +234,6 @@ bdmep_import_station <- function(.id = "83488" ,
 ##' @param passwd Password to access BDMEP
 ##' @param verbose If TRUE, prints login sucessfull.
 ##' @param destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
-##' @param file A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}
 ##' @param ... Additional arguments for the underlying export functions (see \code{\link{export}}). 
 ##' 
 ##' @return A data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
@@ -260,7 +258,6 @@ bdmep_import <- function(id = c("83936", "83967") ,
                          passwd = "your-password",
                          verbose = TRUE,
                          destdir = NULL,
-                         file = paste0(id, ".csv"),
                          ...){
   
   purrr::map_df(id, ~bdmep_import_station(.x, 
@@ -270,7 +267,6 @@ bdmep_import <- function(id = c("83936", "83967") ,
                                            .passwd = passwd,
                                            .verbose = verbose,
                                            .destdir = destdir,
-                                           .file = file,
                                            ...))
 } 
 
