@@ -149,7 +149,6 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @param .email e-mail to access BDMEP 
 ##' @param .passwd password to access BDMEP
 ##' @param .verbose if TRUE, prints login sucessfull; if not, not. Default is TRUE.
-##' @param .daily if TRUE return daily average or total 
 ##' @param .destdir A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.
 ##' @param .file A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}
 ##' @param ... Additional arguments for the underlying export functions (see \code{\link{export}}). 
@@ -162,7 +161,6 @@ bdmep_import_station <- function(.id = "83488" ,
                                  .email = "your-email",
                                  .passwd = "your-password",
                                  .verbose = TRUE,
-                                 .daily = TRUE,
                                  .destdir = NULL,
                                  .file = paste0(.id, ".csv"),
                                  ...){
@@ -212,11 +210,7 @@ bdmep_import_station <- function(.id = "83488" ,
   xtidy <- bdmep_read(x)
   # column with status
   xtidy <- dplyr::mutate(xtidy, request_status = msg)
-  
-  #if(.daily){
-  #  xtidy <- bdmep_summary()
-  #}
-  
+
   if (!is.null(.destdir)) {
     #if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
     if (!is.null(.file)) .file <- file.path(.destdir, .file)
