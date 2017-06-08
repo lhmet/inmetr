@@ -23,7 +23,7 @@ bdmep_import(id = c("83936", "83967"), sdate = "01/01/1961",
 
 \item{destdir}{A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.}
 
-\item{...}{Additional arguments for the underlying export functions (see \code{\link{export}}).}
+\item{...}{Additional arguments for the underlying function \code{\link{write_csv}}.}
 }
 \value{
 A data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.

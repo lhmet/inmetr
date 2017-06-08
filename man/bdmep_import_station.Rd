@@ -19,13 +19,11 @@ bdmep_import_station(.id = "83488", .sdate = "01/01/1961",
 
 \item{.passwd}{password to access BDMEP}
 
-\item{.verbose}{if TRUE, prints login sucessfull; if not, not. Default is TRUE.}
+\item{.verbose}{Optional. Logical. If set to TRUE (default), print messages.}
 
-\item{.destdir}{A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.}
+\item{.destdir}{Optional. Character Local file path to write file out to.If NULL (default) files are not written to disk.}
 
 \item{...}{Additional arguments for the underlying export functions (see \code{\link{write_csv}}).}
-
-\item{.file}{A character string with the file name to save the data. Default is \code{paste0(id, ".csv")}}
 }
 \value{
 a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
