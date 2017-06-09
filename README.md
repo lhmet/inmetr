@@ -76,15 +76,15 @@ Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/v
 stations <- sample(bdmep_meta$name,2)
 stations_rows <- pmatch(stations, bdmep_meta$name)
 bdmep_meta[stations_rows, ]
-#>        id       lon    lat    alt                 name        state uf
-#> 136 83543 -41.93333 -18.85  148.0 Governador Valadares Minas Gerais MG
-#> 248 83834 -51.46667 -25.40 1135.8           Guarapuava       Paraná PR
+#>        id       lon        lat alt        name          state uf
+#> 225 82987 -38.31667  -9.066667 286 Petrolândia     Pernambuco PE
+#> 82  83034 -40.86667 -19.866667 245     Itarana Espírito Santo ES
 #>             time_zone offset_utc
-#> 136 America/Sao_Paulo         -3
-#> 248 America/Sao_Paulo         -3
+#> 225     America/Bahia         -3
+#> 82  America/Sao_Paulo         -3
 stns_codes <- bdmep_meta[stations_rows, "id"] 
 stns_codes
-#> [1] "83543" "83834"
+#> [1] "82987" "83034"
 ```
 
 Import data
@@ -105,49 +105,49 @@ met_data <- bdmep_import(id = stns_codes,
 
     #> 
     #> ------------------------------
-    #> station: 83543
+    #> station: 82987
     #> OK (HTTP 200).
     #> 
     #> ------------------------------
-    #> station: 83834
+    #> station: 83034
     #> OK (HTTP 200).
 
 ``` r
 # check de start date
 head(met_data)
-#>                  date    id prec tair   tw tmax tmin urmax  patm pnmm wd
-#> 1 1961-01-01 00:00:00 83543   NA   NA   NA 30.4   NA    NA    NA   NA NA
-#> 2 1961-01-01 12:00:00 83543   NA 23.8 23.0   NA 20.6    93 993.2   NA  0
-#> 3 1961-01-01 18:00:00 83543   NA 30.2 25.6   NA   NA    68 990.3   NA  5
-#> 4 1961-01-02 00:00:00 83543   NA 22.2 21.3 27.8   NA    91 991.8   NA  0
-#> 5 1961-01-02 12:00:00 83543 36.6 22.2 21.7   NA 20.4    95 993.1   NA  0
-#> 6 1961-01-02 18:00:00 83543   NA 27.8 25.0   NA   NA    78 989.9   NA  0
-#>   wsmax   n cc evap    ur       ws    request_status
-#> 1    NA 2.5 NA  1.8 85.75 0.666667 Success: (200) OK
-#> 2     0  NA 10   NA    NA       NA Success: (200) OK
-#> 3     2  NA  9   NA    NA       NA Success: (200) OK
-#> 4     0 0.0 10  1.4 90.75 0.000000 Success: (200) OK
-#> 5     0  NA 10   NA    NA       NA Success: (200) OK
-#> 6     0  NA 10   NA    NA       NA Success: (200) OK
+#>                  date    id prec tair   tw tmax tmin urmax patm pnmm wd
+#> 1 1961-01-01 00:00:00 82987   NA   NA   NA   NA   NA    NA   NA   NA NA
+#> 2 1961-01-01 12:00:00 82987   NA 29.0 22.0   NA 20.4    52   NA   NA  0
+#> 3 1961-01-01 18:00:00 82987   NA 36.0 25.0   NA   NA    38   NA   NA  0
+#> 4 1961-01-02 00:00:00 82987   NA 29.2 25.0   NA   NA    70   NA   NA  0
+#> 5 1961-01-02 12:00:00 82987    0 28.4 22.2   NA 19.8    56   NA   NA  0
+#> 6 1961-01-02 18:00:00 82987   NA 36.4 24.6   NA   NA    35   NA   NA  0
+#>   wsmax    n cc evap    ur ws    request_status
+#> 1    NA  9.5 NA  5.5 57.50  0 Success: (200) OK
+#> 2     0   NA  0   NA    NA NA Success: (200) OK
+#> 3     0   NA  0   NA    NA NA Success: (200) OK
+#> 4     0 10.3  0  4.5 58.25  0 Success: (200) OK
+#> 5     0   NA  0   NA    NA NA Success: (200) OK
+#> 6     0   NA  2   NA    NA NA Success: (200) OK
 ```
 
 ``` r
 # check de end date
 tail(met_data)
-#>                      date    id prec tair   tw tmax tmin urmax  patm pnmm
-#> 54634 1977-01-30 12:00:00 83834  0.0 22.8 20.0   NA 16.4    77 892.7   NA
-#> 54635 1977-01-30 18:00:00 83834   NA 28.2 22.4   NA   NA    59 890.8   NA
-#> 54636 1977-01-31 00:00:00 83834   NA 21.6 19.4 26.3   NA    81 892.3   NA
-#> 54637 1977-01-31 12:00:00 83834  2.3 20.0 19.2   NA 18.4    93 894.3   NA
-#> 54638 1977-01-31 18:00:00 83834   NA 24.6 21.2   NA   NA    74 892.3   NA
-#> 54639 1977-02-01 00:00:00 83834   NA 21.2 19.8   NA   NA    87 893.0   NA
-#>       wd wsmax   n cc evap    ur  ws    request_status
-#> 54634  0   0.0  NA  3   NA    NA  NA Success: (200) OK
-#> 54635 27   3.5  NA  8   NA    NA  NA Success: (200) OK
-#> 54636  0   0.0 1.1  8  1.1 85.25 3.2 Success: (200) OK
-#> 54637  9   4.0  NA 10   NA    NA  NA Success: (200) OK
-#> 54638  9   2.0  NA  9   NA    NA  NA Success: (200) OK
-#> 54639 14   3.6  NA 10   NA    NA  NA Success: (200) OK
+#>                      date    id prec tair tw tmax tmin urmax patm pnmm wd
+#> 38028 2013-11-28 00:00:00 83034   NA   NA NA 28.7   NA    NA   NA   NA NA
+#> 38029 2013-11-28 12:00:00 83034  4.9   NA NA   NA 19.5    NA   NA   NA NA
+#> 38030 2013-11-29 00:00:00 83034   NA   NA NA 30.0   NA    NA   NA   NA NA
+#> 38031 2013-11-29 12:00:00 83034  6.9   NA NA   NA 21.5    NA   NA   NA NA
+#> 38032 2013-11-30 00:00:00 83034   NA   NA NA 23.0   NA    NA   NA   NA NA
+#> 38033 2013-11-30 12:00:00 83034  2.8   NA NA   NA 22.6    NA   NA   NA NA
+#>       wsmax  n cc evap ur ws    request_status
+#> 38028    NA NA NA  2.0 NA NA Success: (200) OK
+#> 38029    NA NA NA   NA NA NA Success: (200) OK
+#> 38030    NA NA NA  1.6 NA NA Success: (200) OK
+#> 38031    NA NA NA   NA NA NA Success: (200) OK
+#> 38032    NA NA NA  2.6 NA NA Success: (200) OK
+#> 38033    NA NA NA   NA NA NA Success: (200) OK
 ```
 
 You can save data in a CSV file setting `destdir = path/to/write/files` in `bdmep_import` function. Data will be save one file per station.
@@ -180,17 +180,17 @@ bdmep_description()
 Eventually, if the request failed a message will be prompted with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), for example:
 
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83543
+    station: 82987
     Bad Gateway (HTTP 502).
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83834
+    station: 83034
     Bad Gateway (HTTP 502).
 
 In this case the outcome data frame will be filled with `NA`, except for `request_status` which will return information on the request status.
 
     #>   date    id prec tair tw tmax tmin urmax patm pnmm wd wsmax  n cc evap ur
-    #> 1   NA 83543   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
-    #> 2   NA 83834   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 1   NA 82987   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 2   NA 83034   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
     #>   ws          request_status
     #> 1 NA Bad Gateway (HTTP 502).
     #> 2 NA Bad Gateway (HTTP 502).
