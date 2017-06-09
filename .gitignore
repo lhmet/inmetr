@@ -4,7 +4,7 @@
 .Ruserdata
 inst/doc
 README.Rmd
-^NEWS\.Rmd$
-tasklist.Rmd
+NEWS.Rmd
 .csv
-^release$
+release
+data-raw
