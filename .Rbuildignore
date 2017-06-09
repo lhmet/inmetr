@@ -6,3 +6,4 @@
 ^.*\.csv$
 ^\.travis\.yml$
 ^data-raw$
+^release$

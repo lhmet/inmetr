@@ -7,3 +7,4 @@ README.Rmd
 ^NEWS\.Rmd$
 tasklist.Rmd
 .csv
+^release$
