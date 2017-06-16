@@ -76,15 +76,15 @@ Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/v
 stations <- sample(bdmep_meta$name,2)
 stations_rows <- pmatch(stations, bdmep_meta$name)
 bdmep_meta[stations_rows, ]
-#>        id       lon    lat    alt                 name        state uf
-#> 136 83543 -41.93333 -18.85  148.0 Governador Valadares Minas Gerais MG
-#> 248 83834 -51.46667 -25.40 1135.8           Guarapuava       Paraná PR
+#>        id       lon       lat    alt        name          state uf
+#> 384 83857 -45.55000 -22.96667  546.2    Tremembé      São Paulo SP
+#> 347 83920 -49.93333 -28.30000 1415.0 São Joaquim Santa Catarina SC
 #>             time_zone offset_utc
-#> 136 America/Sao_Paulo         -3
-#> 248 America/Sao_Paulo         -3
+#> 384 America/Sao_Paulo         -3
+#> 347 America/Sao_Paulo         -3
 stns_codes <- bdmep_meta[stations_rows, "id"] 
 stns_codes
-#> [1] "83543" "83834"
+#> [1] "83857" "83920"
 ```
 
 Import data
@@ -105,49 +105,49 @@ met_data <- bdmep_import(id = stns_codes,
 
     #> 
     #> ------------------------------
-    #> station: 83543
+    #> station: 83857
     #> OK (HTTP 200).
     #> 
     #> ------------------------------
-    #> station: 83834
+    #> station: 83920
     #> OK (HTTP 200).
 
 ``` r
 # check de start date
 head(met_data)
 #>                  date    id prec tair   tw tmax tmin urmax  patm pnmm wd
-#> 1 1961-01-01 00:00:00 83543   NA   NA   NA 30.4   NA    NA    NA   NA NA
-#> 2 1961-01-01 12:00:00 83543   NA 23.8 23.0   NA 20.6    93 993.2   NA  0
-#> 3 1961-01-01 18:00:00 83543   NA 30.2 25.6   NA   NA    68 990.3   NA  5
-#> 4 1961-01-02 00:00:00 83543   NA 22.2 21.3 27.8   NA    91 991.8   NA  0
-#> 5 1961-01-02 12:00:00 83543 36.6 22.2 21.7   NA 20.4    95 993.1   NA  0
-#> 6 1961-01-02 18:00:00 83543   NA 27.8 25.0   NA   NA    78 989.9   NA  0
+#> 1 1961-01-01 00:00:00 83857   NA   NA   NA 30.8   NA    NA    NA   NA NA
+#> 2 1961-01-01 12:00:00 83857   NA 23.8 22.2   NA 20.0    87 945.0   NA  0
+#> 3 1961-01-01 18:00:00 83857   NA 29.0 23.8   NA   NA    64 943.0   NA 23
+#> 4 1961-01-02 00:00:00 83857   NA 22.6 21.8 27.0   NA    93 945.4   NA  0
+#> 5 1961-01-02 12:00:00 83857  4.4 23.2 22.1   NA 21.4    90 945.0   NA 36
+#> 6 1961-01-02 18:00:00 83857   NA 25.4 23.6   NA   NA    86 942.7   NA  5
 #>   wsmax   n cc evap    ur       ws    request_status
-#> 1    NA 2.5 NA  1.8 85.75 0.666667 Success: (200) OK
-#> 2     0  NA 10   NA    NA       NA Success: (200) OK
-#> 3     2  NA  9   NA    NA       NA Success: (200) OK
-#> 4     0 0.0 10  1.4 90.75 0.000000 Success: (200) OK
-#> 5     0  NA 10   NA    NA       NA Success: (200) OK
-#> 6     0  NA 10   NA    NA       NA Success: (200) OK
+#> 1    NA 1.6 NA  1.7 84.25 1.000000 Success: (200) OK
+#> 2     0  NA  9   NA    NA       NA Success: (200) OK
+#> 3     3  NA  8   NA    NA       NA Success: (200) OK
+#> 4     0 0.2 10  2.0 91.00 1.333333 Success: (200) OK
+#> 5     3  NA 10   NA    NA       NA Success: (200) OK
+#> 6     1  NA 10   NA    NA       NA Success: (200) OK
 ```
 
 ``` r
 # check de end date
 tail(met_data)
-#>                      date    id prec tair   tw tmax tmin urmax  patm pnmm
-#> 54634 1977-01-30 12:00:00 83834  0.0 22.8 20.0   NA 16.4    77 892.7   NA
-#> 54635 1977-01-30 18:00:00 83834   NA 28.2 22.4   NA   NA    59 890.8   NA
-#> 54636 1977-01-31 00:00:00 83834   NA 21.6 19.4 26.3   NA    81 892.3   NA
-#> 54637 1977-01-31 12:00:00 83834  2.3 20.0 19.2   NA 18.4    93 894.3   NA
-#> 54638 1977-01-31 18:00:00 83834   NA 24.6 21.2   NA   NA    74 892.3   NA
-#> 54639 1977-02-01 00:00:00 83834   NA 21.2 19.8   NA   NA    87 893.0   NA
-#>       wd wsmax   n cc evap    ur  ws    request_status
-#> 54634  0   0.0  NA  3   NA    NA  NA Success: (200) OK
-#> 54635 27   3.5  NA  8   NA    NA  NA Success: (200) OK
-#> 54636  0   0.0 1.1  8  1.1 85.25 3.2 Success: (200) OK
-#> 54637  9   4.0  NA 10   NA    NA  NA Success: (200) OK
-#> 54638  9   2.0  NA  9   NA    NA  NA Success: (200) OK
-#> 54639 14   3.6  NA 10   NA    NA  NA Success: (200) OK
+#>                      date    id prec tair tw tmax tmin urmax  patm   pnmm
+#> 68217 2017-05-28 12:00:00 83920 58.4 12.2 NA   NA  9.4    98 866.3 1020.7
+#> 68218 2017-05-28 18:00:00 83920   NA 13.4 NA   NA   NA    96 864.6 1018.1
+#> 68219 2017-05-29 00:00:00 83920   NA 13.4 NA   15   NA    98 865.2 1018.3
+#> 68220 2017-05-29 12:00:00 83920 49.3 14.0 NA   NA 12.0   100 864.6 1017.4
+#> 68221 2017-05-29 18:00:00 83920   NA 14.2 NA   NA   NA   100 863.8 1016.4
+#> 68222 2017-05-30 00:00:00 83920   NA 11.8 NA   NA   NA   100 865.4 1018.5
+#>       wd   wsmax  n cc evap  ur      ws    request_status
+#> 68217  5 1.02888 NA 10   NA  NA      NA Success: (200) OK
+#> 68218  5 1.02888 NA 10   NA  NA      NA Success: (200) OK
+#> 68219 36 1.02888  0 10   NA 100 0.68592 Success: (200) OK
+#> 68220 32 1.02888 NA 10   NA  NA      NA Success: (200) OK
+#> 68221  0 0.00000 NA 10   NA  NA      NA Success: (200) OK
+#> 68222 18 1.02888 NA 10   NA  NA      NA Success: (200) OK
 ```
 
 You can save data in a CSV file setting `destdir = path/to/write/files` in `bdmep_import` function. Data will be save one file per station.
@@ -180,17 +180,17 @@ bdmep_description()
 Eventually, if the request failed a message will be prompted with the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), for example:
 
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83543
+    station: 83857
     Bad Gateway (HTTP 502).
     -.-.-.-.-.-.-.-.-.-.-.-.
-    station: 83834
+    station: 83920
     Bad Gateway (HTTP 502).
 
 In this case the outcome data frame will be filled with `NA`, except for `request_status` which will return information on the request status.
 
     #>   date    id prec tair tw tmax tmin urmax patm pnmm wd wsmax  n cc evap ur
-    #> 1   NA 83543   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
-    #> 2   NA 83834   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 1   NA 83857   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
+    #> 2   NA 83920   NA   NA NA   NA   NA    NA   NA   NA NA    NA NA NA   NA NA
     #>   ws          request_status
     #> 1 NA Bad Gateway (HTTP 502).
     #> 2 NA Bad Gateway (HTTP 502).
@@ -203,7 +203,7 @@ citation("inmetr")
 
 To cite package 'inmetr' in publications use:
 
-  Tatsch, J.D. 2017. inmetr R package (v 0.0.3): Historical Data
+  Tatsch, J.D. 2017. inmetr R package (v 0.2.5): Historical Data
   from Brazilian Meteorological Stations in R. Zenodo.
   https://doi.org/10.5281/zenodo.580813.
 
@@ -213,7 +213,7 @@ A BibTeX entry for LaTeX users is
     title = {inmetr: Historical Data from Brazilian Meteorological Stations in R},
     author = {Jonatan Tatsch},
     year = {2017},
-    note = {R package version 0.0.3},
+    note = {R package version 0.2.5},
     doi = {https://doi.org/10.5281/zenodo.580813},
     institution = {Universidade Federal de Santa Maria-UFSM},
     url = {https://github.com/lhmet/inmetr},
