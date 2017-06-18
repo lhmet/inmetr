@@ -256,12 +256,24 @@ bdmep_import_station <- function(.id = "83488" ,
 bdmep_import <- function(id = c("83936", "83967") ,
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), '%d/%m/%Y'),
-                         email = "your-email",
+                         email = "your@email.com",
                          passwd = "your-password",
                          verbose = TRUE,
                          destdir = NULL,
                          ...){
-  
+  id <- as.character(id)
+  # check arguments precondition ----------------------------------------------
+  stopifnot(unique(nchar(id)) == 5,
+            all(id %in% inmetr::bdmep_meta$id),
+            length(unlist(stringr::str_extract_all(sdate, "/"))) == 2,
+            length(unlist(stringr::str_extract_all(edate, "/"))) == 2,
+            stringr::str_detect(email, "@"),
+            is.character(passwd),
+            is.logical(verbose),
+            is.null(destdir) | is.character(destdir)
+            )
+  if(!is.null(destdir)) stopifnot(dir.exists(destdir))
+  # import data ---------------------------------------------------------------
   purrr::map_df(id, ~bdmep_import_station(.x, 
                                            .sdate = sdate, 
                                            .edate = edate, 
