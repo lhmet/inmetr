@@ -6,7 +6,6 @@ inmetr 0.2.5.9999
 =================
 
 -   \[x\] add function to write csv files of station data.
--   \[ \] include `metadata_description()`.
 -   \[ \] add function to provide daily data.
 
 inmetr 0.2.5
