@@ -97,7 +97,7 @@ bdmep_read <- function(x){
 }## end function readInmet
 
 
-#' Set username and password for the BDMEP access
+#' Set username and password to login BDMEP
 #'
 #' @param lnk url to BDMEP access
 #' @param email your BDMEP username

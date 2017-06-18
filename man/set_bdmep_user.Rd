@@ -2,7 +2,7 @@
 % Please edit documentation in R/bdmep.R
 \name{set_bdmep_user}
 \alias{set_bdmep_user}
-\title{Set username and password for the BDMEP access}
+\title{Set username and password to login BDMEP}
 \usage{
 set_bdmep_user(lnk, email, passwd)
 }
@@ -17,7 +17,7 @@ set_bdmep_user(lnk, email, passwd)
 a named list with user name, password and text of button access
 }
 \description{
-Set username and password for the BDMEP access
+Set username and password to login BDMEP
 }
 \author{
 Jonatan Tatsch
