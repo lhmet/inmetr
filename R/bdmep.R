@@ -246,7 +246,7 @@ bdmep_import_station <- function(.id = "83488" ,
 ##' metdata <- bdmep_import(id = c("83936", "83967"), 
 ##'                         sdate = "01/01/1961",
 ##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
-##'                         email = "your-email",
+##'                         email = "your@email.com",
 ##'                         passwd = "your-password",
 ##'                         verbose = TRUE)
 ##' head(metdata)
