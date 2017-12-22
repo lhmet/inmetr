@@ -1,6 +1,6 @@
 Package: inmetr
 Title: Import Historical Data from Brazilian Meteorological Stations
-Version: 0.2.5.9000
+Version: 0.2.6.9000
 Authors@R: person("Jonatan", "Tatsch", email = "jdtatsch@gmail.com", role = c("aut", "cre"))
 Description: Import historical data measured by meteorological stations
     from Instituto Nacional de Meteorologia (INMET),
