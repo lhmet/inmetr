@@ -162,7 +162,7 @@ bdmep_import_station <- function(.id = "83488" ,
                                  .passwd = "your-password",
                                  .verbose = TRUE,
                                  .destdir = NULL,
-                                 ...){
+                                 .na.strings = "-9999"){
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
   bdmep_form_l <- set_bdmep_user(link, .email, .passwd)
@@ -217,7 +217,8 @@ bdmep_import_station <- function(.id = "83488" ,
     #readr::write_csv(x = dplyr::mutate(xtidy, date = as.character(date)),
     readr::write_csv(x = xtidy,
                      path = .file,
-                     ...)
+                     na = .na.strings,
+                     append = FALSE)
   }
   return(xtidy)
 }
@@ -260,7 +261,7 @@ bdmep_import <- function(id = c("83936", "83967") ,
                          passwd = "your-password",
                          verbose = TRUE,
                          destdir = NULL,
-                         ...){
+                         na.strings = "-9999"){
   id <- as.character(id)
   # check arguments precondition ----------------------------------------------
   stopifnot(unique(nchar(id)) == 5,
@@ -281,7 +282,8 @@ bdmep_import <- function(id = c("83936", "83967") ,
                                           .passwd = passwd,
                                           .verbose = verbose,
                                           .destdir = destdir,
-                                          ...))
+                                          .na.strings = na.strings
+                                          ))
 } 
 
 
