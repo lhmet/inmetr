@@ -46,12 +46,12 @@ bdmep_read <- function(x){
   x_clean <- x %>% 
     magrittr::extract((rowheader+1) : (length(x)-1)) %>%
     stringr::str_replace(";$", "")
-
+  
   bdmepd <- read.csv2(text = x_clean, 
-                     header = FALSE, 
-                     stringsAsFactors = FALSE,
-                     na.strings = "")
-
+                      header = FALSE, 
+                      stringsAsFactors = FALSE,
+                      na.strings = "")
+  
   # stop if there is conflict between ncol(x) and length(hvec)
   if (ncol(bdmepd) != length(vnames)) {
     print(head(bdmepd))
@@ -75,24 +75,24 @@ bdmep_read <- function(x){
     dplyr::mutate(hora = doBy::recodeVar(as.character(hora),
                                          src = as.list(c("1800","0","1200")), 
                                          tgt = as.list(c("18:00","00:00","12:00"))
-                                         ),
-                  date = as.POSIXct(paste(as.Date(data,
-                                                  format = "%d/%m/%Y"),
-                                          hora,
-                                          sep = " "), 
-                                    tz = "UTC"),
-                  data = NULL,
-                  hora = NULL,
-                  id = as.character(codigo),
-                  codigo = NULL) 
+    ),
+    date = as.POSIXct(paste(as.Date(data,
+                                    format = "%d/%m/%Y"),
+                            hora,
+                            sep = " "), 
+                      tz = "UTC"),
+    data = NULL,
+    hora = NULL,
+    id = as.character(codigo),
+    codigo = NULL) 
   # reorder columns
   bdmepd <- bdmepd %>% 
     dplyr::select(date, id, prec:ws, -tcomp)
   
   # duplicated rows
-    bdmepd <- dplyr::distinct(bdmepd)
-
-    return(bdmepd)
+  bdmepd <- dplyr::distinct(bdmepd)
+  
+  return(bdmepd)
   
 }## end function readInmet
 
@@ -190,8 +190,8 @@ bdmep_import_station <- function(.id = "83488" ,
   
   #httr::stop_for_status(r2)
   if (.verbose) {
-      httr::message_for_status(r2)
-      cat("\n")
+    httr::message_for_status(r2)
+    cat("\n")
   }
   
   # column to inform request status
@@ -209,7 +209,7 @@ bdmep_import_station <- function(.id = "83488" ,
   xtidy <- bdmep_read(x)
   # column with status
   xtidy <- dplyr::mutate(xtidy, request_status = msg)
-
+  
   if (!is.null(.destdir)) {
     #if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
     .file <- file.path(.destdir, paste0(.id, ".csv"))
@@ -271,17 +271,17 @@ bdmep_import <- function(id = c("83936", "83967") ,
             is.character(passwd),
             is.logical(verbose),
             is.null(destdir) | is.character(destdir)
-            )
+  )
   if(!is.null(destdir)) stopifnot(dir.exists(destdir))
   # import data ---------------------------------------------------------------
   purrr::map_df(id, ~bdmep_import_station(.x, 
-                                           .sdate = sdate, 
-                                           .edate = edate, 
-                                           .email = email,
-                                           .passwd = passwd,
-                                           .verbose = verbose,
-                                           .destdir = destdir,
-                                           ...))
+                                          .sdate = sdate, 
+                                          .edate = edate, 
+                                          .email = email,
+                                          .passwd = passwd,
+                                          .verbose = verbose,
+                                          .destdir = destdir,
+                                          ...))
 } 
 
 
