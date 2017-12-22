@@ -6,7 +6,8 @@
 \usage{
 bdmep_import(id = c("83936", "83967"), sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your@email.com",
-  passwd = "your-password", verbose = TRUE, destdir = NULL, ...)
+  passwd = "your-password", verbose = TRUE, destdir = NULL,
+  na.strings = "-9999")
 }
 \arguments{
 \item{id}{A character vector with codes of meteorological stations}
@@ -23,7 +24,7 @@ bdmep_import(id = c("83936", "83967"), sdate = "01/01/1961",
 
 \item{destdir}{A character string with the path where the downloaded data is saved. If it is  NULL, data will not be saved in disk.}
 
-\item{...}{Additional arguments for the underlying function \code{\link{write_csv}}.}
+\item{na.strings}{a character string which is to be interpreted as NA values. \code{na.strings} is only used when destdir is not NULL.}
 }
 \value{
 A data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
