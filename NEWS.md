@@ -2,11 +2,13 @@ News
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-inmetr 0.2.5.9999
+inmetr 0.2.6.9999
 =================
 
+-   \[x\] fix issue \#3, thanks to @DominickAugustine
 -   \[x\] add function to write csv files of station data.
--   \[ \] add function to provide daily data.
+-   \[ \] include `metadata_description()`.
+-   \[ \] add function to compute mean daily data.
 
 inmetr 0.2.5
 ============
