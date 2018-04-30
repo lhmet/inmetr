@@ -34,14 +34,37 @@ bdmep_read <- function(x){
     which() 
   
   h_fix <- h_fix[-to_discard]
+  h_fix <- gsub(" ", "", as.character(h_fix))
   
   ## replace original vnames by the new ones
-  new_vnames <- c("codigo", "data","hora",
-                  "prec", "tair", "tw", "tmax", "tmin", "urmax", 
-                  "patm", "pnmm", "wd", "wsmax", "n", "cc", "evap", "tcomp", "ur", "ws")
-  vnames <-  doBy::recodeVar(as.character(h_fix),
-                             src = as.list(as.character(h_fix)), 
-                             tgt = as.list(new_vnames))
+  # new_vnames <- c("codigo", "data","hora",
+  #                 "prec", "tair", "tw", "tmax", "tmin", "urmax", 
+  #                 "patm", "pnmm", "wd", "wsmax", "n", "cc", "evap", "tcomp", "ur", "ws")
+  # vnames <-  doBy::recodeVar(as.character(h_fix),
+  #                            src = as.list(as.character(h_fix)), 
+  #                            tgt = as.list(new_vnames))
+  
+  vnames <- dplyr::recode(h_fix, 
+                Estacao = "codigo",
+                Data = "data",
+                Hora = "hora",
+                Precipitacao = "prec",
+                TempBulboSeco = "tair",
+                TempBulboUmido = "tw",
+                TempMaxima = "tmax",
+                TempMinima = "tmin",
+                UmidadeRelativa = "urmax",
+                PressaoAtmEstacao = "patm",
+                PressaoAtmMar = "pnmm",
+                DirecaoVento = "wd",
+                VelocidadeVento = "wsmax",
+                Insolacao = "n",
+                Nebulosidade = "cc",
+                EvaporacaoPiche = "evap",
+                TempCompMedia = "tcomp",  # unnecessary, but recode can deal with
+                UmidadeRelativaMedia = "ur",
+                VelocidadedoVentoMedia = "ws"
+                )
   
   x_clean <- x %>% 
     magrittr::extract((rowheader+1) : (length(x)-1)) %>%
@@ -72,10 +95,14 @@ bdmep_read <- function(x){
   
   ## date conversion
   bdmepd <- bdmepd %>%
-    dplyr::mutate(hora = doBy::recodeVar(as.character(hora),
-                                         src = as.list(c("1800","0","1200")), 
-                                         tgt = as.list(c("18:00","00:00","12:00"))
-    ),
+    # dplyr::mutate(hora = doBy::recodeVar(as.character(hora),
+    #                                      src = as.list(c("1800","0","1200")), 
+    #                                      tgt = as.list(c("18:00","00:00","12:00"))
+    # ),
+    dplyr::mutate(hora = dplyr::recode(as.character(hora),
+                                         `1800` = "18:00",
+                                         `0` = "00:00",
+                                         `1200` = "12:00"),
     date = as.POSIXct(paste(as.Date(data,
                                     format = "%d/%m/%Y"),
                             hora,
@@ -87,7 +114,8 @@ bdmep_read <- function(x){
     codigo = NULL) 
   # reorder columns
   bdmepd <- bdmepd %>% 
-    dplyr::select(date, id, prec:ws, -tcomp)
+    #dplyr::select(date, id, prec:ws, -tcomp)
+    dplyr::select(date, id, prec:ws)
   
   # duplicated rows
   bdmepd <- dplyr::distinct(bdmepd)
@@ -155,7 +183,7 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @return a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
 ##' 
-bdmep_import_station <- function(.id = "83488" ,
+bdmep_import_station <- function(.id = "82098" ,
                                  .sdate = "01/01/1961",
                                  .edate = format(Sys.Date(), '%d/%m/%Y'),
                                  .email = "your-email",
@@ -173,8 +201,35 @@ bdmep_import_station <- function(.id = "83488" ,
             "station: " , .id)
   }
   # visualize(r)
+  
   # step 2 - get data
-  url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
+  # all attributes selected - previous version
+  #my_att <- "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
+  
+  # SOLUTION FOR ISSUE with "82098" MACAPA-AP station
+  # excluding Temp Comp Media (which was removed after in bdmep_read)
+  # before request data
+  my_att <- "1,1,1,1,1,1,1,1,1,1,1,1,1,,1,1," 
+  # 1,,,,,,,,,,,,,,,,# tair - TempBulboSeco
+  # ,1,,,,,,,,,,,,,,,# tw - TempBulboUmido
+  # ,,1,,,,,,,,,,,,,,# tmax - TempMaxima
+  # ,,,1,,,,,,,,,,,,,# tmin - TempMinima
+  # ,,,,1,,,,,,,,,,,,# ur - UmidadeRelativa
+  # ,,,,,1,,,,,,,,,,,# patm - PressaoAtmEstacao
+  # ,,,,,,1,,,,,,,,,,# pnmm - PressaoAtmMar
+  # ,,,,,,,1,,,,,,,,,# wd - DirecaoVento
+  # ,,,,,,,,1,,,,,,,,# ws - VelocidadeVento
+  # ,,,,,,,,,1,,,,,,,# n - insolacao
+  # ,,,,,,,,,,1,,,,,,# prec - precipitação
+  # ,,,,,,,,,,,1,,,,,# cc - Nebulosidade
+  # ,,,,,,,,,,,,1,,,,# evap - Evaporacao Piche
+  # ,,,,,,,,,,,,,1,,,# tcomp - Temp Comp Media
+  # ,,,,,,,,,,,,,,1,,# ur - Umidade Relativa Media
+  # ,,,,,,,,,,,,,,,1,# ws_avg - Velocidade do Vento Media
+
+  url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=my_att"
+  url_data <- gsub("my_att", my_att, url_data)
+  #url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=82098&btnProcesso=serie&mRelDtInicio=01/01/1961&mRelDtFim=30/04/2018&mAtributos=,,1,1,,,,,,1,1,,1,1,1,1,"
   #url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=83980&btnProcesso=serie&mRelDtInicio=01/01/1961&mRelDtFim=01/01/2017&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
   
   # link to station data
@@ -196,6 +251,22 @@ bdmep_import_station <- function(.id = "83488" ,
   
   # column to inform request status
   if (httr::status_code(r2) != 200) {
+    
+    # # to deal with "82098" MACAPA-AP station
+    # if (httr::status_code(r2) == 403) {
+    #   # try remove cloud cover 
+    #   url_data <- gsub("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,", 
+    #                    "1,1,1,1,1,1,1,1,1,1,1,,1,1,1,1,", 
+    #                    r2$url)
+    #   # update url_data
+    #   r2 <- httr::GET(url_data)
+    #   # if still not is 200
+    #   if (httr::status_code(r2) != 200){
+    #     xtidy <- bdmep_template(.id , msg)
+    #     return(xtidy)
+    #   }
+    # }
+
     xtidy <- bdmep_template(.id , msg)
     return(xtidy)
   }
