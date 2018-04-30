@@ -2,6 +2,11 @@ News
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+inmetr 0.2.7
+============
+
+-   \[x\] fix issue related to station MACAPA - AP (OMM: 82098), thanks to @williambarbosa
+
 inmetr 0.2.6.9999
 =================
 
