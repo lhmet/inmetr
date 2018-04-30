@@ -17,14 +17,13 @@ Imports:
     magrittr,
     purrr,
     stringr,
-    doBy,
     tidyr,
     stringi,
     selectr,
     lubridate,
     tibble,
     readr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Suggests: knitr,
     rmarkdown
 URL: http://github.com/lhmet/inmetr
