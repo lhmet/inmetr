@@ -1,7 +1,9 @@
-utils::globalVariables(c(".", "data", "hora", "codigo", 
-                         "nome_estacao","prec", "site",
-                         "ws", "tcomp", "id", "request_status",
-                         "wd", "day", "ws"))
+utils::globalVariables(c(
+  ".", "data", "hora", "codigo",
+  "nome_estacao", "prec", "site",
+  "ws", "tcomp", "id", "request_status",
+  "wd", "day", "ws"
+))
 
 #' Pipe operator
 #'
@@ -24,16 +26,16 @@ NULL
 str_empty <- function(string) {
   string <- as.character(string)
   string == ""
-} 
+}
 
 
 #' Count valid data
 #'
-#' @param x 
+#' @param x
 #'
 #' @return total non-missing values of x.
 #'
-nvalid <- function(x){
-  #if(all(is.na(x))) return(0)
+nvalid <- function(x) {
+  # if(all(is.na(x))) return(0)
   sum(!is.na(x))
 }
