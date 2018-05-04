@@ -183,7 +183,7 @@ set_bdmep_user <- function(lnk, email, passwd){
 ##' @return a data frame with variables in columns (see \code{\link{bdmep_description}}) and observations (date and time) along rows.
 ##' @author Jonatan Tatsch
 ##' 
-bdmep_import_station <- function(.id = "82098" ,
+bdmep_import_station <- function(.id = "83844" ,
                                  .sdate = "01/01/1961",
                                  .edate = format(Sys.Date(), '%d/%m/%Y'),
                                  .email = "your-email",
@@ -290,7 +290,24 @@ bdmep_import_station <- function(.id = "82098" ,
                      path = .file,
                      na = .na.strings,
                      append = FALSE)
+    
+    out_info <- xtidy %>%
+      dplyr::select(date, id, request_status) %>%
+      dplyr::group_by(id) %>%
+      dplyr::summarise(sdate = min(date, na.rm = TRUE),
+             edate = max(date, na.rm = TRUE),
+             nrow = n(),
+             request_status = unique(request_status)) 
+    out_data <- xtidy %>%
+      group_by(id) %>%
+      dplyr::summarise_at(., 
+                               .vars = vars(prec:ws),
+                               .funs = funs(nvalid)) %>%
+      dplyr::full_join(out_info, ., by = "id") %>%
+      mutate_at(vars(prec:ws), .funs = funs(./nrow *100))
+    return(out_data)
   }
+  
   return(xtidy)
 }
 
