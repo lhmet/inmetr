@@ -77,7 +77,8 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 
 #' Report status of each variable
 #'
-#' @param data_bdmep 
+#' @param data_bdmep data processed by \code{\link{bdmep_read}} in 
+#' \code{\link{bdmep_import_station}}.
 #'
 #' @return data frame with the percentage of valid observations for each variable
 ##'  \describe{
@@ -85,12 +86,11 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 ##'    \item{sdate}{start date of observations}
 ##'    \item{edate}{end date of observations}
 ##'    \item{rows}{number of rows in data file}
-##'    \item{request_status}{}
+##'    \item{request_status}{character scalar with information on the status of a request}
 ##'    \item{prec}{valid observations of prec in percentage}
 ##'    \item{...}{valid observations of ith variable in percentage}
 ##'    \item{ws}{valid observations of ws in percentage}
 ##'  }
-#' @export
 #' 
 bdmep_data_status <- function(data_bdmep = xtidy) {
   stopifnot(all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep)))
