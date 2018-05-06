@@ -4,7 +4,7 @@
 \alias{bdmep_import}
 \title{Import data from Brazilian meteorological stations}
 \usage{
-bdmep_import(id = c("83936", "83967"), sdate = "01/01/1961",
+bdmep_import(id = c("83844", "83967"), sdate = "01/01/1961",
   edate = format(Sys.Date(), "\%d/\%m/\%Y"), email = "your@email.com",
   passwd = "your-password", verbose = TRUE, destdir = NULL,
   na.strings = "-9999")
@@ -34,12 +34,12 @@ Import data from Brazilian meteorological stations
 }
 \details{
 The data are in sub-daily time scale. A minimum data quality control is applied to the data.
-This include: a chronological sequence check; filling data from missing dates with NA; 
+This include: a chronological sequence check; filling data from missing dates with NA;
 remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 }
 \examples{
 # download data for Santa Maria and Porto Alegre
-metdata <- bdmep_import(id = c("83936", "83967"), 
+metdata <- bdmep_import(id = c("83936", "83967"),
                         sdate = "01/01/1961",
                         edate = format(Sys.Date(), '\%d/\%m/\%Y'),
                         email = "your@email.com",

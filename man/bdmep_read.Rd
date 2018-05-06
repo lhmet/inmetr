@@ -17,7 +17,7 @@ Read and tidy data downloaded with \code{\link{bdmep_import}}
 }
 \details{
 A minimum quality control check is applied to the data
-This include: a chronological sequence check; filling missing dates with NA; 
+This include: a chronological sequence check; filling missing dates with NA;
 remove duplicated data; aggregate time and date information into a POSIX object
 }
 \author{

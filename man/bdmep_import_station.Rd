@@ -4,7 +4,7 @@
 \alias{bdmep_import_station}
 \title{Import data of a meteorological station}
 \usage{
-bdmep_import_station(.id = "82098", .sdate = "01/01/1961",
+bdmep_import_station(.id = "83844", .sdate = "01/01/1961",
   .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
   .passwd = "your-password", .verbose = TRUE, .destdir = NULL,
   .na.strings = "-9999")
@@ -34,7 +34,7 @@ Import data of a meteorological station
 }
 \details{
 The data are in sub-daily time scale. A minimum data quality control is applied to the data.
-This include: a chronological sequence check; filling data from missing dates with NA; 
+This include: a chronological sequence check; filling data from missing dates with NA;
 remove duplicated data. Time variables (year, month, day, hour) are aggregated into a POSIX object in UTC
 }
 \author{

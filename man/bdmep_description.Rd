@@ -7,7 +7,7 @@
 bdmep_description()
 }
 \value{
-a data frame is returned with 
+a data frame is returned with
  \code{varname}, \code{description}, \code{unit}
 }
 \description{

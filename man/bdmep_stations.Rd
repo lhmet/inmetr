@@ -7,7 +7,7 @@
 bdmep_stations()
 }
 \value{
-a data frame is returned with 
+a data frame is returned with
  \code{name}, \code{state}, \code{id}
 }
 \description{

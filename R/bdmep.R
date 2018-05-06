@@ -76,7 +76,7 @@ bdmep_read <- function(x) {
     stringsAsFactors = FALSE,
     na.strings = ""
   )
-  bdmepd <- as_tibble(bdmepd)
+  bdmepd <- tibble::as_tibble(bdmepd)
 
   # stop if there is conflict between ncol(x) and length(hvec)
   if (ncol(bdmepd) != length(vnames)) {
@@ -300,8 +300,8 @@ bdmep_import_station <- function(.id = "83844",
                     na.strings = .na.strings,
                     verbose = .verbose)
 
-    bdmep_data_status <- bdmep_summary(xtidy)
-    return(bdmep_summary_data)
+    data_status <- bdmep_data_status(xtidy)
+    return(data_status)
   }
 
   return(xtidy)
@@ -338,7 +338,7 @@ bdmep_import_station <- function(.id = "83844",
 ##' tail(metdata)
 ##' summary(metdata)
 ##'
-bdmep_import <- function(id = c("83936", "83967"),
+bdmep_import <- function(id = c("83844", "83967"),
                          sdate = "01/01/1961",
                          edate = format(Sys.Date(), "%d/%m/%Y"),
                          email = "your@email.com",

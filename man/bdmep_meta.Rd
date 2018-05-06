@@ -7,39 +7,39 @@
 \format{\code{bdmep_meta} is supplied with the \code{inmetr} package and
 consists of the following information in a data frame with 394 rows and 9 columns.
 	\describe{
-		\item{id}{station id, character with 5 digits corresponding to OMM code}
-		\item{lon}{longitude in decimal degrees}
-		\item{lat}{latitude in decimal degrees}
-		\item{alt}{altitude in metres}
-		\item{name}{station name}
-		\item{state}{Full name of state}
-		\item{uf}{Federative Unit}
-		\item{time_zone}{time zone}
-		\item{offset_utc}{UTC offset}
-}}
+			\item{id}{station id, character with 5 digits corresponding to OMM code}
+			\item{lon}{longitude in decimal degrees}
+			\item{lat}{latitude in decimal degrees}
+			\item{alt}{altitude in metres}
+			\item{name}{station name}
+			\item{state}{Full name of state}
+			\item{uf}{Federative Unit}
+			\item{time_zone}{time zone}
+			\item{offset_utc}{UTC offset}
+	}}
 \source{
-\code{bdmep_meta} was compiled from 
+\code{bdmep_meta} was compiled from
 \url{http://www.inmet.gov.br/webcdp/climatologia/normais/imagens/normais/planilhas/Relac_Est_Meteo_NC.xls}
 }
 \usage{
 bdmep_meta
 }
 \description{
-Spatial coordinates, altitude and others informations of INMET's 
+Spatial coordinates, altitude and others informations of INMET's
 meteorological stations.
 }
 \examples{
 head(bdmep_meta)
 with(bdmep_meta,
-     plot(lon, lat, 
+     plot(lon, lat,
      pch = 20,
-     col = abs(offset_utc), 
+     col = abs(offset_utc),
      main = "Met. stations of INMET")
      )
 legend("bottomleft",
-       c("UTC-5", "UTC-4", "UTC-3"), 
+       c("UTC-5", "UTC-4", "UTC-3"),
        col = c(5:3),
-       pch = 20, 
+       pch = 20,
        title = "time zone")
 }
 \keyword{datasets}

@@ -2,7 +2,8 @@ utils::globalVariables(c(
   ".", "data", "hora", "codigo",
   "nome_estacao", "prec", "site",
   "ws", "tcomp", "id", "request_status",
-  "wd", "day", "ws"
+  "wd", "day", "ws", "xtidy", ".verbose",
+  ".na.strings", ".destdir"
 ))
 
 #' Pipe operator
@@ -31,7 +32,7 @@ str_empty <- function(string) {
 
 #' Count valid data
 #'
-#' @param x
+#' @param x a numeric vector
 #'
 #' @return total non-missing values of x.
 #'
@@ -55,7 +56,7 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
   
   # readr::write_csv(x = dplyr::mutate(xtidy, date = as.character(date)),
   readr::write_csv(
-    x = xtidy,
+    x = data_bdmep,
     path = .file,
     na = na.strings,
     append = FALSE
@@ -83,7 +84,7 @@ bdmep_data_status <- function(data_bdmep = xtidy){
     dplyr::summarise(.,
       sdate = min(date, na.rm = TRUE),
       edate = max(date, na.rm = TRUE),
-      nrow = n(),
+      nrow = dplyr::n(),
       request_status = unique(request_status)
     )
   
