@@ -48,10 +48,14 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
                             na.strings = .na.strings,
                             verbose = .verbose) {
   # if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
-  stopifnot(
-    dir.exists(folder),
-    all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep))
+ stopifnot(
+  dir.exists(folder),
+  all(c(
+      "date", "id", "request_status",
+      "prec", "ws"
+    ) %in% names(data_bdmep)
   )
+)
   .id <- data_bdmep[1, "id"]
   .file <- file.path(folder, paste0(.id, ".csv"))
 
@@ -77,7 +81,7 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 
 #' Report status of each variable
 #'
-#' @param data_bdmep data processed by \code{\link{bdmep_read}} in 
+#' @param data_bdmep data processed by \code{\link{bdmep_read}} in
 #' \code{\link{bdmep_import_station}}.
 #'
 #' @return data frame with the percentage of valid observations for each variable
@@ -91,9 +95,11 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 ##'    \item{...}{valid observations of ith variable in percentage}
 ##'    \item{ws}{valid observations of ws in percentage}
 ##'  }
-#' 
+#'
 bdmep_data_status <- function(data_bdmep = xtidy) {
-  stopifnot(all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep)))
+  stopifnot(
+    all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep))
+    )
 
   data_avail <- dplyr::select(data_bdmep, date, id, request_status)
   data_avail <- dplyr::group_by(data_avail, id)
@@ -113,8 +119,9 @@ bdmep_data_status <- function(data_bdmep = xtidy) {
   )
   data_status <- dplyr::full_join(
     data_avail,
-    data_status, 
-    by = "id")
+    data_status,
+    by = "id"
+  )
   data_status <- dplyr::mutate_at(
     data_status,
     dplyr::vars(prec:ws),
