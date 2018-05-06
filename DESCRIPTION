@@ -1,30 +1,35 @@
 Package: inmetr
-Title: Import Historical Data from Brazilian Meteorological Stations
+Title: Import Historical Data from Brazilian Meteorological
+    Stations
 Version: 0.2.7
-Authors@R: person("Jonatan", "Tatsch", email = "jdtatsch@gmail.com", role = c("aut", "cre"))
-Description: Import historical data measured by meteorological stations
-    from Instituto Nacional de Meteorologia (INMET),
-    Brazil.
-Depends:
-    R (>= 3.2.4)
+Authors@R: 
+    person(given = "Jonatan",
+           family = "Tatsch",
+           role = c("aut", "cre"),
+           email = "jdtatsch@gmail.com")
+Description: Import historical data measured by meteorological
+    stations from Instituto Nacional de Meteorologia (INMET), Brazil.
 License: BSD_3_clause + file LICENSE
-LazyData: true
-Imports:
-    dplyr,
-    httr,
-    xml2,
-    rvest,
-    magrittr,
-    purrr,
-    stringr,
-    tidyr,
-    stringi,
-    selectr,
-    lubridate,
-    tibble,
-    readr
-RoxygenNote: 6.0.1.9000
-Suggests: knitr,
-    rmarkdown
 URL: http://github.com/lhmet/inmetr
 BugReports: http://github.com/lhmet/inmetr/issues
+Depends: 
+    R (>= 3.2.4)
+Imports: 
+    dplyr (>= 0.7.4),
+    httr (>= 1.3.1),
+    lubridate (>= 1.7.4),
+    magrittr (>= 1.5),
+    purrr (>= 0.2.4),
+    readr (>= 1.2.0),
+    rvest (>= 0.3.2.9000),
+    selectr (>= 0.3.1),
+    stringi (>= 1.1.6),
+    stringr (>= 1.3.0),
+    tibble (>= 1.4.2),
+    tidyr (>= 0.8.0),
+    xml2 (>= 1.2.0)
+Suggests: 
+    knitr (>= 1.20),
+    rmarkdown (>= 1.8.10)
+LazyData: true
+RoxygenNote: 6.0.1.9000
