@@ -63,11 +63,12 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
   
   if(file.exists(.file)) {
     if (verbose) message("Data saved in ", .file)
-    return(invisible(.file))
+    res <- .file
   } else {
     message("Cannot save data file ", .file)
-    return(invisible(NA_character_))
+    res <- NA_character_
   }
+  return(invisible(res))
 }
 
 
