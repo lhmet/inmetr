@@ -1,6 +1,6 @@
 utils::globalVariables(c(
   ".", "data", "hora", "codigo",
-  "nome_estacao", "prec", "site",
+  "prec", "site",
   "ws", "tcomp", "id", "request_status",
   "wd", "day", "ws", "xtidy", ".verbose",
   ".na.strings", ".destdir"
@@ -46,14 +46,15 @@ nvalid <- function(x) {
 bdmep_write_csv <- function(data_bdmep = xtidy,
                             folder = .destdir,
                             na.strings = .na.strings,
-                            verbose = .verbose){
+                            verbose = .verbose) {
   # if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
-  stopifnot(dir.exists(folder), 
-            all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep))
-            )
+  stopifnot(
+    dir.exists(folder),
+    all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep))
+  )
   .id <- data_bdmep[1, "id"]
   .file <- file.path(folder, paste0(.id, ".csv"))
-  
+
   # readr::write_csv(x = dplyr::mutate(xtidy, date = as.character(date)),
   readr::write_csv(
     x = data_bdmep,
@@ -61,8 +62,8 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
     na = na.strings,
     append = FALSE
   )
-  
-  if(file.exists(.file)) {
+
+  if (file.exists(.file)) {
     if (verbose) message("Data saved in ", .file)
     res <- .file
   } else {
@@ -74,29 +75,51 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 
 
 
-bdmep_data_status <- function(data_bdmep = xtidy){
-  
+#' Report status of each variable
+#'
+#' @param data_bdmep 
+#'
+#' @return data frame with the percentage of valid observations for each variable
+##'  \describe{
+##'    \item{id}{station id}
+##'    \item{sdate}{start date of observations}
+##'    \item{edate}{end date of observations}
+##'    \item{rows}{number of rows in data file}
+##'    \item{request_status}{}
+##'    \item{prec}{valid observations of prec in percentage}
+##'    \item{...}{valid observations of ith variable in percentage}
+##'    \item{ws}{valid observations of ws in percentage}
+##'  }
+#' @export
+#' 
+bdmep_data_status <- function(data_bdmep = xtidy) {
   stopifnot(all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep)))
-  
-  out_summary <- data_bdmep %>%
-    dplyr::select(date, id, request_status) %>%
-    dplyr::group_by(id) %>%
-    dplyr::summarise(.,
-      sdate = min(date, na.rm = TRUE),
-      edate = max(date, na.rm = TRUE),
-      nrow = dplyr::n(),
-      request_status = unique(request_status)
-    )
-  
-  data_status <- xtidy %>%
-    dplyr::group_by(id) %>%
-    dplyr::summarise_at(.,
-                        .vars = dplyr::vars(prec:ws),
-                        .funs = dplyr::funs(nvalid)
-    ) %>%
-    dplyr::full_join(out_summary, ., by = "id") %>%
-    dplyr::mutate_at(dplyr::vars(prec:ws),
-                     .funs = dplyr::funs(. / nrow * 100))
-  
+
+  data_avail <- dplyr::select(data_bdmep, date, id, request_status)
+  data_avail <- dplyr::group_by(data_avail, id)
+  data_avail <- dplyr::summarise(
+    data_avail,
+    sdate = min(date, na.rm = TRUE),
+    edate = max(date, na.rm = TRUE),
+    rows = length(date),
+    request_status = unique(request_status)
+  )
+
+  data_status <- dplyr::group_by(data_bdmep, id)
+  data_status <- dplyr::summarise_at(
+    data_status,
+    .vars = dplyr::vars(prec:ws),
+    .funs = dplyr::funs(nvalid)
+  )
+  data_status <- dplyr::full_join(
+    data_avail,
+    data_status, 
+    by = "id")
+  data_status <- dplyr::mutate_at(
+    data_status,
+    dplyr::vars(prec:ws),
+    .funs = dplyr::funs(. / rows * 100)
+  )
+
   return(data_status)
 }
