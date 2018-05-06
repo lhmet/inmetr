@@ -300,7 +300,7 @@ bdmep_import_station <- function(.id = "83844",
                     na.strings = .na.strings,
                     verbose = .verbose)
 
-    bdmep_summary_data <- bdmep_completeness(xtidy)
+    bdmep_data_status <- bdmep_summary(xtidy)
     return(bdmep_summary_data)
   }
 

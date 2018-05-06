@@ -72,7 +72,7 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 
 
 
-bdmep_completeness <- function(data_bdmep = xtidy){
+bdmep_data_status <- function(data_bdmep = xtidy){
   
   stopifnot(all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep)))
   
@@ -86,7 +86,7 @@ bdmep_completeness <- function(data_bdmep = xtidy){
       request_status = unique(request_status)
     )
   
-  out_data <- xtidy %>%
+  data_status <- xtidy %>%
     dplyr::group_by(id) %>%
     dplyr::summarise_at(.,
                         .vars = dplyr::vars(prec:ws),
@@ -96,6 +96,5 @@ bdmep_completeness <- function(data_bdmep = xtidy){
     dplyr::mutate_at(dplyr::vars(prec:ws),
                      .funs = dplyr::funs(. / nrow * 100))
   
-  return(out_data)
+  return(data_status)
 }
-  
