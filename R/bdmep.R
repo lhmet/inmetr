@@ -329,7 +329,7 @@ bdmep_import_station <- function(.id = "83844",
 ##' @examples
 ##' # download data for Santa Maria and Porto Alegre
 ##' metdata <- bdmep_import(id = c("83936", "83967"),
-##'                         sdate = "01/01/1961",
+##'                         sdate = "01/01/2015", # could be "01/01/1961"
 ##'                         edate = format(Sys.Date(), '%d/%m/%Y'),
 ##'                         email = "your@email.com",
 ##'                         passwd = "your-password",
