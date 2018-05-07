@@ -7,7 +7,7 @@
 bdmep_data_status(data_bdmep = xtidy)
 }
 \arguments{
-\item{data_bdmep}{data processed by \code{\link{bdmep_read}} in 
+\item{data_bdmep}{data processed by \code{\link{bdmep_read}} in
 \code{\link{bdmep_import_station}}.}
 }
 \value{
