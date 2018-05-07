@@ -111,7 +111,8 @@ bdmep_data_status <- function(data_bdmep = xtidy) {
     rows = length(date),
     request_status = unique(request_status)
   )
-
+  
+  data_status <- dplyr::select(data_bdmep, -date)
   data_status <- dplyr::group_by(data_bdmep, id)
   data_status <- dplyr::summarise_at(
     data_status,
