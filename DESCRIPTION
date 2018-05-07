@@ -1,7 +1,7 @@
 Package: inmetr
 Title: Import Historical Data from Brazilian Meteorological
     Stations
-Version: 0.2.7
+Version: 0.2.7.9000
 Authors@R: 
     person(given = "Jonatan",
            family = "Tatsch",
