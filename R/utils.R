@@ -3,7 +3,8 @@ utils::globalVariables(c(
   "prec", "site",
   "ws", "tcomp", "id", "request_status",
   "wd", "day", "ws", "xtidy", ".verbose",
-  ".na.strings", ".destdir"
+  ".na.strings", ".destdir", "rows",
+  "nome_estacao"
 ))
 
 #' Pipe operator
