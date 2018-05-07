@@ -115,39 +115,33 @@ met_data <- bdmep_import(id = stns_codes,
 ``` r
 # check de start date
 head(met_data)
-#>                  date    id prec tair   tw tmax tmin urmax  patm pnmm wd
-#> 1 1961-01-01 00:00:00 83936   NA   NA   NA 31.9   NA    NA    NA   NA NA
-#> 2 1961-01-01 12:00:00 83936   NA 23.9 21.4   NA 18.1    79 990.3   NA NA
-#> 3 1961-01-01 18:00:00 83936   NA 30.6 25.1   NA   NA    63 988.2   NA NA
-#> 4 1961-01-02 00:00:00 83936   NA 27.7 24.4 34.0   NA    75 986.4   NA NA
-#> 5 1961-01-02 12:00:00 83936    0 26.4 23.8   NA 23.5    79 989.4   NA NA
-#> 6 1961-01-02 18:00:00 83936   NA 30.8 25.2   NA   NA    62 989.0   NA NA
-#>   wsmax   n cc evap    ur       ws    request_status
-#> 1    NA 7.7 NA  1.1 73.00 1.000000 Success: (200) OK
-#> 2     0  NA  0   NA    NA       NA Success: (200) OK
-#> 3     3  NA  9   NA    NA       NA Success: (200) OK
-#> 4     0 6.0  0  2.7 74.25 0.666667 Success: (200) OK
-#> 5     0  NA  4   NA    NA       NA Success: (200) OK
-#> 6     1  NA 10   NA    NA       NA Success: (200) OK
+#> # A tibble: 6 x 18
+#>   date                id     prec  tair    tw  tmax  tmin urmax  patm
+#>   <dttm>              <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1 1961-01-01 00:00:00 83936    NA  NA    NA    31.9  NA    NA      NA
+#> 2 1961-01-01 12:00:00 83936    NA  23.9  21.4  NA    18.1  79.0   990
+#> 3 1961-01-01 18:00:00 83936    NA  30.6  25.1  NA    NA    63.0   988
+#> 4 1961-01-02 00:00:00 83936    NA  27.7  24.4  34.0  NA    75.0   986
+#> 5 1961-01-02 12:00:00 83936     0  26.4  23.8  NA    23.5  79.0   989
+#> 6 1961-01-02 18:00:00 83936    NA  30.8  25.2  NA    NA    62.0   989
+#> # ... with 9 more variables: pnmm <dbl>, wd <dbl>, wsmax <dbl>, n <dbl>,
+#> #   cc <dbl>, evap <dbl>, ur <dbl>, ws <dbl>, request_status <chr>
 ```
 
 ``` r
 # check de end date
 tail(met_data)
-#>                       date    id prec tair   tw tmax tmin urmax   patm
-#> 108000 2017-12-28 12:00:00 82098  7.8 27.2 25.8   NA 24.9    89 1009.4
-#> 108001 2017-12-28 18:00:00 82098   NA 31.4 26.1   NA   NA    64 1006.8
-#> 108002 2017-12-29 00:00:00 82098   NA 27.8 26.0 31.8   NA    86 1008.1
-#> 108003 2017-12-29 12:00:00 82098  0.0 27.2 25.4   NA 24.7    86 1008.7
-#> 108004 2017-12-29 18:00:00 82098   NA 30.8 26.7   NA   NA    72 1005.5
-#> 108005 2017-12-30 00:00:00 82098   NA 28.0 25.8   NA   NA    81 1007.5
-#>          pnmm wd wsmax   n cc evap ur      ws    request_status
-#> 108000 1011.1  0   0.0  NA  8   NA NA      NA Success: (200) OK
-#> 108001 1008.5  9   2.3  NA  9   NA NA      NA Success: (200) OK
-#> 108002 1009.8  0   0.0 8.2 10  2.4 81 1.02888 Success: (200) OK
-#> 108003 1010.4  0   0.0  NA  9   NA NA      NA Success: (200) OK
-#> 108004     NA  7   1.8  NA  5   NA NA      NA Success: (200) OK
-#> 108005 1009.2  5   2.3  NA  6   NA NA      NA Success: (200) OK
+#> # A tibble: 6 x 18
+#>   date                id     prec  tair    tw  tmax  tmin urmax  patm
+#>   <dttm>              <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1 2017-12-28 12:00:00 82098  7.80  27.2  25.8  NA    24.9  89.0  1009
+#> 2 2017-12-28 18:00:00 82098 NA     31.4  26.1  NA    NA    64.0  1007
+#> 3 2017-12-29 00:00:00 82098 NA     27.8  26.0  31.8  NA    86.0  1008
+#> 4 2017-12-29 12:00:00 82098  0     27.2  25.4  NA    24.7  86.0  1009
+#> 5 2017-12-29 18:00:00 82098 NA     30.8  26.7  NA    NA    72.0  1006
+#> 6 2017-12-30 00:00:00 82098 NA     28.0  25.8  NA    NA    81.0  1008
+#> # ... with 9 more variables: pnmm <dbl>, wd <dbl>, wsmax <dbl>, n <dbl>,
+#> #   cc <dbl>, evap <dbl>, ur <dbl>, ws <dbl>, request_status <chr>
 ```
 
 You can save data in a CSV file setting `destdir = "path/to/write/files"` in `bdmep_import` function. Data will be save one file per station.
