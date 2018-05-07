@@ -232,7 +232,7 @@ bdmep_import_station <- function(.id = "83844",
   # ,,,,,,,1,,,,,,,,,# wd - DirecaoVento
   # ,,,,,,,,1,,,,,,,,# ws - VelocidadeVento
   # ,,,,,,,,,1,,,,,,,# n - insolacao
-  # ,,,,,,,,,,1,,,,,,# prec - precipitação
+  # ,,,,,,,,,,1,,,,,,# prec - precipitacao
   # ,,,,,,,,,,,1,,,,,# cc - Nebulosidade
   # ,,,,,,,,,,,,1,,,,# evap - Evaporacao Piche
   # ,,,,,,,,,,,,,1,,,# tcomp - Temp Comp Media
