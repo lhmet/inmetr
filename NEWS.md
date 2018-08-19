@@ -2,18 +2,26 @@ News
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+inmetr 0.2.79000
+================
+
+-   \[ \] add function to compute mean daily data.
+-   \[ \] remove stations not available in BDMEP\[\] (although they are) from `bdmep_meta()`.
+-   \[ \] check if stations in [climatology 1981-2010](http://www.inmet.gov.br/portal/index.php?r=clima/normaisClimatologicas) are available in BDMEP.
+-   \[x\] improve arguments check for `sdate` and `edate` arguments in `bdmep_import()`. Now, whitespace are removed from start and end of those arguments, before building the url string to BDMEP. .
+
 inmetr 0.2.7
 ============
 
--   \[x\] fix issue related to station MACAPA - AP (OMM: 82098), thanks to @williambarbosa
+-   \[x\] fix issue related to station MACAPA - AP (OMM: 82098), thanks to William Barbosa (ESALQ/USP).
+-   \[x\] split up bdmep\_import in `bdmep_write_csv()` and `bdmep_data_status()`
 
 inmetr 0.2.6.9999
 =================
 
 -   \[x\] fix issue \#3, thanks to @DominickAugustine
 -   \[x\] add function to write csv files of station data.
--   \[ \] include `metadata_description()`.
--   \[ \] add function to compute mean daily data.
+-   \[x\] include `bdmep_meta()`.
 
 inmetr 0.2.5
 ============
