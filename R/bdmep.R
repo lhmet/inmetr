@@ -346,8 +346,12 @@ bdmep_import <- function(id = c("83844", "83967"),
                          verbose = TRUE,
                          destdir = NULL,
                          na.strings = "-9999") {
-  id <- as.character(id)
+  
   # check arguments precondition ----------------------------------------------
+  id <- as.character(id)
+  sdate <- stringr::str_trim(sdate)
+  edate <- stringr::str_trim(edate)
+  
   stopifnot(
     unique(nchar(id)) == 5,
     all(id %in% inmetr::bdmep_meta$id),
