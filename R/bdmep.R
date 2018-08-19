@@ -294,11 +294,12 @@ bdmep_import_station <- function(.id = "83844",
   xtidy <- dplyr::mutate(xtidy, request_status = msg)
 
   if (!is.null(.destdir)) {
-    
-    bdmep_write_csv(data_bdmep = xtidy,
-                    folder = .destdir,
-                    na.strings = .na.strings,
-                    verbose = .verbose)
+    bdmep_write_csv(
+      data_bdmep = xtidy,
+      folder = .destdir,
+      na.strings = .na.strings,
+      verbose = .verbose
+    )
 
     data_status <- bdmep_data_status(xtidy)
     return(data_status)
@@ -387,7 +388,10 @@ bdmep_import <- function(id = c("83844", "83967"),
 #' @return a dataframe with variables filled with NA, except for id and request_status
 bdmep_template <- function(.id, .req_status) {
   varnames <- bdmep_description()[, "varname"]
-  templ_df <- as.data.frame(t(rep(NA, length(varnames))), stringsAsFactors = FALSE)
+  templ_df <- as.data.frame(
+    t(rep(NA, length(varnames))),
+    stringsAsFactors = FALSE
+  )
   templ_df <- templ_df %>%
     setNames(varnames) %>%
     dplyr::mutate(
