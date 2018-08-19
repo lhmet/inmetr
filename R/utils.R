@@ -49,13 +49,12 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
                             na.strings = .na.strings,
                             verbose = .verbose) {
   # if(!stringr::str_detect(.destfile, "\\.[a-z]{3,}")){
- stopifnot(
+stopifnot(
   dir.exists(folder),
   all(c(
-      "date", "id", "request_status",
-      "prec", "ws"
-    ) %in% names(data_bdmep)
-  )
+    "date", "id", "request_status",
+    "prec", "ws"
+  ) %in% names(data_bdmep))
 )
   .id <- data_bdmep[1, "id"]
   .file <- file.path(folder, paste0(.id, ".csv"))
@@ -98,20 +97,28 @@ bdmep_write_csv <- function(data_bdmep = xtidy,
 ##'  }
 #'
 bdmep_data_status <- function(data_bdmep = xtidy) {
-  stopifnot(
-    all(c("date", "id", "request_status", "prec", "ws") %in% names(data_bdmep))
-    )
 
-  data_avail <- dplyr::select(data_bdmep, date, id, request_status)
-  data_avail <- dplyr::group_by(data_avail, id)
-  data_avail <- dplyr::summarise(
-    data_avail,
-    sdate = min(date, na.rm = TRUE),
-    edate = max(date, na.rm = TRUE),
-    rows = length(date),
-    request_status = unique(request_status)
+stopifnot(
+  all(
+    c(
+      "date", "id", "request_status",
+      "prec", "ws"
+    ) %in% names(data_bdmep)
   )
-  
+)
+
+data_avail <- dplyr::select(
+  data_bdmep, date, id, request_status
+) 
+data_avail <- dplyr::group_by(data_avail, id)
+data_avail <- dplyr::summarise(
+  data_avail,
+  sdate = min(date, na.rm = TRUE),
+  edate = max(date, na.rm = TRUE),
+  rows = length(date),
+  request_status = unique(request_status)
+)
+
   data_status <- dplyr::select(data_bdmep, -date)
   data_status <- dplyr::group_by(data_bdmep, id)
   data_status <- dplyr::summarise_at(
