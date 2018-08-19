@@ -349,8 +349,8 @@ bdmep_import <- function(id = c("83844", "83967"),
   
   # check arguments precondition ----------------------------------------------
   id <- as.character(id)
-  sdate <- stringr::str_trim(sdate)
-  edate <- stringr::str_trim(edate)
+  sdate <- stringr::str_trim(as.character(sdate))
+  edate <- stringr::str_trim(as.character(edate))
   
   stopifnot(
     unique(nchar(id)) == 5,

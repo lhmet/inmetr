@@ -2,13 +2,17 @@ News
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
-inmetr 0.2.79000
-================
+inmetr 0.2.8.9999
+=================
 
 -   \[ \] add function to compute mean daily data.
--   \[ \] remove stations not available in BDMEP\[\] (although they are) from `bdmep_meta()`.
+-   \[ \] remove stations not available in BDMEP\[\] (although they still are in `bdmep_meta()`).
 -   \[ \] check if stations in [climatology 1981-2010](http://www.inmet.gov.br/portal/index.php?r=clima/normaisClimatologicas) are available in BDMEP.
--   \[x\] improve arguments check for `sdate` and `edate` arguments in `bdmep_import()`. Now, whitespace are removed from start and end of those arguments, before building the url string to BDMEP. .
+
+inmetr 0.2.8
+============
+
+-   \[x\] improve arguments check for `sdate` and `edate` arguments in `bdmep_import()`. Now, whitespace are removed from start and end of those arguments before building the url string to BDMEP. Thanks to @danielalthoff for reporting your case.
 
 inmetr 0.2.7
 ============
