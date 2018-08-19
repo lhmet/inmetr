@@ -42,46 +42,46 @@ head(bdmep_meta)
 #> 4 82807 -70.76667  -8.166667 190.00        Tarauacá    Acre AC
 #> 5 83098 -36.16667 -10.150000  56.13        Coruripe Alagoas AL
 #> 6 82994 -35.70000  -9.666667  64.50          Maceió Alagoas AL
-#>            time_zone offset_utc
-#> 1 America/Rio_Branco         -5
-#> 2 America/Rio_Branco         -5
-#> 3 America/Rio_Branco         -5
-#> 4 America/Rio_Branco         -5
-#> 5     America/Maceio         -3
-#> 6     America/Maceio         -3
+#>            time_zone offset_utc        time_zone.1 offset_utc.1
+#> 1 America/Rio_Branco         -5 America/Rio_Branco           -5
+#> 2 America/Rio_Branco         -5 America/Rio_Branco           -5
+#> 3 America/Rio_Branco         -5 America/Rio_Branco           -5
+#> 4 America/Rio_Branco         -5 America/Rio_Branco           -5
+#> 5     America/Maceio         -3     America/Maceio           -3
+#> 6     America/Maceio         -3     America/Maceio           -3
 tail(bdmep_meta)
 #>        id       lon        lat    alt           name     state uf
-#> 389 83033 -48.30000 -10.183333 280.00         Palmas Tocantins TO
-#> 390 83231 -47.83333 -12.550000 275.00         Paranã Tocantins TO
-#> 391 82863 -48.18333  -8.966667 187.00   Pedro Afonso Tocantins TO
-#> 392 83228 -48.35000 -12.016667 242.49          Peixe Tocantins TO
-#> 393 83064 -48.41667 -10.716667 239.20 Porto Nacional Tocantins TO
-#> 394 83235 -46.41667 -12.400000 603.59     Taguatinga Tocantins TO
-#>             time_zone offset_utc
-#> 389 America/Araguaina         -3
-#> 390 America/Araguaina         -3
-#> 391 America/Araguaina         -3
-#> 392 America/Araguaina         -3
-#> 393 America/Araguaina         -3
-#> 394 America/Araguaina         -3
+#> 384 83033 -48.30000 -10.183333 280.00         Palmas Tocantins TO
+#> 385 83231 -47.83333 -12.550000 275.00         Paranã Tocantins TO
+#> 386 82863 -48.18333  -8.966667 187.00   Pedro Afonso Tocantins TO
+#> 387 83228 -48.35000 -12.016667 242.49          Peixe Tocantins TO
+#> 388 83064 -48.41667 -10.716667 239.20 Porto Nacional Tocantins TO
+#> 389 83235 -46.41667 -12.400000 603.59     Taguatinga Tocantins TO
+#>             time_zone offset_utc       time_zone.1 offset_utc.1
+#> 384 America/Araguaina         -3 America/Araguaina           -3
+#> 385 America/Araguaina         -3 America/Araguaina           -3
+#> 386 America/Araguaina         -3 America/Araguaina           -3
+#> 387 America/Araguaina         -3 America/Araguaina           -3
+#> 388 America/Araguaina         -3 America/Araguaina           -3
+#> 389 America/Araguaina         -3 America/Araguaina           -3
 ```
 
-`bdmep_meta` data provide the `id` of stations, a numeric code defined by [OMM](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf). This `id` is a necessary argument to `bdmep_import()` function which allows to download data from meteorological stations into the R.
+`bdmep_meta` is a data frame providing the `id` of stations, a numeric code defined by [OMM](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf). This `id` is a necessary argument to `bdmep_import()` function which allows to download data from meteorological stations into R.
 
 Here, we show how to find the [OMM code](http://www.wmo.int/pages/prog/www/ois/volume-a/StationIDs_Global_1509.pdf) for meteorological stations at two cities (randomly sampled).
 
 ``` r
 stations <- c("Santa Maria", "Macapá")
 # random sample of two stations names 
-#stations <- sample(bdmep_meta$name,2)
+#stations <- sample(bdmep_meta$name, 2)
 stations_rows <- pmatch(stations, bdmep_meta$name)
 bdmep_meta[stations_rows, ]
 #>        id       lon    lat   alt        name             state uf
-#> 325 83936 -53.70000 -29.70 95.00 Santa Maria Rio Grande do Sul RS
-#> 32  82098 -51.11667  -0.05 14.46      Macapá             Amapá AP
-#>             time_zone offset_utc
-#> 325 America/Sao_Paulo         -3
-#> 32      America/Belem         -3
+#> 320 83936 -53.70000 -29.70 95.00 Santa Maria Rio Grande do Sul RS
+#> 31  82098 -51.11667  -0.05 14.46      Macapá             Amapá AP
+#>             time_zone offset_utc       time_zone.1 offset_utc.1
+#> 320 America/Sao_Paulo         -3 America/Sao_Paulo           -3
+#> 31      America/Belem         -3     America/Belem           -3
 stns_codes <- bdmep_meta[stations_rows, "id"] 
 stns_codes
 #> [1] "83936" "82098"
@@ -118,12 +118,12 @@ head(met_data)
 #> # A tibble: 6 x 18
 #>   date                id     prec  tair    tw  tmax  tmin urmax  patm
 #>   <dttm>              <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#> 1 1961-01-01 00:00:00 83936    NA  NA    NA    31.9  NA    NA      NA
-#> 2 1961-01-01 12:00:00 83936    NA  23.9  21.4  NA    18.1  79.0   990
-#> 3 1961-01-01 18:00:00 83936    NA  30.6  25.1  NA    NA    63.0   988
-#> 4 1961-01-02 00:00:00 83936    NA  27.7  24.4  34.0  NA    75.0   986
-#> 5 1961-01-02 12:00:00 83936     0  26.4  23.8  NA    23.5  79.0   989
-#> 6 1961-01-02 18:00:00 83936    NA  30.8  25.2  NA    NA    62.0   989
+#> 1 1961-01-01 00:00:00 83936    NA  NA    NA    31.9  NA      NA   NA 
+#> 2 1961-01-01 12:00:00 83936    NA  23.9  21.4  NA    18.1    79  990.
+#> 3 1961-01-01 18:00:00 83936    NA  30.6  25.1  NA    NA      63  988.
+#> 4 1961-01-02 00:00:00 83936    NA  27.7  24.4  34    NA      75  986.
+#> 5 1961-01-02 12:00:00 83936     0  26.4  23.8  NA    23.5    79  989.
+#> 6 1961-01-02 18:00:00 83936    NA  30.8  25.2  NA    NA      62  989 
 #> # ... with 9 more variables: pnmm <dbl>, wd <dbl>, wsmax <dbl>, n <dbl>,
 #> #   cc <dbl>, evap <dbl>, ur <dbl>, ws <dbl>, request_status <chr>
 ```
@@ -134,19 +134,19 @@ tail(met_data)
 #> # A tibble: 6 x 18
 #>   date                id     prec  tair    tw  tmax  tmin urmax  patm
 #>   <dttm>              <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#> 1 2017-12-28 12:00:00 82098  7.80  27.2  25.8  NA    24.9  89.0  1009
-#> 2 2017-12-28 18:00:00 82098 NA     31.4  26.1  NA    NA    64.0  1007
-#> 3 2017-12-29 00:00:00 82098 NA     27.8  26.0  31.8  NA    86.0  1008
-#> 4 2017-12-29 12:00:00 82098  0     27.2  25.4  NA    24.7  86.0  1009
-#> 5 2017-12-29 18:00:00 82098 NA     30.8  26.7  NA    NA    72.0  1006
-#> 6 2017-12-30 00:00:00 82098 NA     28.0  25.8  NA    NA    81.0  1008
+#> 1 2018-07-30 12:00:00 82098  15.4  27.9    NA  NA    24.4    82 1011.
+#> 2 2018-07-30 18:00:00 82098  NA    29.6    NA  NA    NA      76 1009.
+#> 3 2018-07-31 00:00:00 82098  NA    27.5    NA  32.4  NA      75 1010.
+#> 4 2018-07-31 12:00:00 82098   1.6  27.7    NA  NA    24      83 1012.
+#> 5 2018-07-31 18:00:00 82098  NA    31.6    NA  NA    NA      69 1010.
+#> 6 2018-08-01 00:00:00 82098  NA    26.6    NA  NA    NA      87 1010.
 #> # ... with 9 more variables: pnmm <dbl>, wd <dbl>, wsmax <dbl>, n <dbl>,
 #> #   cc <dbl>, evap <dbl>, ur <dbl>, ws <dbl>, request_status <chr>
 ```
 
-You can save data in a CSV file setting `destdir = "path/to/write/files"` in `bdmep_import` function. Data will be save one file per station.
+You can save data in a CSV file setting argument `destdir = "path/to/write/files"` in `bdmep_import` function. Data will be save one file per station.
 
-A description of meteorological variables can be obtained by `bdmep_description()`.
+A description of meteorological variables can be obtained by:
 
 ``` r
 bdmep_description()
