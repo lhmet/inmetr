@@ -189,7 +189,8 @@ In this case the outcome data frame will be filled with `NA`, except for `reques
     #> 1 NA Bad Gateway (HTTP 502).
     #> 2 NA Bad Gateway (HTTP 502).
 
-To cite this software
+
+How to cite this software
 ---------------------
 
 ``` r
