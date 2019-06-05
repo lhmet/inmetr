@@ -355,7 +355,8 @@ bdmep_import <- function(id = c("83844", "83967"),
   
   stopifnot(
     unique(nchar(id)) == 5,
-    all(id %in% inmetr::bdmep_meta$id),
+    # all(id %in% inmetr::bdmep_meta$id),
+    all(id %in% inmetr:::bdmep_coords()$id),
     length(unlist(stringr::str_extract_all(sdate, "/"))) == 2,
     length(unlist(stringr::str_extract_all(edate, "/"))) == 2,
     stringr::str_detect(email, "@"),
