@@ -7,3 +7,4 @@
 ^\.travis\.yml$
 ^data-raw$
 ^release$
+^issue8-inmetr\.R$
