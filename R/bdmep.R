@@ -163,8 +163,7 @@ set_bdmep_user <- function(lnk, email, passwd) {
     rvest::html_attr("value")
 
   # put values in a named list
-  l <- vals_name_passwd_bt %>%
-    seq_along() %>%
+  l <- seq_along(vals_name_passwd_bt) %>%
     lapply(function(i) vals_name_passwd_bt[i]) %>%
     setNames(attrs_name_passwd_bt)
   # add email and passwd
