@@ -252,7 +252,7 @@ bdmep_import_station <- function(.id = "83844",
   # request data
   r2 <- httr::GET(url_data)
 
-  # pause for 2 seconds so that we are not spamming the website with requests
+  # to avoid getting flagged as a spammer
   Sys.sleep(2)
   
   msg <- httr::http_status(r2)$message
