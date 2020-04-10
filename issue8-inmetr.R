@@ -54,6 +54,7 @@ met_data <- bdmep_import(id = stns_codes,
                          passwd = "d17ulev5",
                          verbose = TRUE)
 
+# that's fine
 
 # ------------------------------------------------------------------------------
 
@@ -69,12 +70,13 @@ stations_rows <- pmatch(stations, bdmep_meta$name)
 bdmep_meta[stations_rows, ]
 
 stns_codes <- bdmep_meta[stations_rows, "id"]
+
 stns_codes
 
 (start_date <- "01/01/2018")
 (end_date <- format(Sys.Date(), "%d/%m/%Y"))
 
-met_data <- bdmep_import(id = stns_codes,
+met_data <- bdmep_import(id = stns_codes[c(1, 8, 12, 17)],
                          sdate = start_date,
                          edate = end_date,
                          email = "jdtatsch@gmail.com",
@@ -82,5 +84,11 @@ met_data <- bdmep_import(id = stns_codes,
                          verbose = TRUE)
 
 
+stns_codes[c(1, 8, 12, 17)]
+
+# stations with the same error
+#station: 83860
+#OK (HTTP 200).
+#Error in (rowheader + 1):(length(x) - 1) : argument of length 0
 
 
