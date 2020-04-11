@@ -173,30 +173,33 @@ set_bdmep_user <- function(lnk, email, passwd) {
 
 
 
-bdmep_rawdata <- function(.id = "83844",
-                          .sdate = "01/01/1961",
-                          .edate = format(Sys.Date(), "%d/%m/%Y"),
-                          .email,
-                          .passwd,
-                          .verbose = TRUE){
-  
+bdmep_rawdata <- function(id = "83844",
+                          sdate = "01/01/1961",
+                          edate = format(Sys.Date(), "%d/%m/%Y"),
+                          email,
+                          passwd,
+                          verbose = TRUE) {
+
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
-  bdmep_form_l <- set_bdmep_user(link, .email, .passwd)
+  bdmep_form_l <- set_bdmep_user(link, email, passwd)
   r <- httr::POST(link, body = bdmep_form_l, encode = "form")
-  
-  if (httr::status_code(r) == 200 & .verbose) {
+
+  # to avoid getting flagged as a spammer
+  Sys.sleep(1)
+
+  if (httr::status_code(r) == 200 & verbose) {
     message(
       "\n", "------------------------------", "\n",
-      "station: ", .id
+      "station: ", id
     )
   }
   # visualize(r)
-  
+
   # step 2 - get data
   # all attributes selected - previous version
   # my_att <- "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
-  
+
   # SOLUTION FOR ISSUE with "82098" MACAPA-AP station
   # excluding Temp Comp Media (which was removed after in bdmep_read)
   # before request data
@@ -217,24 +220,24 @@ bdmep_rawdata <- function(.id = "83844",
   # ,,,,,,,,,,,,,1,,,# tcomp - Temp Comp Media
   # ,,,,,,,,,,,,,,1,,# ur - Umidade Relativa Media
   # ,,,,,,,,,,,,,,,1,# ws_avg - Velocidade do Vento Media
-  
+
   url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=XXXXX&btnProcesso=serie&mRelDtInicio=dd/mm/yyyy&mRelDtFim=DD/MM/YYYY&mAtributos=my_att"
   url_data <- gsub("my_att", my_att, url_data)
   # url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=82098&btnProcesso=serie&mRelDtInicio=01/01/1961&mRelDtFim=30/04/2018&mAtributos=,,1,1,,,,,,1,1,,1,1,1,1,"
   # url_data <- "http://www.inmet.gov.br/projetos/rede/pesquisa/gera_serie_txt.php?&mRelEstacao=83980&btnProcesso=serie&mRelDtInicio=01/01/1961&mRelDtFim=01/01/2017&mAtributos=1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"
-  
+
   # link to station data
   url_data <- url_data %>%
     stringr::str_replace("XXXXX", as.character(.id)) %>%
-    stringr::str_replace("dd/mm/yyyy", .sdate) %>%
-    stringr::str_replace("DD/MM/YYYY", .edate)
-  
+    stringr::str_replace("dd/mm/yyyy", sdate) %>%
+    stringr::str_replace("DD/MM/YYYY", edate)
+
   # request data
   r2 <- httr::GET(url_data)
-  
+
   # to avoid getting flagged as a spammer
-  Sys.sleep(2)
-  
+  Sys.sleep(1)
+
   return(r2)
 }
 
@@ -262,57 +265,86 @@ bdmep_rawdata <- function(.id = "83844",
 ##' @author Jonatan Tatsch
 ##'
 bdmep_import_station <- function(.id = "83844",
-                                 .sdate = "01/01/1961",
-                                 .edate = format(Sys.Date(), "%d/%m/%Y"),
+                                 .sdate,
+                                 .edate,
                                  .email,
                                  .passwd,
                                  .verbose = TRUE,
                                  .destdir = NULL,
                                  .na.strings = "-9999") {
-  
-  r2 <- bdmep_rawdata(.id, .sdate, .edate, .email, .passwd, .verbose)
-  
+
+  # start and end dates are to the to the available span in bdmep_rawdata()
+  r2 <- bdmep_rawdata(id = .id, email = .email, passwd = .passwd, verbose = .verbose)
+
   msg <- httr::http_status(r2)$message
-  
+
   # httr::stop_for_status(r2)
   if (.verbose) {
     httr::message_for_status(r2)
     cat("\n")
   }
-  
-  # column to inform request status
+
+  # to deal with network connection problem, add column to inform request status
   if (httr::status_code(r2) != 200) {
-    
-    # # to deal with "82098" MACAPA-AP station
-    # if (httr::status_code(r2) == 403) {
-    #   # try remove cloud cover
-    #   url_data <- gsub("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,",
-    #                    "1,1,1,1,1,1,1,1,1,1,1,,1,1,1,1,",
-    #                    r2$url)
-    #   # update url_data
-    #   r2 <- httr::GET(url_data)
-    #   # if still not is 200
-    #   if (httr::status_code(r2) != 200){
-    #     xtidy <- bdmep_template(.id , msg)
-    #     return(xtidy)
-    #   }
-    # }
-    
     xtidy <- bdmep_template(.id, msg)
     return(xtidy)
   }
-  
+
+  # convert request data to text
   x <- r2 %>%
     httr::content("text") %>%
     textConnection(local = TRUE) %>%
     readLines()
-  
-  
+
+  # if there are no data in database for 1961-current date
+  pos_warn <- which(stringr::str_detect(x, "Não existem dados disponiveis"))
+  if (length(pos_warn) > 0) {
+    msg_nodata <- stringr::str_replace(x[pos_warn], "<pre>", "")
+    if (.verbose) message(msg_nodata)
+    xtidy <- bdmep_template(.id, msg_nodata)
+    return(xtidy)
+  }
+
   # tidy data and output
   xtidy <- bdmep_read(x)
+
+  # filter data for requested dates interval
+  xtidy <- dplyr::filter(xtidy, date >= lubridate::dmy(.sdate) & date <= lubridate::dmy(.edate))
+  if (nrow(xtidy) > 0) {
+    date_span <- as.Date(range(xtidy$date))
+    date_req <- as.Date(lubridate::dmy(c(.sdate, .edate)))
+    check_dates_span <- dplyr::between(date_req, data_span[1], data_span[2])
+    if (any(!isTRUE(check_dates_span))) {
+      if (.verbose) message("Returning data available span: ", paste(date_span, collapse = "--"))
+    }
+  } else {
+    # if there are no data in the requested span
+    if (.verbose) {
+      msg_nodata_req <- paste0(
+        "Não existem dados disponiveis da estação: ",
+        paste(c(
+          t(
+            dplyr::filter(bdmep_meta, id == .id) %>%
+              dplyr::select(one_of(c("name", "uf")))
+          )
+        ),
+        collapse = "-"
+        ),
+        " para o periodo de ",
+        .sdate,
+        " a ",
+        .edate
+      )
+      message(msg_nodata_req)
+    }
+    xtidy <- bdmep_template(.id, msg_nodata_req)
+    return(xtidy)
+  }
+
+
   # column with status
   xtidy <- dplyr::mutate(xtidy, request_status = msg)
-  
+
   if (!is.null(.destdir)) {
     bdmep_write_csv(
       data_bdmep = xtidy,
@@ -320,11 +352,11 @@ bdmep_import_station <- function(.id = "83844",
       na.strings = .na.strings,
       verbose = .verbose
     )
-    
+
     data_status <- bdmep_data_status(xtidy)
     return(data_status)
   }
-  
+
   return(xtidy)
 }
 
@@ -368,12 +400,12 @@ bdmep_import <- function(id = c("83844", "83967"),
                          verbose = TRUE,
                          destdir = NULL,
                          na.strings = "-9999") {
-  
+
   # check arguments precondition ----------------------------------------------
   id <- as.character(id)
   sdate <- stringr::str_trim(as.character(sdate))
   edate <- stringr::str_trim(as.character(edate))
-  
+
   stopifnot(
     unique(nchar(id)) == 5,
     all(id %in% inmetr::bdmep_meta$id),
