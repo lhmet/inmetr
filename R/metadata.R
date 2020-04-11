@@ -114,7 +114,7 @@ bdmep_description <- function() {
     ),
     stringsAsFactors = FALSE
   )
-  new_line <- dplyr::data_frame(
+  new_line <- tibble::as_tibble(
     varname = "request_status",
     description = "Information on the status of a request",
     unit = NA_character_
@@ -163,7 +163,7 @@ bdmep_coords <- function() {
       n <- length(x)
       x[c(3, n - (2:0))] %>%
         matrix(nrow = 1) %>%
-        dplyr::as_data_frame() %>%
+        tibble::as_tibble() %>%
         return()
     }) %>%
     setNames(c("id", "lat", "lon", "alt")) %>%
