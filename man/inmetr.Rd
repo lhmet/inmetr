@@ -3,7 +3,6 @@
 \docType{package}
 \name{inmetr}
 \alias{inmetr}
-\alias{inmetr-package}
 \title{inmetr:A package for import data from Brazilian meteorological stations}
 \description{
 The inmetr package offers a set of functions to import historical data from Brazilian meteorological stations available in the Meteorological Database for Education and Research \href{http://www.inmet.gov.br/projetos/rede/pesquisa}{BDMEP} of National Institute of Meteorology \href{http://www.inmet.gov.br}{INMET}

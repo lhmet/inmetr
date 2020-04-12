@@ -4,7 +4,8 @@ utils::globalVariables(c(
   "ws", "tcomp", "id", "request_status",
   "wd", "day", "ws", "xtidy", ".verbose",
   ".na.strings", ".destdir", "rows",
-  "nome_estacao"
+  "nome_estacao", "data_span", "bdmep_meta",
+  ".id"
 ))
 
 #' Pipe operator

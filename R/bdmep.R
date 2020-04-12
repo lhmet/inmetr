@@ -297,7 +297,7 @@ bdmep_import_station <- function(.id = "83844",
     readLines()
 
   # if there are no data in database for 1961-current date
-  pos_warn <- which(stringr::str_detect(x, "Não existem dados disponiveis"))
+  pos_warn <- which(stringr::str_detect(x, "existem dados disp"))
   if (length(pos_warn) > 0) {
     msg_nodata <- stringr::str_replace(x[pos_warn], "<pre>", "")
     if (.verbose) message(msg_nodata)
@@ -321,11 +321,11 @@ bdmep_import_station <- function(.id = "83844",
     # if there are no data in the requested span
     if (.verbose) {
       msg_nodata_req <- paste0(
-        "Não existem dados disponiveis da estação: ",
+        "Nao existem dados disponiveis da estacao: ",
         paste(c(
           t(
             dplyr::filter(bdmep_meta, id == .id) %>%
-              dplyr::select(one_of(c("name", "uf")))
+              dplyr::select(dplyr::one_of(c("name", "uf")))
           )
         ),
         collapse = "-"
@@ -381,6 +381,7 @@ bdmep_import_station <- function(.id = "83844",
 ##' @export
 ##' @author Jonatan Tatsch
 ##' @examples
+##' \dontrun{
 ##' # download data for Santa Maria and Porto Alegre
 ##' metdata <- bdmep_import(id = c("83936", "83967"),
 ##'                         sdate = "01/01/2015", # could be "01/01/1961"
@@ -391,6 +392,7 @@ bdmep_import_station <- function(.id = "83844",
 ##' head(metdata)
 ##' tail(metdata)
 ##' summary(metdata)
+##' }
 ##'
 bdmep_import <- function(id = c("83844", "83967"),
                          sdate = "01/01/1961",

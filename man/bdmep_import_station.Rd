@@ -4,10 +4,16 @@
 \alias{bdmep_import_station}
 \title{Import data of a meteorological station}
 \usage{
-bdmep_import_station(.id = "83844", .sdate = "01/01/1961",
-  .edate = format(Sys.Date(), "\%d/\%m/\%Y"), .email = "your-email",
-  .passwd = "your-password", .verbose = TRUE, .destdir = NULL,
-  .na.strings = "-9999")
+bdmep_import_station(
+  .id = "83844",
+  .sdate,
+  .edate,
+  .email,
+  .passwd,
+  .verbose = TRUE,
+  .destdir = NULL,
+  .na.strings = "-9999"
+)
 }
 \arguments{
 \item{.id}{a character vector with the meteorological station code}

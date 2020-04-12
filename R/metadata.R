@@ -114,7 +114,7 @@ bdmep_description <- function() {
     ),
     stringsAsFactors = FALSE
   )
-  new_line <- tibble::as_tibble(
+  new_line <- tibble::tibble(
     varname = "request_status",
     description = "Information on the status of a request",
     unit = NA_character_
