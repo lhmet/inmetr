@@ -242,7 +242,23 @@ bdmep_rawdata <- function(id = "83844",
 }
 
 
-
+.build_msg_nodata <- function(.id, .sdate, .edate){
+  msg_nodata_req <- paste0(
+    "Nao existem dados disponiveis da estacao: ",
+    paste(c(
+      t(
+        dplyr::filter(bdmep_meta, id == .id) %>%
+          dplyr::select(dplyr::one_of(c("name", "uf")))
+      )
+    ),
+    collapse = "-"
+    ),
+    " para o periodo de ",
+    .sdate,
+    " a ",
+    .edate
+  )  
+}
 
 ##' Import data of a meteorological station
 ##'
@@ -319,24 +335,11 @@ bdmep_import_station <- function(.id = "83844",
     }
   } else {
     # if there are no data in the requested span
+    msg_nodata_req <- .build_msg_nodata(.id, .sdate, .edate)
     if (.verbose) {
-      msg_nodata_req <- paste0(
-        "Nao existem dados disponiveis da estacao: ",
-        paste(c(
-          t(
-            dplyr::filter(bdmep_meta, id == .id) %>%
-              dplyr::select(dplyr::one_of(c("name", "uf")))
-          )
-        ),
-        collapse = "-"
-        ),
-        " para o periodo de ",
-        .sdate,
-        " a ",
-        .edate
-      )
       message(msg_nodata_req)
     }
+    
     xtidy <- bdmep_template(.id, msg_nodata_req)
     return(xtidy)
   }
