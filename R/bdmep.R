@@ -228,7 +228,7 @@ bdmep_rawdata <- function(id = "83844",
 
   # link to station data
   url_data <- url_data %>%
-    stringr::str_replace("XXXXX", as.character(.id)) %>%
+    stringr::str_replace("XXXXX", as.character(id)) %>%
     stringr::str_replace("dd/mm/yyyy", sdate) %>%
     stringr::str_replace("DD/MM/YYYY", edate)
 
