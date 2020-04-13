@@ -329,7 +329,7 @@ bdmep_import_station <- function(.id = "83844",
   if (nrow(xtidy) > 0) {
     date_span <- as.Date(range(xtidy$date))
     date_req <- as.Date(lubridate::dmy(c(.sdate, .edate)))
-    check_dates_span <- dplyr::between(date_req, data_span[1], data_span[2])
+    check_dates_span <- dplyr::between(date_req, date_span[1], date_span[2])
     if (any(!isTRUE(check_dates_span))) {
       if (.verbose) message("Returning data available span: ", paste(date_span, collapse = "--"))
     }
