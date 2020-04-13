@@ -30,6 +30,7 @@ Imports:
     xml2 (>= 1.2.0)
 Suggests: 
     knitr (>= 1.20),
-    rmarkdown (>= 1.8.10)
+    rmarkdown (>= 1.8.10),
+    testthat (>= 2.1.0)
 LazyData: true
 RoxygenNote: 7.0.2
