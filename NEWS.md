@@ -15,6 +15,7 @@ News
 # inmetr 0.3.0
 
   - \[x\] fix issue \#8, thanks to @patrickgoulart12
+  - \[x\] add testing for bdmep\_import()
 
 # inmetr 0.2.8
 
