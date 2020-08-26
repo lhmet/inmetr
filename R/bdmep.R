@@ -14,7 +14,7 @@
 ##' @author Jonatan Tatsch
 ##'
 bdmep_read <- function(x) {
-
+  # x = r2
   # find line with variables names
   rowheader <- x %>%
     # toUTF8()
