@@ -179,7 +179,7 @@ bdmep_rawdata <- function(id,
                           email,
                           passwd,
                           verbose = TRUE) {
-
+  # id = stns_codes[1]; sdate; edate; email
   # step 1 - login
   link <- "http://www.inmet.gov.br/projetos/rede/pesquisa/inicio.php"
   bdmep_form_l <- set_bdmep_user(link, email, passwd)
